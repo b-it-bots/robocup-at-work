@@ -1,0 +1,21 @@
+all: cvblobs
+
+TARBALL = build/cvblobs8.3_linux.tgz
+TARBALL_URL = 'https://auvc.googlecode.com/files/cvblobs8.3_linux.tgz'
+SOURCE_DIR = build/cvblobs8.3_linux
+UNPACK_CMD = tar xzf
+include $(shell rospack find mk)/download_unpack_build.mk
+
+cvblobs: $(SOURCE_DIR)/unpacked;
+	if [ ! -f $(SOURCE_DIR)/Makefile ]; then \
+		cd $(SOURCE_DIR) && ./autogen.sh; \
+	fi; \
+  if [ ! -f $(SOURCE_DIR)/libblob.a ]; then \
+	  $(MAKE) -C $(SOURCE_DIR); \
+  fi
+
+clean:
+	make -C "$(SOURCE_DIR)/" clean
+
+wipe: clean
+	rm -rf $(SOURCE_DIR) build
