@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- start dashboard -->
+  <include file="$(find youbot_dashboard)/launch/dashboard.launch" />
+
+</launch>

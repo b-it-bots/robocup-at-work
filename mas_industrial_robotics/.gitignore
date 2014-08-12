@@ -1,0 +1,12 @@
+.autotools
+.cproject
+.project
+.pydevproject
+.idea/
+*.pyc
+.idea/
+*.vpp.*
+*.vpp~*
+
+*~
+

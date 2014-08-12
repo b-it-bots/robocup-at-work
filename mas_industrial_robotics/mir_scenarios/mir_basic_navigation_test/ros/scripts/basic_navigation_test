@@ -1,0 +1,56 @@
+#!/usr/bin/python
+
+import sys
+import rospy
+import smach
+import smach_ros
+
+import mir_states.robocup.referee_box_states as refbox
+import mir_states.common.navigation_states as gns
+import mir_states.robocup.basic_navigation_test_states as bnts
+
+
+def main(no_refbox=False):
+
+    rospy.init_node('basic_navigation_test')
+
+    SM = smach.StateMachine(outcomes=['overall_succeeded', 'overall_failed'])
+
+    SM.userdata.test = 'BNT'
+    SM.userdata.no_refbox = no_refbox
+    SM.userdata.task_list = None
+    SM.userdata.base_pose_to_approach = ""
+
+    with SM:
+
+        smach.StateMachine.add('GET_TASK', refbox.get_task(),
+            transitions={'task_received': 'SELECT_TARGET_POSE',
+                         'wrong_task': 'GET_TASK',
+                         'wrong_task_format': 'GET_TASK'})
+
+        smach.StateMachine.add('SELECT_TARGET_POSE', bnts.select_target_pose(),
+            transitions={'pose_selected': 'MOVE_BASE',
+                         'unknown_pose': 'SELECT_TARGET_POSE',
+                         'no_more_targets': 'MOVE_BASE_TO_EXIT'})
+
+        smach.StateMachine.add('MOVE_BASE', gns.approach_pose(clear_costmaps=False),
+            transitions={'succeeded': 'WAIT_DESIRED_DURATION',
+                         'failed': 'SELECT_TARGET_POSE'})
+
+        smach.StateMachine.add('WAIT_DESIRED_DURATION', bnts.wait_for_desired_duration(),
+            transitions={'succeeded': 'SELECT_TARGET_POSE'})
+
+        smach.StateMachine.add('MOVE_BASE_TO_EXIT', gns.approach_pose('EXIT'),
+            transitions={'succeeded': 'overall_succeeded',
+                         'failed': 'MOVE_BASE_TO_EXIT'})
+
+    # Start SMACH viewer
+    smach_viewer = smach_ros.IntrospectionServer('BASIC_NAVIGATION_TEST', SM, 'BASIC_NAVIGATION_TEST')
+    smach_viewer.start()
+
+    SM.execute()
+
+    smach_viewer.stop()
+
+if __name__ == '__main__':
+    main(sys.argv[-1] == '--no-refbox')
