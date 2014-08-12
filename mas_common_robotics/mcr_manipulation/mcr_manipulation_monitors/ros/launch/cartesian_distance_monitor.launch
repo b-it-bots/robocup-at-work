@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_manipulation_monitors" type="cartesian_distance_monitor_node"
+            name="cartesian_distance_monitor" output="screen">
+
+        <!-- the cycle rate of the node (in seconds) -->
+        <param name="loop_rate" type="double" value="0.1"/>
+
+    </node>
+</launch>

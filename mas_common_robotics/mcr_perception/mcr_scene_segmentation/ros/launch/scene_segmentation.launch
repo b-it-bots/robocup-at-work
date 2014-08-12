@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- This launch file brings up the complete scene segmentation pipeline with reasonable (for @Work) parameters. -->
+  <group ns="mcr_perception">
+
+    <node pkg="mcr_scene_segmentation" type="workspace_finder" name="workspace_finder" output="screen">
+      <param name="min_z" value="0.3" type="double"/>
+      <param name="max_z" value="1.3" type="double"/>
+      <param name="clip_polygon_by" value="0.03" type="double"/>
+      <rosparam command="load" file="$(find mcr_scene_segmentation)/ros/config/workspace_constraints.yaml"/>
+      <remap from="~workspace_polygon" to="/visualization_marker" />
+      <remap from="~input_pointcloud" to="/tower_cam3d/depth_registered/points" />
+    </node>
+
+    <node pkg="mcr_scene_segmentation" type="tabletop_cloud_accumulator" name="tabletop_cloud_accumulator" output="screen">
+      <param name="accumulate_clouds" value="30" type="int"/>
+      <param name="accumulation_timeout" value="10" type="int"/>
+      <param name="octree_resolution" value="0.0025" type="double"/>
+      <param name="min_height" value="0.01" type="double"/>
+      <param name="max_height" value="0.10" type="double"/>
+      <remap from="~input_pointcloud" to="/tower_cam3d/depth_registered/points" />
+    </node>
+
+    <node pkg="mcr_scene_segmentation" type="tabletop_cloud_clusterer" name="tabletop_cloud_clusterer" output="screen" >
+       <!--param name="min_cluster_size" value="50" type="int" /-->
+    </node>
+
+    <node pkg="mcr_scene_segmentation" type="bounding_box_maker" name="bounding_box_maker" output="screen" >
+      <remap from="~bounding_boxes" to="/visualization_marker" />
+    </node>
+  
+  </group>
+
+</launch>

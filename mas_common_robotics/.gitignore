@@ -1,0 +1,14 @@
+.autotools
+.cproject
+.project
+.pydevproject
+.classpath
+.gradle/
+*.pyc
+.idea/
+.settings/
+
+bin/
+build/
+install/
+rospack_nosubdirs

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+
+
+  <group ns="mcr_perception">
+    <node pkg="mcr_object_recognition_mean_circle" type="object_recognizer" name="object_recognizer" output="screen">
+      <rosparam param="classifier">eight_obj_anypose</rosparam>
+    </node>
+  </group>
+
+
+  <test pkg="mcr_object_recognition_mean_circle" type="object_recognition_mean_circle_test" test-name="object_recognition_mean_circle_test">
+      <rosparam param="desired_recog_rate">0.92</rosparam>
+      <rosparam param="object_list">[S40_40_B, S40_40_G, F20_20_B, F20_20_G, M20_100, R20, M20, M30]</rosparam>
+      <rosparam param="dataset">/objects/workspace_setups/objects_test/</rosparam>
+  </test>
+
+</launch>

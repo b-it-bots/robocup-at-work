@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_manipulation_monitors_ros.joint_position_monitors
+
+if __name__ == '__main__':
+    mcr_manipulation_monitors_ros.joint_position_monitors.main()

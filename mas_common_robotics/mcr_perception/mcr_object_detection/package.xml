@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_object_detection</name>
+  <version>0.1.0</version>
+  <description>detecting objects on a planar surface and bounding estimation for each object</description>
+
+  <maintainer email="sergey.alexandrov@smail.inf.h-brs.de">Sergey Alexandrov</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="sergey.alexandrov@smail.inf.h-brs.de">Sergey Alexandrov</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>mcr_perception_msgs</run_depend>
+  <run_depend>mcr_scene_segmentation</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>smach</run_depend>
+  <run_depend>smach_ros</run_depend>
+  <run_depend>tf</run_depend>
+
+</package>

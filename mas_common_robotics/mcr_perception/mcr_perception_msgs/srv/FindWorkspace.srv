@@ -1,0 +1,5 @@
+---
+# Time stamp when the workspace has been found
+time stamp
+# Planar polygon that defines the workspace
+PlanarPolygon polygon

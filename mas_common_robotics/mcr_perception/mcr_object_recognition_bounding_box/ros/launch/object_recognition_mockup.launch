@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+
+  <include file="$(find mcr_object_detection)/ros/launch/object_detection_mockup.launch"/>
+
+</launch>

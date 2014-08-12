@@ -1,0 +1,69 @@
+#!/usr/bin/env python
+
+import rospy
+
+from mcr_perception_msgs.msg import Object, ObjectList
+from mcr_perception_msgs.srv import RecognizeObject
+from mcr_perception_msgs.srv import GetObjectList, GetObjectListResponse
+
+from geometry_msgs.msg import PoseStamped
+
+object_list = []
+
+
+def _objectlist_to_str(list):
+    object_str = "["
+    for o in list:
+        object_str += o.name + ", "
+    object_str += "]"
+    
+    return object_str
+
+def _set_object_cb(new_obj_list):
+    global object_list
+    
+    object_list = new_obj_list.objects
+    rospy.loginfo("Setting new object list to " + _objectlist_to_str(object_list))
+
+
+def _add_object_cb(object):
+    global object_list
+    
+    object_list.append(object)
+    rospy.loginfo("Adding new object to list: " + str(object.name))
+    rospy.loginfo("current list: " + _objectlist_to_str(object_list))
+    
+def _rm_object_cb(object):
+    global object_list
+    
+    for o in object_list:
+        if (o.name == object.name):
+            object_list.remove(o)
+            rospy.loginfo("Removing object from list " + str(object.name))
+            rospy.loginfo("current list: " + _objectlist_to_str(object_list))
+            return
+
+def _detect_objects_cb(request):
+    global object_list
+    
+    rospy.loginfo("_detect_objects_cb")
+    
+    get_object_response = GetObjectListResponse()
+    get_object_response.objects = list(object_list)
+    
+    rospy.loginfo("Returning list: " + _objectlist_to_str(get_object_response.objects))
+    rospy.loginfo("current list: " + _objectlist_to_str(object_list))
+    
+    return get_object_response
+    
+if __name__ == '__main__':
+    rospy.init_node("detect_objects_node_mockup")
+
+    s = rospy.Service('~detect_objects', GetObjectList, _detect_objects_cb)
+    rospy.loginfo('detect_objects service MOCKUP started')
+    
+    rospy.Subscriber("~set_object_to_mockup", ObjectList, _set_object_cb)
+    rospy.Subscriber("~add_object_to_mockup", Object, _add_object_cb)
+    rospy.Subscriber("~rm_object_from_mockup", Object, _rm_object_cb)
+    
+    rospy.spin()

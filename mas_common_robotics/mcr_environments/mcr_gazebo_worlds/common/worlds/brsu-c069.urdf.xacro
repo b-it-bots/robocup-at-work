@@ -1,0 +1,1081 @@
+<?xml version="1.0"?>
+
+<robot
+	xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+	xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+	xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+	name="brsu-c069"
+>
+
+<xacro:macro name="brsu-c069" params="name">
+
+
+<!-- dummy_link -->
+	<link name="dummy_link">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.00 0.00 0.00" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.00 0.00 0.00" />
+			</geometry>
+		</collision>
+	</link>
+
+
+<!-- walls -->
+
+	<!-- north_wall -->
+	<link name="north_wall">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="15.30 0.01 2.60" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="15.32 0.03 2.62" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<joint name="joint_north_wall" type="fixed">
+		<origin xyz="-0.25 4.06 1.30" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="north_wall" />
+	</joint>
+
+	<!-- east_wall -->
+	<link name="east_wall">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.01 6.95 2.60" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.03 6.97 2.62" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<joint name="joint_east_wall" type="fixed">
+		<origin xyz="7.40 0.59 1.30" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="east_wall" />
+	</joint>
+
+	<!-- south_wall -->
+	<link name="south_wall">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="15.30 0.01 2.60" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="15.32 0.03 2.62" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<joint name="joint_south_wall" type="fixed">
+		<origin xyz="-0.25 -2.88 1.30" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="south_wall" />
+	</joint>
+
+	<!-- west_wall -->
+	<link name="west_wall">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.01 6.95 2.60" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.03 6.97 2.62" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<joint name="joint_west_wall" type="fixed">
+		<origin xyz="-7.90 0.59 1.30" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="west_wall" />
+	</joint>
+
+	<!-- west_divider -->
+	<link name="west_divider">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.11 0.105 2.60" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.13 0.125 2.62" />
+			</geometry>
+		</collision>
+	</link>
+
+	<joint name="joint_west_divider" type="fixed">
+		<origin xyz="-5.84 0.218 1.30" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="west_divider" />
+	</joint>
+
+
+<!-- kitchen -->
+
+	<!-- kitchen_counter_1 -->
+	<link name="kitchen_counter_1">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<!-- <mesh filename="package://mcr_gazebo_worlds/common/objects/models/kitchen_counter_1.dae" /> -->
+				<box size="0.62 2.01 0.89" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.64 2.01 0.91" />
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="kitchen_counter_1">
+	</gazebo>
+
+	<joint name="joint_kitchen_counter_1" type="fixed">
+		<origin xyz="-7.585 -1.88 0.445" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="kitchen_counter_1" />
+	</joint>
+
+	<!-- kitchen_counter_2 -->
+	<link name="kitchen_counter_2">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<!-- <mesh filename="package://mcr_gazebo_worlds/common/objects/models/kitchen_counter_2.dae" /> -->
+				<!-- <box size="0.82 0.53 0.89" /> -->
+				<box size="0.82 0.58 0.89" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.84 0.60 0.91" />
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="kitchen_counter_2">
+	</gazebo>
+
+	<joint name="joint_kitchen_counter_2" type="fixed">
+		<origin xyz="-7.383 -0.392 0.445" rpy="0 0 -0.785" />
+		<parent link="dummy_link" />
+		<child link="kitchen_counter_2" />
+	</joint>
+
+	<!-- kitchen_counter_3 -->
+	<link name="kitchen_counter_3">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<!-- <mesh filename="package://mcr_gazebo_worlds/common/objects/models/kitchen_counter_3.dae" /> -->
+				<box size="1.915 0.62 0.89" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.935 0.64 0.91" />
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="kitchen_counter_3">
+	</gazebo>
+
+	<joint name="joint_kitchen_counter_3" type="fixed">
+		<origin xyz="-5.946 -0.15 0.445" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="kitchen_counter_3" />
+	</joint>
+
+	<!-- kitchen_fridge -->
+	<link name="kitchen_fridge">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/kitchen_fridge.dae" />
+				<!-- <box size="0.63 0.62 2.325" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/kitchen_fridge.dae" />
+				<!-- <box size="0.65 0.64 2.34" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="kitchen_fridge">
+	</gazebo>
+
+	<joint name="joint_kitchen_fridge" type="fixed">
+		<origin xyz="-4.674 -0.15 1.162" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="kitchen_fridge" />
+	</joint>
+
+
+<!-- lounge -->
+
+	<!-- lounge_shelf_1 -->
+	<link name="lounge_shelf_1">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/lounge_shelf.dae" />
+				<!-- <box size="1.84 0.39 1.84" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/lounge_shelf.dae" />
+				<!-- <box size="1.86 0.41 1.86" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="lounge_shelf_1">
+	</gazebo>
+
+	<joint name="joint_lounge_shelf_1" type="fixed">
+		<origin xyz="-1.82 -2.68 0.92" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="lounge_shelf_1" />
+	</joint>
+
+	<!-- lounge_shelf_2 -->
+	<link name="lounge_shelf_2">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/lounge_shelf.dae" />
+				<!-- <box size="1.84 0.39 1.84" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/lounge_shelf.dae" />
+				<!-- <box size="1.86 0.41 1.86" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="lounge_shelf_2">
+	</gazebo>
+
+	<joint name="joint_lounge_shelf_2" type="fixed">
+		<origin xyz="-3.66 -2.68 0.92" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="lounge_shelf_2" />
+	</joint>
+
+	<!-- lounge_table -->
+	<link name="lounge_table">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/charger_desk.dae" />
+				<!-- <box size="0.45 0.45 0.50" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/charger_desk.dae" />
+				<!-- <box size="0.47 0.47 0.52" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="lounge_table">
+	</gazebo>
+
+	<joint name="joint_lounge_table" type="fixed">
+		<origin xyz="-2.00 -1.30 0.25" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="lounge_table" />
+	</joint>
+
+	<!-- lounge_armchair_1 -->
+	<link name="lounge_armchair_1">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/lounge_armchair.dae" />
+				<!-- <cylinder radius="0.45" length="0.64" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/lounge_armchair.dae" />
+				<!-- <cylinder radius="0.377" length="0.69" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="lounge_armchair_1">
+	</gazebo>
+
+	<joint name="joint_lounge_armchair_1" type="fixed">
+		<origin xyz="-1.50 -2.00 0.345" rpy="0 0 0.4" />
+		<parent link="dummy_link" />
+		<child link="lounge_armchair_1" />
+	</joint>
+
+	<!-- lounge_armchair_2 -->
+	<link name="lounge_armchair_2">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/lounge_armchair.dae" />
+				<!-- <cylinder radius="0.45" length="0.64" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/lounge_armchair.dae" />
+				<!-- <cylinder radius="0.377" length="0.69" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="lounge_armchair_2">
+	</gazebo>
+
+	<joint name="joint_lounge_armchair_2" type="fixed">
+		<origin xyz="-1.10 -1.10 0.345" rpy="0 0 1.571" />
+		<parent link="dummy_link" />
+		<child link="lounge_armchair_2" />
+	</joint>
+
+	<!-- lounge_armchair_3 -->
+	<link name="lounge_armchair_3">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/lounge_armchair_2.dae" />
+				<!-- <box size="0.9 0.9 0.65" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/lounge_armchair_2.dae" />
+				<!-- <box size="0.92 0.92 0.67" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="lounge_armchair_3">
+	</gazebo>
+
+	<joint name="joint_lounge_armchair_3" type="fixed">
+		<origin xyz="-3.20 -1.80 0.325" rpy="0 0 -1.171" />
+		<parent link="dummy_link" />
+		<child link="lounge_armchair_3" />
+	</joint>
+
+
+<!-- living room -->
+
+	<!-- livingroom_shelf -->
+	<link name="livingroom_shelf">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/livingroom_shelf.dae" />
+				<!-- <box size="2.40 0.43 1.28" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/livingroom_shelf.dae" />
+				<!-- <box size="2.42 0.45 1.30" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="livingroom_shelf">
+	</gazebo>
+
+	<joint name="joint_livingroom_shelf" type="fixed">
+		<origin xyz="-5.335 0.485 0.64" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="livingroom_shelf" />
+	</joint>
+
+	<!-- livingroom_couch_1 -->
+	<link name="livingroom_couch_1">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/livingroom_couch_1.dae" />
+				<!-- <box size="0.98 2.20 0.66" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/livingroom_couch_1.dae" />
+				<!-- <box size="1.00 2.22 0.68" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="livingroom_couch_1">
+	</gazebo>
+
+	<joint name="joint_livingroom_couch_1" type="fixed">
+		<origin xyz="-7.41 2.025 0.33" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="livingroom_couch_1" />
+	</joint>
+
+	<!-- livingroom_couch_2 -->
+	<link name="livingroom_couch_2">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/livingroom_couch_2.dae" />
+				<!-- <box size="2.81 0.93 0.66" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/livingroom_couch_2.dae" />
+				<!-- <box size="2.83 0.95 0.68" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="livingroom_couch_2">
+	</gazebo>
+
+	<joint name="joint_livingroom_couch_2" type="fixed">
+		<origin xyz="-6.49 3.59 0.33" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="livingroom_couch_2" />
+	</joint>
+
+	<!-- livingroom_couch_3 -->
+	<link name="livingroom_couch_3">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/livingroom_couch_3.dae" />
+				<!-- <box size="0.93 1.55 0.66" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/livingroom_couch_3.dae" />
+				<!-- <box size="0.95 1.57 0.68" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="livingroom_couch_3">
+	</gazebo>
+
+	<joint name="joint_livingroom_couch_3" type="fixed">
+		<origin xyz="-4.62 3.28 0.33" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="livingroom_couch_3" />
+	</joint>
+
+	<!-- livingroom_coffeetable -->
+	<link name="livingroom_coffeetable">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/livingroom_coffeetable.dae" />
+				<!-- <box size="1.205 0.582 0.40" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/livingroom_coffeetable.dae" />
+				<!-- <box size="1.225 0.602 0.42" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="livingroom_coffeetable">
+	</gazebo>
+
+	<joint name="joint_livingroom_coffeetable" type="fixed">
+		<origin xyz="-6.00 2.50 0.2" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="livingroom_coffeetable" />
+	</joint>
+
+	<!-- livingroom_desk -->
+	<link name="livingroom_desk">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/desk.dae" />
+				<!-- <box size="1.60 0.80 0.72" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/desk.dae" />
+				<!-- <box size="1.62 0.82 0.74" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="livingroom_desk">
+	</gazebo>
+
+	<joint name="joint_livingroom_desk" type="fixed">
+		<origin xyz="-1.50 3.65 0.36" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="livingroom_desk" />
+	</joint>
+
+	<!-- charger_desk -->
+	<link name="charger_desk">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/charger_desk.dae" />
+				<!-- <box size="0.45 0.45 0.50" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/charger_desk.dae" />
+				<!-- <box size="0.47 0.47 0.52" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="charger_desk">
+	</gazebo>
+
+	<joint name="joint_charger_desk" type="fixed">
+		<origin xyz="-3.60 3.825 0.25" rpy="0 0 3.1415" />
+		<parent link="dummy_link" />
+		<child link="charger_desk" />
+	</joint>
+
+
+<!-- dining room -->
+
+	<!-- diningroom_table -->
+	<link name="diningroom_table">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/diningroom_table.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/diningroom_table.dae" />
+				<!-- <box size="2.21 1.02 0.76" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="diningroom_table">
+	</gazebo>
+
+	<joint name="joint_diningroom_table" type="fixed">
+		<origin xyz="-2.00 1.50 0.37" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="diningroom_table" />
+	</joint>
+
+	<!-- diningroom_chair_1 -->
+	<link name="diningroom_chair_1">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/diningroom_chair.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/diningroom_chair.dae" />
+				<!-- <box size="0.547 0.52 0.99" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="diningroom_chair_1">
+	</gazebo>
+
+	<joint name="joint_diningroom_chair_1" type="fixed">
+		<origin xyz="-0.80 1.50 0.485" rpy="0 0 3.1415" />
+		<parent link="dummy_link" />
+		<child link="diningroom_chair_1" />
+	</joint>
+
+	<!-- diningroom_chair_2 -->
+	<link name="diningroom_chair_2">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/diningroom_chair.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/diningroom_chair.dae" />
+				<!-- <box size="0.547 0.52 0.99" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="diningroom_chair_2">
+	</gazebo>
+
+	<joint name="joint_diningroom_chair_2" type="fixed">
+		<origin xyz="-1.60 0.90 0.485" rpy="0 0 1.5708" />
+		<parent link="dummy_link" />
+		<child link="diningroom_chair_2" />
+	</joint>
+
+	<!-- diningroom_chair_3 -->
+	<link name="diningroom_chair_3">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/diningroom_chair.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/diningroom_chair.dae" />
+				<!-- <box size="0.547 0.52 0.99" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="diningroom_chair_3">
+	</gazebo>
+
+	<joint name="joint_diningroom_chair_3" type="fixed">
+		<origin xyz="-2.40 0.90 0.485" rpy="0 0 1.5708" />
+		<parent link="dummy_link" />
+		<child link="diningroom_chair_3" />
+	</joint>
+
+	<!-- diningroom_chair_4 -->
+	<link name="diningroom_chair_4">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/diningroom_chair.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/diningroom_chair.dae" />
+				<!-- <box size="0.547 0.52 0.99" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="diningroom_chair_4">
+	</gazebo>
+
+	<joint name="joint_diningroom_chair_4" type="fixed">
+		<origin xyz="-1.60 2.10 0.485" rpy="0 0 -1.5708" />
+		<parent link="dummy_link" />
+		<child link="diningroom_chair_4" />
+	</joint>
+
+	<!-- diningroom_chair_5 -->
+	<link name="diningroom_chair_5">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/diningroom_chair.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/diningroom_chair.dae" />
+				<!-- <box size="0.547 0.52 0.99" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="diningroom_chair_5">
+	</gazebo>
+
+	<joint name="joint_diningroom_chair_5" type="fixed">
+		<origin xyz="-2.40 2.10 0.485" rpy="0 0 -1.5708" />
+		<parent link="dummy_link" />
+		<child link="diningroom_chair_5" />
+	</joint>
+
+
+<!-- middle shelves -->
+
+	<!-- middle_shelf_north_1 -->
+	<link name="middle_shelf_north_1">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/middle_shelf.dae" />
+				<!-- <box size="0.44 2.42 0.80" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/middle_shelf.dae" />
+				<!-- <box size="0.46 2.44 0.82" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="middle_shelf_north_1">
+	</gazebo>
+
+	<joint name="middle_shelf_north_1" type="fixed">
+		<origin xyz="0.0 1.065 0.4" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="middle_shelf_north_1" />
+	</joint>
+
+	<!-- middle_shelf_north_2 -->
+	<link name="middle_shelf_north_2">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/middle_shelf.dae" />
+				<!-- <box size="0.44 2.42 0.80" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/middle_shelf.dae" />
+				<!-- <box size="0.46 2.44 0.82" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="middle_shelf_north_2">
+	</gazebo>
+
+	<joint name="middle_shelf_north_2" type="fixed">
+		<origin xyz="0.0 2.275 0.4" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="middle_shelf_north_2" />
+	</joint>
+
+	<!-- middle_shelf_north_3 -->
+	<link name="middle_shelf_north_3">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/middle_shelf.dae" />
+				<!-- <box size="0.44 2.42 0.80" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/middle_shelf.dae" />
+				<!-- <box size="0.46 2.44 0.82" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="middle_shelf_north_3">
+	</gazebo>
+
+	<joint name="middle_shelf_north_3" type="fixed">
+		<origin xyz="0.0 3.485 0.4" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="middle_shelf_north_3" />
+	</joint>
+
+	<!-- middle_shelf_south_1 -->
+	<link name="middle_shelf_south_1">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/middle_shelf.dae" />
+				<!-- <box size="0.44 2.42 0.80" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/middle_shelf.dae" />
+				<!-- <box size="0.46 2.44 0.82" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="middle_shelf_south_1">
+	</gazebo>
+
+	<joint name="middle_shelf_south_1" type="fixed">
+		<origin xyz="0.0 -2.275 0.4" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="middle_shelf_south_1" />
+	</joint>
+
+	<!-- middle_shelf_south_2 -->
+	<link name="middle_shelf_south_2">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/middle_shelf.dae" />
+				<!-- <box size="0.44 2.42 0.80" /> -->
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/middle_shelf.dae" />
+				<!-- <box size="0.46 2.44 0.82" /> -->
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="middle_shelf_south_2">
+	</gazebo>
+
+	<joint name="middle_shelf_south_2" type="fixed">
+		<origin xyz="0.0 -1.065 0.4" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="middle_shelf_south_2" />
+	</joint>
+
+
+</xacro:macro>
+
+<xacro:brsu-c069 name="brsu-c069" />
+
+</robot>

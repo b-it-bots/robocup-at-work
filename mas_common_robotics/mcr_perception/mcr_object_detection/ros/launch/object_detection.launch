@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- This launch file brings up the nodes from mcr_scene_segmentation that are needed for object detection and the object detector itself.
+       The parameters have been adjusted to work well with @Work scenarios. -->
+
+  <include file="$(find mcr_scene_segmentation)/ros/launch/scene_segmentation.launch" />
+
+
+  <group ns="mcr_perception">
+
+    <node pkg="mcr_object_detection" type="object_detector" name="object_detector" output="screen"/>
+
+  </group>
+
+</launch>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_manipulation_monitors" type="cartesian_distance_monitor_node"
+            name="cartesian_distance_monitor" output="screen">
+
+        <!-- the cycle rate of the node (in seconds) -->
+        <param name="loop_rate" type="double" value="0.1"/>
+
+        <!-- the minimum Euclidean distance to activate the monitor (in meters) -->
+        <param name="tolerance" type="double" value="0.8"/>
+
+    </node>
+
+    <test pkg="mcr_manipulation_monitors" type="cartesian_distance_monitor_test.py"
+            test-name="test_cartesian_distance_monitor">
+
+        <remap from="~component_output" to="/cartesian_distance_monitor/event_out"/>
+        <remap from="~event_out" to="/cartesian_distance_monitor/event_in"/>
+        <remap from="~pose_1" to="/cartesian_distance_monitor/pose_1"/>
+        <remap from="~pose_2" to="/cartesian_distance_monitor/pose_2"/>
+        <remap from="~tolerance" to="/cartesian_distance_monitor/tolerance"/>
+
+    </test>
+</launch>

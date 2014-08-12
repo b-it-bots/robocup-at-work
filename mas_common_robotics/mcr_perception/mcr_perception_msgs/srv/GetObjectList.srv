@@ -1,0 +1,6 @@
+---
+# Time stamp when the objects have been recorded
+time stamp
+
+# List of all recorded objects
+mcr_perception_msgs/Object[] objects

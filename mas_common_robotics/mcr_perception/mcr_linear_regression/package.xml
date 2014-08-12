@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_linear_regression</name>
+  <version>0.0.1</version>
+  <description>component which performs linear regression on a laser scan and outputs the coefficients</description>
+
+  <maintainer email="matthias.fueller@h-brs.de">Matthias Füller</maintainer>
+
+  <license>GPLv3</license>
+ 
+  <author email="matthias.fueller@h-brs.de">Matthias Füller</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>mcr_perception_msgs</build_depend> 
+  <build_depend>roscpp</build_depend> 
+  
+  <run_depend>mcr_perception_msgs</run_depend> -->
+
+
+</package>

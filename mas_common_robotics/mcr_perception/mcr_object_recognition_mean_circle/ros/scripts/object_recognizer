@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+
+PACKAGE = 'mcr_object_recognition_mean_circle'
+NODE = 'object_recognizer'
+SERVICE = '~recognize_object'
+
+import roslib
+import rospy
+
+import sys
+from os.path import join
+import numpy as np
+
+# Import helper class for loading trained network
+from mcr_object_recognition_mean_circle.svm_classifier import SVMObjectClassifier
+from mcr_object_recognition_mean_circle.features import calculate_feature_vector
+
+from mcr_perception_msgs.srv import RecognizeObject
+
+
+def load_classifier(classifier_name):
+    cfg_folder = join(roslib.packages.get_pkg_dir(PACKAGE), 'common', 'config')
+    return SVMObjectClassifier.load(join(cfg_folder, classifier_name, 'classifier.pkl'),
+                                    join(cfg_folder, classifier_name, 'label_encoder.pkl'))
+
+def convert_to_xyzrgb(pc):
+    fields = np.fromstring(pc.data,dtype='float32').reshape(pc.height,pc.width,pc.point_step/4)
+    xyz = fields[:,:,0:3]
+    xyz = np.squeeze(xyz)
+    
+    rgb = fields[:,:,4]
+    rgb = np.squeeze(rgb)
+    rgb = rgb[:,np.newaxis]
+    xyzrgb = np.hstack((xyz, rgb))
+
+    return xyzrgb
+
+if __name__ == '__main__':
+    rospy.init_node(NODE)
+    classifier = load_classifier(rospy.get_param("~classifier"))    
+
+    def recognize_object_cb(request):
+        rospy.loginfo('Received [%s] request.' % SERVICE)
+        cloud = request.cloud
+        xyzrgb = convert_to_xyzrgb(cloud)
+        features = calculate_feature_vector(xyzrgb, True)
+        l = classifier.classify(features)
+        return l
+
+    s = rospy.Service(SERVICE, RecognizeObject, recognize_object_cb)
+    rospy.loginfo('Started [%s] service.' % SERVICE)
+    rospy.spin()

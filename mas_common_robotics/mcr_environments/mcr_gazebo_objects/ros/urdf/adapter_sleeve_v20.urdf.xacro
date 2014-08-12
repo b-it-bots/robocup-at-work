@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<robot name="adapter_sleeve_v20" xmlns:xacro="http://ros.org/wiki/xacro">	
+
+	<xacro:include filename="$(find mcr_gazebo_objects)/ros/templates/model.urdf.xacro" />
+
+	<xacro:model_template name="adapter_sleeve_v20" model_filename="adapter_sleeve_v20.dae" scale="0.001" size_x="0.03" size_y="0.03" size_z="0.045" weight="0.015"/>
+		 
+</robot>	

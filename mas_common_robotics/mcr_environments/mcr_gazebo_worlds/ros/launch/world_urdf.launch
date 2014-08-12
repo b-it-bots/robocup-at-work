@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="robot_env" />
+
+    <!-- send world urdf to param server -->
+    <param name="world_description" command="$(find xacro)/xacro.py $(find mcr_gazebo_worlds)/common/worlds/$(arg robot_env).urdf.xacro" />
+
+    <!-- spawn uploaded world model -->
+    <node pkg="gazebo_ros" type="spawn_model" name="gazebo_world_model" args="-urdf -param world_description -model world -x 0.0 -y 0.0 -z 0.2" respawn="false" output="screen" />
+
+</launch>

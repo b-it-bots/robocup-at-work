@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_twist_limiter</name>
+  <version>0.1.0</version>
+  <description>
+  A package that sets the individual components of a twist
+  (represented as a geometry_msgs/TwistStamped message) to
+  a specified maximum, if they exceed their respective limit.
+  </description>
+  <license>GPLv3</license>
+
+  <maintainer email="jose.sanchez.loza@gmail.com">Jose Sanchez</maintainer>
+  <author email="jose.sanchez.loza@gmail.com">Jose Sanchez</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>rospy</build_depend>
+
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+</package>

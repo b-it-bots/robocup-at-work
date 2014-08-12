@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- This launch file starts all the nodes that are needed to perform object recognition.
+       The "network" argument should contain the name of the previously trained network. Corresponding
+       files (*.xml and *.yaml) should be present in the "common/config/" folder of the package. -->
+
+  <arg name="network" default="eight_objects_laying_noV20"/>
+
+  <include file="$(find mcr_object_detection)/ros/launch/object_detection.launch"/>
+
+  <group ns="mcr_perception">
+    <node pkg="mcr_object_recognition_bounding_box" type="cloud_color_analyzer" name="cloud_color_analyzer" output="screen"/>
+    <node pkg="mcr_object_recognition_bounding_box" type="object_recognizer" name="object_recognizer" output="screen" args="$(arg network)"/>
+  </group>
+
+</launch>

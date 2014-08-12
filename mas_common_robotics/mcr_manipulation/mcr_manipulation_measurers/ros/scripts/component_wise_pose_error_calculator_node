@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_manipulation_measurers_ros.component_wise_pose_error_calculator
+
+if __name__ == '__main__':
+    mcr_manipulation_measurers_ros.component_wise_pose_error_calculator.main()

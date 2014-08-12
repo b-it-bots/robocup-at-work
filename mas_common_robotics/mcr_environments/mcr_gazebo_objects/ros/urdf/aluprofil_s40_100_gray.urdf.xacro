@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<robot name="aluprofil_s40_100_gray" xmlns:xacro="http://ros.org/wiki/xacro">	
+
+	<xacro:include filename="$(find mcr_gazebo_objects)/ros/templates/model.urdf.xacro" />
+
+	<xacro:model_template name="aluprofil_s40_100_gray" model_filename="aluprofil_s40_100_gray.dae" scale="0.001"  size_x="0.04" size_y="0.04" size_z="0.1" weight="0.185"/>
+ 
+</robot>

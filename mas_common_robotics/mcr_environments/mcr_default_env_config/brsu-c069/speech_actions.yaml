@@ -1,0 +1,1 @@
+speech_actions: ["introduce", "learn_person", "find_person", "identify_person", "follow_person", "guide", "move_to", "detect_object", "grasp", "clean_table", "point_to_object", "exit", "weight", "release", "handover", "categorize_objects", "carry_box"]

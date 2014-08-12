@@ -1,0 +1,30 @@
+<library path="lib/libmcr_multi_joint_forward_controller">
+
+  <class name="position_controllers/MultiJointForwardPositionController"
+         type="position_controllers::MultiJointForwardPositionController"
+         base_class_type="controller_interface::ControllerBase">
+    <description>
+      The MultiJointForwardPositionController forwards a set of joint positions
+      to the hardware interface.
+    </description>
+  </class>
+
+  <class name="velocity_controllers/MultiJointForwardVelocityController"
+         type="velocity_controllers::MultiJointForwardVelocityController"
+         base_class_type="controller_interface::ControllerBase">
+    <description>
+      The MultiJointForwardVelocityController forwards a set of joint velocities
+      to the hardware interface.
+    </description>
+  </class>
+
+  <class name="effort_controllers/MultiJointForwardEffortController"
+         type="effort_controllers::MultiJointForwardEffortController"
+         base_class_type="controller_interface::ControllerBase">
+    <description>
+      The MultiJointForwardEffortController forwards a set of joint efforts to
+      the hardware interface.
+    </description>
+  </class>
+
+</library>

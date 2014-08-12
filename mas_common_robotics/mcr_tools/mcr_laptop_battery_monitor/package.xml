@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_laptop_battery_monitor</name>
+  <version>0.1.0</version>
+  <description>component to monitor the battery status of a laptop, publishing the results on a topic and start beeping if the battery level is on a critical level</description>
+
+  <maintainer email="frederik.hegger@h-brs.de">Frederik Hegger</maintainer>
+
+  <license>GPLv3</license>
+  
+  <author email="frederik.hegger@h-brs.de">Frederik Hegger</author> -->
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>pr2_msgs</run_depend>
+  <run_depend>rospy</run_depend>
+
+</package>

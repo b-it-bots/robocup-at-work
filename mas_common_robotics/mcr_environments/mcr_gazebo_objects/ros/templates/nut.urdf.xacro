@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot name="nut_template" xmlns:xacro="http://ros.org/wiki/xacro">	
+
+	<xacro:macro name="nut_template" params="name radius height color">
+	
+		<link name="${name}_link">
+			<inertial>
+				<origin xyz="${radius / 32} ${radius / 32} ${height / 32}" rpy="0 0 0" />
+				<mass value="0.001" />
+			    <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+			</inertial>
+
+			<visual>
+				<origin xyz="${radius / 32} ${radius / 32} ${height / 32}" rpy="0 0 0" />
+				<geometry>
+					<cylinder length="${height}" radius="${radius}" />
+				</geometry>
+			</visual>
+
+			<collision>
+				<origin xyz="${radius / 32} ${radius / 32} ${height / 32}" rpy="0 0 0" />
+				<geometry>
+			   		<cylinder length="${height}" radius="${radius}" />
+				</geometry>
+			</collision >
+		</link>
+		
+		<gazebo reference="${name}_link">
+			<mu1 value="100.0" />
+		    <mu2 value="100.0" />
+            <kp  value="1000000.0" />
+            <kd  value="1.0" />			
+			<material>${color}</material>
+			<selfCollide>true</selfCollide>
+		</gazebo>
+		
+	</xacro:macro> 
+</robot>	

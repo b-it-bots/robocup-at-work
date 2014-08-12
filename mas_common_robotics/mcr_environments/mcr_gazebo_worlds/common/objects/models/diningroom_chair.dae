@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA version="1.4.0" xmlns="http://www.collada.org/2005/11/COLLADASchema">
+	<asset>
+		<contributor>
+			<author>Illusoft Collada 1.4.0 plugin for Blender - http://colladablender.illusoft.com</author>
+			<authoring_tool>Blender v:249 - Illusoft Collada Exporter v:0.3.162</authoring_tool>
+			<comments></comments>
+			<copyright></copyright>
+			<source_data>file:///home/sven/ros/RoboCupAtHome/mcr_environments/mcr_gazebo_worlds/Media/models/diningroom_chair.blend</source_data>
+		</contributor>
+		<created>2011-06-20T15:02:29.076364</created>
+		<modified>2011-06-20T15:02:29.076399</modified>
+		<unit meter="1.0" name="meter"/>
+		<up_axis>Z_UP</up_axis>
+	</asset>
+	<library_effects>
+		<effect id="Material-fx" name="Material-fx">
+			<profile_COMMON>
+				<technique sid="blender">
+					<phong>
+						<emission>
+							<color>0.00000 0.00000 0.00000 1</color>
+						</emission>
+						<ambient>
+							<color>0.40000 0.40000 0.40000 1</color>
+						</ambient>
+						<diffuse>
+							<color>0.80000 0.80000 0.80000 1</color>
+						</diffuse>
+						<specular>
+							<color>0.50000 0.50000 0.50000 1</color>
+						</specular>
+						<shininess>
+							<float>12.5</float>
+						</shininess>
+						<reflective>
+							<color>1.00000 1.00000 1.00000 1</color>
+						</reflective>
+						<reflectivity>
+							<float>0.0</float>
+						</reflectivity>
+						<transparent>
+							<color>1 1 1 1</color>
+						</transparent>
+						<transparency>
+							<float>0.0</float>
+						</transparency>
+					</phong>
+				</technique>
+			</profile_COMMON>
+		</effect>
+	</library_effects>
+	<library_materials>
+		<material id="Material" name="Material">
+			<instance_effect url="#Material-fx"/>
+		</material>
+	</library_materials>
+	<library_geometries>
+		<geometry id="Cube_001" name="Cube_001">
+			<mesh>
+				<source id="Cube_001-Position">
+					<float_array count="126" id="Cube_001-Position-array">0.23000 0.25500 0.00000 0.23000 -0.25500 0.00000 -0.23000 -0.25500 0.00000 -0.23000 0.25500 0.00000 0.23000 0.25500 0.07000 0.23000 -0.25500 0.07000 -0.23000 -0.25500 0.07000 -0.23000 0.25500 0.07000 0.23000 0.20500 0.00000 0.23000 -0.20500 0.00000 0.18000 0.25500 0.00000 -0.18000 0.25500 0.00000 0.18000 -0.25500 0.00000 -0.18000 -0.25500 0.00000 -0.23000 -0.20500 0.00000 -0.23000 0.20500 0.00000 0.18000 0.20500 0.00000 0.18000 -0.20500 0.00000 -0.18000 0.20500 0.00000 -0.18000 -0.20500 0.00000 -0.18000 0.25500 0.07000 -0.18000 -0.25500 0.07000 -0.23657 -0.25500 0.56952 -0.23657 0.25500 0.56952 -0.28657 -0.25500 0.56952 -0.28657 0.25500 0.56952 -0.29500 0.20500 -0.40000 -0.24500 0.20500 -0.40000 -0.29500 -0.20500 -0.40000 -0.24500 -0.20500 -0.40000 -0.24500 0.25500 -0.40000 -0.24500 -0.25500 -0.40000 0.18000 0.25500 -0.40000 0.18000 0.20500 -0.40000 0.23000 0.20500 -0.40000 0.23000 -0.20500 -0.40000 0.18000 -0.20500 -0.40000 0.18000 -0.25500 -0.40000 -0.29500 0.25500 -0.40000 -0.29500 -0.25500 -0.40000 0.23000 -0.25500 -0.40000 0.23000 0.25500 -0.40000</float_array>
+					<technique_common>
+						<accessor count="42" source="#Cube_001-Position-array" stride="3">
+							<param type="float" name="X"></param>
+							<param type="float" name="Y"></param>
+							<param type="float" name="Z"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Cube_001-Normals">
+					<float_array count="141" id="Cube_001-Normals-array">0.00000 0.00000 -1.00000 0.00000 0.00000 -1.00000 0.00000 0.00000 -1.00000 0.00000 0.00000 -1.00000 0.00000 0.00000 -1.00000 1.00000 0.00000 -0.00000 1.00000 0.00000 -0.00000 1.00000 0.00000 -0.00000 0.00000 -1.00000 0.00001 0.00000 -1.00000 -0.00000 -1.00000 -0.00000 -0.00000 -1.00000 -0.00000 -0.00000 -1.00000 -0.00000 -0.00000 -0.00000 1.00000 0.00000 -0.00000 1.00000 0.00000 0.00000 -0.00000 1.00000 0.00000 -1.00000 0.00000 -0.00000 -1.00000 -0.00000 -0.00000 -1.00000 0.00000 -0.00000 1.00000 0.00000 0.00000 1.00000 0.00000 -0.00000 1.00000 0.00000 0.99365 0.00000 0.11253 -0.00000 -1.00000 -0.00000 0.00000 1.00000 0.00000 -0.99365 0.00000 -0.11253 0.00000 -0.00000 1.00000 0.00000 -1.00000 -0.00000 -0.00000 1.00000 0.00000 0.98705 0.00000 -0.16040 0.98705 0.00000 -0.16040 -1.00000 0.00000 0.00000 0.00000 -1.00000 -0.00000 -0.00000 1.00000 0.00000 -1.00000 0.00000 0.00000 -0.98705 -0.00000 0.16040 -0.98705 -0.00000 0.16040 0.00000 -1.00000 -0.00000 0.00000 -1.00000 -0.00000 -0.00000 1.00000 0.00000 -0.00000 1.00000 0.00000 1.00000 0.00000 -0.00000 1.00000 0.00000 -0.00000 0.00000 0.00000 -1.00000 0.00000 0.00000 -1.00000 0.00000 0.00000 -1.00000 0.00000 0.00000 -1.00000</float_array>
+					<technique_common>
+						<accessor count="47" source="#Cube_001-Normals-array" stride="3">
+							<param type="float" name="X"></param>
+							<param type="float" name="Y"></param>
+							<param type="float" name="Z"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="Cube_001-Vertex">
+					<input semantic="POSITION" source="#Cube_001-Position"/>
+				</vertices>
+				<triangles count="80" material="Material">
+					<input offset="0" semantic="VERTEX" source="#Cube_001-Vertex"/>
+					<input offset="1" semantic="NORMAL" source="#Cube_001-Normals"/>
+					<p>8 0 9 0 17 0 17 0 16 0 8 0 17 1 12 1 13 1 13 1 19 1 17 1 16 2 17 2 19 2 19 2 18 2 16 2 10 3 16 3 18 3 18 3 11 3 10 3 18 4 19 4 14 4 14 4 15 4 18 4 9 5 8 5 4 5 4 5 5 5 9 5 1 6 9 6 5 6 8 7 0 7 4 7 2 8 13 8 6 8 12 9 1 9 5 9 15 10 14 10 6 10 6 10 7 10 15 10 3 11 15 11 7 11 14 12 2 12 6 12 0 13 10 13 4 13 11 14 3 14 7 14 4 15 20 15 21 15 21 15 5 15 4 15 21 16 13 16 12 16 5 17 21 17 12 17 21 18 6 18 13 18 20 19 10 19 11 19 7 20 20 20 11 20 20 21 4 21 10 21 21 22 20 22 23 22 23 22 22 22 21 22 6 23 21 23 22 23 22 23 24 23 6 23 20 24 7 24 25 24 25 24 23 24 20 24 7 25 6 25 24 25 24 25 25 25 7 25 23 26 25 26 24 26 24 26 22 26 23 26 18 27 15 27 26 27 26 27 27 27 18 27 14 28 19 28 29 28 29 28 28 28 14 28 11 29 18 29 27 29 27 29 30 29 11 29 19 30 13 30 31 30 31 30 29 30 19 30 16 31 10 31 32 31 32 31 33 31 16 31 8 32 16 32 33 32 33 32 34 32 8 32 17 33 9 33 35 33 35 33 36 33 17 33 12 34 17 34 36 34 36 34 37 34 12 34 15 35 3 35 38 35 38 35 26 35 15 35 2 36 14 36 28 36 28 36 39 36 2 36 13 37 2 37 39 37 39 37 31 37 13 37 1 38 12 38 37 38 37 38 40 38 1 38 3 39 11 39 30 39 30 39 38 39 3 39 10 40 0 40 41 40 41 40 32 40 10 40 9 41 1 41 40 41 40 41 35 41 9 41 0 42 8 42 34 42 34 42 41 42 0 42 30 43 27 43 26 43 26 43 38 43 30 43 29 44 31 44 39 44 39 44 28 44 29 44 41 45 34 45 33 45 33 45 32 45 41 45 35 46 40 46 37 46 37 46 36 46 35 46</p>
+				</triangles>
+			</mesh>
+		</geometry>
+	</library_geometries>
+	<library_visual_scenes>
+		<visual_scene id="Scene" name="Scene">
+			<node layer="L1" id="Cube" name="Cube">
+				<translate sid="translate">0.00000 0.00000 -0.08500</translate>
+				<rotate sid="rotateZ">0 0 1 0.00000</rotate>
+				<rotate sid="rotateY">0 1 0 -0.00000</rotate>
+				<rotate sid="rotateX">1 0 0 0.00000</rotate>
+				<scale sid="scale">1.00000 1.00000 1.00000</scale>
+				<instance_geometry url="#Cube_001">
+					<bind_material>
+						<technique_common>
+							<instance_material symbol="Material" target="#Material">
+								<bind_vertex_input input_semantic="TEXCOORD" input_set="1" semantic="CHANNEL1"/>
+							</instance_material>
+						</technique_common>
+					</bind_material>
+				</instance_geometry>
+			</node>
+		</visual_scene>
+	</library_visual_scenes>
+	<library_physics_materials>
+		<physics_material id="Cube-PhysicsMaterial" name="Cube-PhysicsMaterial">
+			<technique_common>
+				<dynamic_friction>0.5</dynamic_friction>
+				<restitution>0.0</restitution>
+				<static_friction>0.5</static_friction>
+			</technique_common>
+		</physics_material>
+	</library_physics_materials>
+	<library_physics_models>
+		<physics_model id="Scene-PhysicsModel" name="Scene-PhysicsModel">
+			<rigid_body name="Cube-RigidBody" sid="Cube-RigidBody">
+				<technique_common>
+					<dynamic>false</dynamic>
+					<mass>0</mass>
+					<instance_physics_material url="#Cube-PhysicsMaterial"/>
+					<shape>
+						<instance_geometry url="#Cube_001"/>
+					</shape>
+				</technique_common>
+			</rigid_body>
+		</physics_model>
+	</library_physics_models>
+	<library_physics_scenes>
+		<physics_scene id="Scene-Physics" name="Scene-Physics">
+			<instance_physics_model url="#Scene-PhysicsModel">
+				<instance_rigid_body body="Cube-RigidBody" target="#Cube"/>
+			</instance_physics_model>
+		</physics_scene>
+	</library_physics_scenes>
+	<scene>
+		<instance_physics_scene url="#Scene-Physics"/>
+		<instance_visual_scene url="#Scene"/>
+	</scene>
+</COLLADA>

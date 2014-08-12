@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_twist_limiter" type="twist_limiter_node"
+            name="twist_limiter" output="screen">
+
+        <!-- the cycle time of the node (in seconds) -->
+        <param name="cycle_time" type="double" value="0.1"/>
+
+        <!-- Maximum linear velocities in the axes X, Y and Z (in meters/second) -->
+        <param name="max_velocity_x" type="double" value="0.1"/>
+        <param name="max_velocity_y" type="double" value="0.1"/>
+        <param name="max_velocity_z" type="double" value="0.5"/>
+
+        <!-- Maximum angular velocities around the axes X, Y and Z (in radians/second) -->
+        <param name="max_velocity_roll" type="double" value="0.1"/>
+        <param name="max_velocity_pitch" type="double" value="0.1"/>
+        <param name="max_velocity_yaw" type="double" value="0.5"/>
+
+    </node>
+
+    <test pkg="mcr_twist_limiter" type="twist_limiter_test.py"
+            test-name="test_twist_limiter">
+
+        <remap from="~component_output" to="/twist_limiter/limited_twist"/>
+        <remap from="~event_out" to="/twist_limiter/event_in"/>
+        <remap from="~twist" to="/twist_limiter/twist"/>
+
+    </test>
+</launch>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_manipulation_monitors" type="cartesian_distance_monitor_node"
+            name="cartesian_distance_monitor" output="screen">
+
+        <!-- the cycle rate of the node (in seconds) -->
+        <param name="loop_rate" type="double" value="0.1"/>
+
+        <!-- the minimum Euclidean distance to activate the monitor (in meters) -->
+        <param name="tolerance" type="double" value="0.05"/>
+
+    </node>
+
+    <node pkg="mcr_manipulation_converters" type="transform_to_pose_converter_node"
+            name="transform_to_pose_converter" output="screen">
+
+        <!-- the cycle rate of the node (in seconds) -->
+        <param name="loop_rate" type="double" value="0.1"/>
+
+        <param name="reference_frame" type="str" value="base_link"/>
+        <param name="target_frame" type="str" value="arm_link_5"/>
+
+        <remap from="~converted_pose" to="/cartesian_distance_monitor/pose_2"/>
+
+    </node>
+
+    <node pkg="mcr_manipulation_monitors" type="pose_mock_up_gui_node"
+            name="pose_mock_up_gui" output="screen">
+
+        <!-- the cycle rate of the node (in seconds) -->
+        <param name="loop_rate" value="0.1"/>
+
+        <remap from="~start_converter" to="/transform_to_pose_converter/event_in"/>
+        <remap from="~target_pose" to="/cartesian_distance_monitor/pose_1"/>
+        <remap from="~tolerance" to="/cartesian_distance_monitor/tolerance"/>
+        <remap from="~visual_tolerance" to="/tolerance_visualization"/>
+
+    </node>
+</launch>

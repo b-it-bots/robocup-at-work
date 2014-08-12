@@ -1,0 +1,7 @@
+# Pointcloud to cluster
+sensor_msgs/PointCloud2 cloud
+# Planar polygon that defines the table
+PlanarPolygon polygon
+---
+# Found clusters
+sensor_msgs/PointCloud2[] clusters

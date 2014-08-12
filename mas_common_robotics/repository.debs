@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# create list of packages to install
+packagelist=(
+  python-setuptools 
+  ros-hydro-ros 
+  ros-hydro-vision-opencv 
+  python-rosinstall 
+  python-vcstools 
+  ros-hydro-brics-actuator 
+  liblog4cpp5-dev 
+  ros-hydro-rosjava
+  ros-hydro-bfl 
+  ros-hydro-roscpp 
+  ros-hydro-robot-state-publisher
+  ros-hydro-image-transport 
+  ros-hydro-tf 
+  ros-hydro-tf-conversions 
+  ros-hydro-urdf 
+  ros-hydro-kdl-parser 
+  ros-hydro-dynamic-reconfigure 
+  ros-hydro-diagnostic-analysis 
+  ros-hydro-diagnostic-aggregator 
+  ros-hydro-diagnostic-msgs 
+  ros-hydro-pcl-ros 
+  ros-hydro-visualization-msgs 
+  ros-hydro-std-srvs 
+  ros-hydro-nav-msgs 
+  ros-hydro-angles 
+  ros-hydro-rviz
+  ros-hydro-trajectory-msgs
+  ros-hydro-ros-control
+  ros-hydro-joint-trajectory-controller 
+)
+
+### Install debian packages listed in array above
+sudo apt-get install -y ${packagelist[@]}
+
+### install dependencies of BRSU repositories
+dependent_repositories=('mas_third_party_software')
+for i in $dependent_repositories
+do
+    ../$i/repository.debs
+done

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_scene_segmentation</name>
+  <version>0.0.1</version>
+  <description>Scene segmentation</description>
+
+  <maintainer email="sergey.alexandrov@smail.inf.h-brs.de">Sergey Alexandrov</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="sergey.alexandrov@smail.inf.h-brs.de">Sergey Alexandrov</author>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>mcr_perception_msgs</build_depend>
+  <build_depend>opencv2</build_depend>
+  <build_depend>pcl</build_depend>
+  <build_depend>polyclipping</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>mcr_perception_msgs</run_depend>
+  <run_depend>polyclipping</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+
+</package>

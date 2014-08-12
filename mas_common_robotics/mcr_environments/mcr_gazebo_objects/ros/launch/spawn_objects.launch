@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node pkg="mcr_gazebo_objects" type="spawn_objects.py" name="mcr_spawn_simulation_objects" respawn="false" output="screen" />
+    
+</launch>

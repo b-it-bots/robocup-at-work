@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_arm_motions" type="cartesian_motion_node"
+            name="cartesian_motion" output="screen">
+
+        <!-- the cycle time of the node (in seconds) -->
+        <param name="cycle_time" type="double" value="0.1"/>
+
+    </node>
+
+    <test pkg="mcr_arm_motions" type="cartesian_motion_test.py"
+            test-name="test_cartesian_motion">
+
+        <remap from="~component_output" to="/cartesian_motion/velocity_command"/>
+        <remap from="~event_out" to="/cartesian_motion/event_in"/>
+        <remap from="~desired_velocity" to="/cartesian_motion/desired_velocity"/>
+
+    </test>
+</launch>

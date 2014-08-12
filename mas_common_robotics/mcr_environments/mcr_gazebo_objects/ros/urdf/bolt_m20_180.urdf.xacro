@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<robot name="bolt_m20_180" xmlns:xacro="http://ros.org/wiki/xacro">	
+
+	<xacro:include filename="$(find mcr_gazebo_objects)/ros/templates/model.urdf.xacro" />
+
+	<xacro:model_template name="bolt_m20_180" model_filename="bolt_m20_180.dae" scale="0.001"  size_x="0.11" size_y="0.02" size_z="0.02" weight="0.477"/>
+		 
+</robot>	

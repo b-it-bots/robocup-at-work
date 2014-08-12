@@ -1,0 +1,40 @@
+<package>
+<name>mcr_arm_cartesian_control</name>
+<version>0.1.0</version>
+  <description>
+     arm Cartesian control
+  </description>
+
+  <author email="matthias.fueller@h-brs.de">Matthias Füller</author>
+  <maintainer email="matthias.fueller@h-brs.de">Matthias Füller</maintainer>
+  <maintainer email="sven.schneider@h-brs.de">Sven Schneider</maintainer>
+  <maintainer email="frederik.hegger@h-brs.de">Frederik Hegger</maintainer>
+
+  <license>BSD</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>brics_actuator</build_depend>
+  <build_depend>orocos_kdl</build_depend>
+  <build_depend>eigen</build_depend>
+  <build_depend>urdf</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>orocos_kdl</build_depend>
+  <build_depend>mcr_manipulation_utils</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>brics_actuator</run_depend>
+  <run_depend>orocos_kdl</run_depend>
+  <run_depend>eigen</run_depend>
+  <run_depend>urdf</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>orocos_kdl</run_depend>
+  <run_depend>mcr_manipulation_utils</run_depend>
+
+</package>
+
+

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- This launch file starts all the nodes that are needed to perform object recognition.
+       The "classifier" argument should contain the name of the previously trained svm classifier. 
+       The "labels" argument should contain the name of the saved label encoder for the classifer.
+       Both sets of files should be under common/config -->
+
+  <include file="$(find mcr_object_detection)/ros/launch/object_detection.launch"/>
+
+  <node pkg="mcr_object_recognition_mean_circle" type="object_recognizer" name="object_recognizer"
+          output="screen" ns="mcr_perception">
+      <rosparam param="classifier">eight_obj_laying</rosparam>
+  </node>
+
+</launch>

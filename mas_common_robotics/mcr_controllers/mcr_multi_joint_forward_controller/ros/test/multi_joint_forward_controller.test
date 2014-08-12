@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <rosparam command="load"
+        file="$(find mcr_multi_joint_forward_controller)/ros/test/controller.yaml" />
+  <test test-name="multi_joint_forward_controller_test"
+        pkg="mcr_multi_joint_forward_controller"
+        type="multi_joint_forward_controller_test"/>
+</launch>

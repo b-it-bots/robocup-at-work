@@ -1,0 +1,2 @@
+This package does not have a ROS integration test,
+since it requires that a robot model is loaded.

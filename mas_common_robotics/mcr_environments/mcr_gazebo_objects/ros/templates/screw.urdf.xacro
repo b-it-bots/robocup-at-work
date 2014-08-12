@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<robot name="screw_template" xmlns:xacro="http://ros.org/wiki/xacro">	
+
+	<xacro:include filename="$(find mcr_gazebo_objects)/ros/templates/pipe.urdf.xacro" />
+	<xacro:include filename="$(find mcr_gazebo_objects)/ros/templates/nut.urdf.xacro" />
+
+	<xacro:macro name="screw_template" params="name length radius color">
+		
+		<xacro:pipe_template name="pipe_20" radius="${radius / 2}" height="${length}" color="Gazebo/Black" />
+		<xacro:nut_template name="nut_m20" radius="${radius}" height="${radius / 1.5}" color="Gazebo/Black" />
+		
+		<joint name="screw_joint_1" type="fixed">
+    		<origin xyz="${length / 2} ${radius / 64} 0" rpy="0 1.57 0"/>
+    		<parent link="pipe_20_link"/>
+    		<child link="nut_m20_link"/>
+  		</joint>	
+  		
+	</xacro:macro> 
+</robot>	

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_gazebo_worlds</name>
+  <version>0.0.1</version>
+  <description>environment descriptions and models for the gazebo simulation</description>
+
+  <maintainer email="frederik.hegger@h-brs.de">Frederik Hegger</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="frederik.hegger@h-brs.de">Frederik Hegger</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>convex_decomposition</run_depend>
+  <run_depend>ivcon</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>gazebo_plugins</run_depend>
+  <run_depend>xacro</run_depend>
+
+</package>

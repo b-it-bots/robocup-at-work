@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+	<node pkg="mcr_geometry_transformer" type="wrench_transform_mockup_gui" name="wrench_transform_mockup_gui">
+		<remap from="~wrench" to="/arm_controller/wrench"/>
+		<remap from="~link" to="/arm_link_7"/>
+	</node>
+</launch>

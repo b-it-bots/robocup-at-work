@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+	<node pkg="mcr_navigation_tools" type="navigation_goals_as_marker" name="navigation_goals_as_marker" ns="mcr_navigation" respawn="false" output="screen" />
+</launch>

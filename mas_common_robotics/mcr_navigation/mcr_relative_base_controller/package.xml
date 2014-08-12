@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_relative_base_controller</name>
+  <version>0.1.0</version>
+  <description>
+    This controller moves the robot base relative to its current position. The node listens for
+    a start command and relative movement command (x, y translation and rotation about z)
+    and moves the base by the desired amount while monitoring the odometry.
+  </description>
+
+  <maintainer email="santosh.thoduka@smail.inf.h-brs.de">Santosh Thoduka</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="santosh.thoduka@smail.inf.h-brs.de">Santosh Thoduka</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>tf</build_depend>  
+ 
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+
+</package>

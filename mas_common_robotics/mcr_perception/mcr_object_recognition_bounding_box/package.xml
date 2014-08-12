@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_object_recognition_bounding_box</name>
+  <version>0.0.0</version>
+  <description>Object recognition based on the estimate bounding box of an object cluster as well as its color distribution</description>
+
+  <maintainer email="sergey.alexandrov@smail.inf.h-brs.de">Sergey Alexandrov</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="sergey.alexandrov@smail.inf.h-brs.de">Sergey Alexandrov</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>mcr_perception_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>pcl_ros</build_depend>
+
+  <run_depend>mcr_perception_msgs</run_depend>
+  <run_depend>mcr_object_detection</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>smach</run_depend>
+  <run_depend>smach_ros</run_depend>
+
+</package>

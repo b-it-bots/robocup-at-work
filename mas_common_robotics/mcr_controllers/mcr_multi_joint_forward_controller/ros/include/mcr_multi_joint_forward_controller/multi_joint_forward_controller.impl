@@ -1,0 +1,168 @@
+#include <string>
+#include <XmlRpc.h>
+#include <brics_actuator/JointPositions.h>
+#include <brics_actuator/JointVelocities.h>
+#include <brics_actuator/JointTorques.h>
+
+
+using namespace forward_command_controller;
+
+
+/**
+ * Get a list of strings from the parameter server under the provided parameter
+ * name.
+ *
+ * @param nh The node handle from which to get the parameter.
+ *
+ * @param param_name The name of the parameter.
+ *
+ * @return The list of strings which are stored under the parameter name.
+ */
+std::vector<std::string> getStrings(const ros::NodeHandle &nh,
+        const std::string &param_name)
+{
+    XmlRpc::XmlRpcValue xml_array;
+
+    if (!nh.getParam(param_name, xml_array)) {
+        ROS_ERROR("Could not find '%s' parameter (namespace: %s).",
+                param_name.c_str(), nh.getNamespace().c_str());
+        return std::vector<std::string>();
+    }
+
+    if (xml_array.getType() != XmlRpc::XmlRpcValue::TypeArray) {
+        ROS_ERROR("The '%s' parameter is not an array (namespace: %s).",
+                param_name.c_str(), nh.getNamespace().c_str());
+        return std::vector<std::string>();
+    }
+
+    std::vector<std::string> out;
+    for (int i = 0; i < xml_array.size(); i++) {
+        if (xml_array[i].getType() != XmlRpc::XmlRpcValue::TypeString) {
+            ROS_ERROR("The '%s' parameter contains a non-string element (namespace %s).",
+                    param_name.c_str(), nh.getNamespace().c_str());
+            return std::vector<std::string>();
+        }
+        out.push_back(static_cast<std::string>(xml_array[i]));
+    }
+
+    return out;
+}
+
+
+template <class RosInterfaceT, class HardwareInterfaceT>
+MultiJointForwardCommandController<RosInterfaceT, HardwareInterfaceT>::MultiJointForwardCommandController()
+{
+}
+
+
+template <class RosInterfaceT, class HardwareInterfaceT>
+MultiJointForwardCommandController<RosInterfaceT, HardwareInterfaceT>::~MultiJointForwardCommandController()
+{
+}
+
+
+template <class RosInterfaceT, class HardwareInterfaceT>
+bool MultiJointForwardCommandController<RosInterfaceT, HardwareInterfaceT>::init(
+        HardwareInterfaceT *hw, ros::NodeHandle &root_nh,
+        ros::NodeHandle &controller_nh)
+{
+    // get list of controlled joints
+    std::vector<std::string> joint_names = getStrings(controller_nh, "joints");
+    if (joint_names.empty()) return false;
+
+    // initialize member variables according to configuration
+    joints_.resize(joint_names.size());
+    command_.resize(joint_names.size(), 0.0);
+    for (size_t i = 0; i < joint_names.size(); i++) {
+        // get the joint handles
+        try {
+            joints_[i] = hw->getHandle(joint_names[i]);
+        } catch (...) {
+            ROS_ERROR("Could not find joint '%s' in '%s'.",
+                    joint_names[i].c_str(),
+                    this->getHardwareInterfaceType().c_str());
+            return false;
+        }
+    }
+
+    void (*cb)(const boost::shared_ptr<RosInterfaceT const> &,
+            std::vector<double> *) = commandCallback;
+    sub_command_ = root_nh.subscribe<RosInterfaceT>("command_vel", 1,
+            boost::bind(cb, _1, &command_));
+
+    return true;
+}
+
+
+template <class RosInterfaceT, class HardwareInterfaceT>
+void MultiJointForwardCommandController<RosInterfaceT, HardwareInterfaceT>::starting(
+        const ros::Time &time)
+{
+    for (size_t i = 0; i < command_.size(); i++) {
+        command_[i] = 0;
+    }
+}
+
+
+template <class RosInterfaceT, class HardwareInterfaceT>
+void MultiJointForwardCommandController<RosInterfaceT, HardwareInterfaceT>::update(
+        const ros::Time &time, const ros::Duration &period)
+{
+    for (size_t i = 0; i < joints_.size(); i++) {
+        joints_[i].setCommand(command_[i]);
+    }
+}
+
+
+
+
+
+namespace forward_command_controller
+{
+
+template <>
+void commandCallback<brics_actuator::JointPositions>(
+        const brics_actuator::JointPositionsConstPtr &msg,
+        std::vector<double> *command)
+{
+    if (msg->positions.size() != command->size()) {
+        ROS_ERROR("Input command ignored, because it has the wrong number of joint values!");
+        return;
+    }
+
+    for (size_t i = 0; i < msg->positions.size(); i++) {
+        (*command)[i] = msg->positions[i].value;
+    }
+}
+
+template <>
+void commandCallback<brics_actuator::JointVelocities>(
+        const brics_actuator::JointVelocitiesConstPtr &msg,
+        std::vector<double> *command)
+{
+    if (msg->velocities.size() != command->size()) {
+        ROS_ERROR("Input command ignored, because it has the wrong number of joint values!");
+        return;
+    }
+
+    for (size_t i = 0; i < msg->velocities.size(); i++) {
+        (*command)[i] = msg->velocities[i].value;
+    }
+}
+
+template <>
+void commandCallback<brics_actuator::JointTorques>(
+        const brics_actuator::JointTorquesConstPtr &msg,
+        std::vector<double> *command)
+{
+    if (msg->torques.size() != command->size()) {
+        ROS_ERROR("Input command ignored, because it has the wrong number of joint values!");
+        return;
+    }
+
+    for (size_t i = 0; i < msg->torques.size(); i++) {
+        (*command)[i] = msg->torques[i].value;
+    }
+}
+
+}

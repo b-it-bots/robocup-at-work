@@ -1,0 +1,1624 @@
+<?xml version="1.0"?>
+
+<robot
+	xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+	xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+	xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+	name="istanbul-2011"
+>
+
+<xacro:macro name="istanbul-2011" params="name">
+
+
+<!-- dummy_link -->
+	<link name="dummy_link">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.00 0.00 0.00" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.00 0.00 0.00" />
+			</geometry>
+		</collision>
+	</link>
+
+<!-- outer wall link -->
+	<link name="outer_wall_link">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.00 0.00 0.00" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.00 0.00 0.00" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<joint name="joint_outer_wall" type="fixed">
+		<origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="outer_wall_link" />
+	</joint>
+
+
+<!-- inner walls -->
+
+
+
+<!-- inner north walls -->
+
+	<!-- inner_north_wall_00 -->
+	<link name="inner_north_wall_00">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="2.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="2.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_north_wall_00">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_north_wall_00" type="fixed">
+		<origin xyz="4.0 5.0 0.375" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_north_wall_00" />
+	</joint>
+
+	<!-- inner_north_wall_01 -->
+	<link name="inner_north_wall_01">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="2.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="2.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_north_wall_01">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_north_wall_01" type="fixed">
+		<origin xyz="1.0 5.0 0.375" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_north_wall_01" />
+	</joint>
+
+	<!-- inner_north_wall_02 -->
+	<link name="inner_north_wall_02">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_north_wall_02">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_north_wall_02" type="fixed">
+		<origin xyz="-3.0 5.0 0.375" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_north_wall_02" />
+	</joint>
+
+
+<!-- inner east walls -->
+
+	<!-- inner_east_wall_00 -->
+	<link name="inner_east_wall_00">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 10.0 2.5" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 10.0 2.5" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_east_wall_00">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_east_wall_00" type="fixed">
+		<origin xyz="5.0 0.0 1.25" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_east_wall_00" />
+	</joint>
+
+
+
+<!-- inner south walls -->
+
+	<!-- inner_south_wall_00 -->
+	<link name="inner_south_wall_00">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="2.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="2.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_south_wall_00">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_south_wall_00" type="fixed">
+		<origin xyz="4.0 -5.0 0.375" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_south_wall_00" />
+	</joint>
+
+	<!-- inner_south_wall_01 -->
+	<link name="inner_south_wall_01">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="2.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="2.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_south_wall_01">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_south_wall_01" type="fixed">
+		<origin xyz="1.0 -5.0 0.375" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_south_wall_01" />
+	</joint>
+
+	<!-- inner_south_wall_02 -->
+	<link name="inner_south_wall_02">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_south_wall_02">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_south_wall_02" type="fixed">
+		<origin xyz="-3.0 -5.0 0.375" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_south_wall_02" />
+	</joint>
+
+
+
+<!-- inner west walls -->
+
+	<!-- inner_west_wall_00 -->
+	<link name="inner_west_wall_00">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 2.5" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 2.5" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_west_wall_00">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_west_wall_00" type="fixed">
+		<origin xyz="-5.0 4.5 1.25" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_west_wall_00" />
+	</joint>
+
+	<!-- inner_west_wall_01 -->
+	<link name="inner_west_wall_01">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.5" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.5" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_west_wall_01">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_west_wall_01" type="fixed">
+		<origin xyz="-5.0 3.5 2.25" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_west_wall_01" />
+	</joint>
+
+	<!-- inner_west_wall_02 -->
+	<link name="inner_west_wall_02">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 2.5" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 2.5" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_west_wall_02">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_west_wall_02" type="fixed">
+		<origin xyz="-5.0 2.5 1.25" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_west_wall_02" />
+	</joint>
+
+	<!-- inner_west_wall_03 -->
+	<link name="inner_west_wall_03">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 4.0 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 4.0 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_west_wall_03">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_west_wall_03" type="fixed">
+		<origin xyz="-5.0 0.0 0.375" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_west_wall_03" />
+	</joint>
+
+	<!-- inner_west_wall_04 -->
+	<link name="inner_west_wall_04">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 2.5" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 2.5" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_west_wall_04">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_west_wall_04" type="fixed">
+		<origin xyz="-5.0 -2.5 1.25" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_west_wall_04" />
+	</joint>
+
+	<!-- inner_west_wall_05 -->
+	<link name="inner_west_wall_05">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.5" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.5" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_west_wall_05">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_west_wall_05" type="fixed">
+		<origin xyz="-5.0 -3.5 2.25" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_west_wall_05" />
+	</joint>
+
+	<!-- inner_west_wall_06 -->
+	<link name="inner_west_wall_06">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 2.5" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 2.5" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_west_wall_06">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_inner_west_wall_06" type="fixed">
+		<origin xyz="-5.0 -4.5 1.25" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_west_wall_06" />
+	</joint>
+
+<!-- inner middle walls -->
+
+	<!-- inner_middle_wall_00 -->
+	<link name="inner_middle_wall_00">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 10.0 2.5" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 10.0 2.5" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_middle_wall_00">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="inner_middle_wall_00" type="fixed">
+		<origin xyz="1.0 0.0 1.25" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_middle_wall_00" />
+	</joint>
+
+	<!-- inner_middle_wall_01 -->
+	<link name="inner_middle_wall_01">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 10.0 2.5" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 10.0 2.5" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_middle_wall_01">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="inner_middle_wall_01" type="fixed">
+		<origin xyz="-2.0 0.0 1.25" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_middle_wall_01" />
+	</joint>
+	
+	<!-- inner_middle_wall_02 -->
+	<link name="inner_middle_wall_02">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="10.0 0.02 2.5" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="10.0 0.02 2.5" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="inner_middle_wall_02">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="inner_middle_wall_02" type="fixed">
+		<origin xyz="0.0 0.0 1.25" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="inner_middle_wall_02" />
+	</joint>
+
+
+
+
+<!-- outer walls -->
+
+	<!-- outer_north_wall_00a -->
+	<link name="outer_north_wall_00a">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="2.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="2.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_north_wall_00a">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_north_wall_00a" type="fixed">
+		<origin xyz="5.0 8.0 0.375" rpy="0 0 0" />
+		<parent link="outer_wall_link" />
+		<child link="outer_north_wall_00a" />
+	</joint>
+
+	<!-- outer_north_wall_00 -->
+	<link name="outer_north_wall_00">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="2.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="2.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_north_wall_00">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_north_wall_00" type="fixed">
+		<origin xyz="2.0 8.2 0.375" rpy="0 0 0" />
+		<parent link="outer_wall_link" />
+		<child link="outer_north_wall_00" />
+	</joint>
+
+	<!-- outer_north_wall_01 -->
+	<link name="outer_north_wall_01">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_north_wall_01">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_north_wall_01" type="fixed">
+		<origin xyz="0.646 8.554 0.375" rpy="0 0 -0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_north_wall_01" />
+	</joint>
+
+	<!-- outer_north_wall_02 -->
+	<link name="outer_north_wall_02">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_north_wall_02">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_north_wall_02" type="fixed">
+		<origin xyz="-0.061 8.554 0.375" rpy="0 0 0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_north_wall_02" />
+	</joint>
+
+	<!-- outer_north_wall_03 -->
+	<link name="outer_north_wall_03">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_north_wall_03">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_north_wall_03" type="fixed">
+		<origin xyz="-2.414 8.2 0.375" rpy="0 0 0.0" />
+		<parent link="outer_wall_link" />
+		<child link="outer_north_wall_03" />
+	</joint>
+
+	<!-- outer_north_wall_04 -->
+	<link name="outer_north_wall_04">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_north_wall_04">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_north_wall_04" type="fixed">
+		<origin xyz="-4.768 8.554 0.375" rpy="0 0 -0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_north_wall_04" />
+	</joint>
+
+	<!-- outer_north_wall_05 -->
+	<link name="outer_north_wall_05">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_north_wall_05">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_north_wall_05" type="fixed">
+		<origin xyz="-5.475 8.554 0.375" rpy="0 0 0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_north_wall_05" />
+	</joint>
+
+	<!-- outer_north_wall_06 -->
+	<link name="outer_north_wall_06">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_north_wall_06">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_north_wall_06" type="fixed">
+		<origin xyz="-7.828 8.2 0.375" rpy="0 0 0" />
+		<parent link="outer_wall_link" />
+		<child link="outer_north_wall_06" />
+	</joint>
+
+
+<!-- outer east walls -->
+
+	<!-- outer_east_wall_00 -->
+	<link name="outer_east_wall_00">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 2.5" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 2.5" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_east_wall_00">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_east_wall_00" type="fixed">
+		<origin xyz="5.0 5.5 1.25" rpy="0 0 0" />
+		<parent link="outer_wall_link" />
+		<child link="outer_east_wall_00" />
+	</joint>
+
+	<!-- outer_east_wall_01 -->
+	<link name="outer_east_wall_01">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.5" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.5" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_east_wall_01">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_east_wall_01" type="fixed">
+		<origin xyz="5.0 6.5 2.25" rpy="0 0 0" />
+		<parent link="outer_wall_link" />
+		<child link="outer_east_wall_01" />
+	</joint>
+
+	<!-- outer_east_wall_02 -->
+	<link name="outer_east_wall_02">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_east_wall_02">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_east_wall_02" type="fixed">
+		<origin xyz="5.0 7.5 0.375" rpy="0 0 0" />
+		<parent link="outer_wall_link" />
+		<child link="outer_east_wall_02" />
+	</joint>
+
+
+<!-- outer south walls -->
+
+	<!-- outer_south_wall_00 -->
+	<link name="outer_south_wall_00">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_south_wall_00">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_south_wall_00" type="fixed">
+		<origin xyz="-9.474 -7.764 0.375" rpy="0 0 -0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_south_wall_00" />
+	</joint>
+
+	<!-- outer_south_wall_01 -->
+	<link name="outer_south_wall_01">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_south_wall_01">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_south_wall_01" type="fixed">
+		<origin xyz="-8.767 -7.764 0.375" rpy="0 0 0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_south_wall_01" />
+	</joint>
+
+	<!-- outer_south_wall_02 -->
+	<link name="outer_south_wall_02">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_south_wall_02">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_south_wall_02" type="fixed">
+		<origin xyz="-6.414 -7.41 0.375" rpy="0 0 0.0" />
+		<parent link="outer_wall_link" />
+		<child link="outer_south_wall_02" />
+	</joint>
+
+	<!-- outer_south_wall_03 -->
+	<link name="outer_south_wall_03">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_south_wall_03">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_south_wall_03" type="fixed">
+		<origin xyz="-4.06 -7.056 0.375" rpy="0 0 0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_south_wall_03" />
+	</joint>
+
+	<!-- outer_south_wall_04 -->
+	<link name="outer_south_wall_04">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_south_wall_04">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_south_wall_04" type="fixed">
+		<origin xyz="-3.353 -7.056 0.375" rpy="0 0 -0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_south_wall_04" />
+	</joint>
+
+	<!-- outer_south_wall_05 -->
+	<link name="outer_south_wall_05">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="4.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_south_wall_05">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_south_wall_05" type="fixed">
+		<origin xyz="-1.0 -7.41 0.375" rpy="0 0 0.0" />
+		<parent link="outer_wall_link" />
+		<child link="outer_south_wall_05" />
+	</joint>
+
+	<!-- outer_south_wall_06 -->
+	<link name="outer_south_wall_06">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_south_wall_06">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_south_wall_06" type="fixed">
+		<origin xyz="1.354 -7.056 0.375" rpy="0 0 0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_south_wall_06" />
+	</joint>
+
+	<!-- outer_south_wall_07 -->
+	<link name="outer_south_wall_07">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="1.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_south_wall_07">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_south_wall_07" type="fixed">
+		<origin xyz="2.061 -7.056 0.375" rpy="0 0 -0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_south_wall_07" />
+	</joint>
+
+	<!-- outer_south_wall_08 -->
+	<link name="outer_south_wall_08">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="3.0 0.02 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="3.0 0.02 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_south_wall_08">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_south_wall_08" type="fixed">
+		<origin xyz="3.914 -7.41 0.375" rpy="0 0 0" />
+		<parent link="outer_wall_link" />
+		<child link="outer_south_wall_08" />
+	</joint>
+
+
+<!-- outer west walls -->
+
+	<!-- outer_west_wall_00 -->
+	<link name="outer_west_wall_00">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 4.0 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 4.0 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_west_wall_00">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_west_wall_00" type="fixed">
+		<origin xyz="-9.828 -5.41 0.375" rpy="0 0 0" />
+		<parent link="outer_wall_link" />
+		<child link="outer_west_wall_00" />
+	</joint>
+
+	<!-- outer_west_wall_01 -->
+	<link name="outer_west_wall_01">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_west_wall_01">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_west_wall_01" type="fixed">
+		<origin xyz="-10.182 -3.056 0.375" rpy="0 0 0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_west_wall_01" />
+	</joint>
+
+	<!-- outer_west_wall_02 -->
+	<link name="outer_west_wall_02">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_west_wall_02">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_west_wall_02" type="fixed">
+		<origin xyz="-10.182 -2.349 0.375" rpy="0 0 -0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_west_wall_02" />
+	</joint>
+
+	<!-- outer_west_wall_03 -->
+	<link name="outer_west_wall_03">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 4.0 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 4.0 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_west_wall_03">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_west_wall_03" type="fixed">
+		<origin xyz="-9.828 0.0 0.375" rpy="0 0 0" />
+		<parent link="outer_wall_link" />
+		<child link="outer_west_wall_03" />
+	</joint>
+
+	<!-- outer_west_wall_04 -->
+	<link name="outer_west_wall_04">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_west_wall_04">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_west_wall_04" type="fixed">
+		<origin xyz="-10.182 2.354 0.375" rpy="0 0 0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_west_wall_04" />
+	</joint>
+
+	<!-- outer_west_wall_05 -->
+	<link name="outer_west_wall_05">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_west_wall_05">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_west_wall_05" type="fixed">
+		<origin xyz="-10.182 3.061 0.375" rpy="0 0 -0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_west_wall_05" />
+	</joint>
+
+	<!-- outer_west_wall_06 -->
+	<link name="outer_west_wall_06">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 4.0 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 4.0 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_west_wall_06">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_west_wall_06" type="fixed">
+		<origin xyz="-9.828 5.414 0.375" rpy="0 0 0" />
+		<parent link="outer_wall_link" />
+		<child link="outer_west_wall_06" />
+	</joint>
+
+	<!-- outer_west_wall_07 -->
+	<link name="outer_west_wall_07">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_west_wall_07">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_west_wall_07" type="fixed">
+		<origin xyz="-10.182 7.768 0.375" rpy="0 0 0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_west_wall_07" />
+	</joint>
+
+	<!-- outer_west_wall_08 -->
+	<link name="outer_west_wall_08">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<box size="0.02 1.0 0.75" />
+			</geometry>
+		</collision>
+	</link>
+	
+	<gazebo reference="outer_west_wall_08">
+		<material>BRSU/Wall</material>
+	</gazebo>
+
+	<joint name="joint_outer_west_wall_08" type="fixed">
+		<origin xyz="-10.182 8.475 0.375" rpy="0 0 -0.785" />
+		<parent link="outer_wall_link" />
+		<child link="outer_west_wall_08" />
+	</joint>
+
+
+
+
+
+
+
+<!-- objects -->
+
+	<!-- bookshelf_1 -->
+	<link name="bookshelf_1">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/bookshelf.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/bookshelf.dae" />
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="bookshelf_1">
+	</gazebo>
+
+	<joint name="bookshelf_1" type="fixed">
+		<origin xyz="-2.0 5.25 1.025" rpy="0 0 0" />
+		<parent link="dummy_link" />
+		<child link="bookshelf_1" />
+	</joint>
+
+	<!-- bed_1 -->
+	<link name="bed_1">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/bed.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/bed.dae" />
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="bed_1">
+	</gazebo>
+
+	<joint name="bed_1" type="fixed">
+		<origin xyz="4.0 2.0 0.375" rpy="0 0 -1.57" />
+		<parent link="dummy_link" />
+		<child link="bed_1" />
+	</joint>
+
+	<!-- kitchen_table_1 -->
+	<link name="kitchen_table_1">
+		<inertial>
+			<origin xyz="0 0 0" />
+			<mass value="5.0" />
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/table.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" />
+			<geometry>
+				<mesh filename="package://mcr_gazebo_worlds/common/objects/models/table.dae" />
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="kitchen_table_1">
+	</gazebo>
+
+	<joint name="kitchen_table_1" type="fixed">
+		<origin xyz="-3.5 0.425 0.368" rpy="0 0 0.0" />
+		<parent link="dummy_link" />
+		<child link="kitchen_table_1" />
+	</joint>
+
+</xacro:macro>
+
+<xacro:istanbul-2011 name="istanbul-2011" />
+
+</robot>

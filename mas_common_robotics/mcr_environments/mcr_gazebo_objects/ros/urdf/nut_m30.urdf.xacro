@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<robot name="nut_m30" xmlns:xacro="http://ros.org/wiki/xacro">	
+
+	<xacro:include filename="$(find mcr_gazebo_objects)/ros/templates/model.urdf.xacro" />
+
+	<xacro:model_template name="nut_m30" model_filename="nut_m30.dae" scale="0.001"  size_x="0.025" size_y="0.045" size_z="0.045"  weight="0.215"/>
+	
+</robot>

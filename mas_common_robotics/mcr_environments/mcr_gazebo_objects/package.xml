@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_gazebo_objects</name>
+  <version>0.0.1</version>
+  <description>object descriptions and models for the gazebo simulation</description>
+
+  <maintainer email="frederik.hegger@h-brs.de">Frederik Hegger</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="frederik.hegger@h-brs.de">Frederik Hegger</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>tf</run_depend>
+
+</package>

@@ -1,0 +1,10 @@
+# Point cloud to analyze
+sensor_msgs/PointCloud2 cloud
+---
+# For each point a grayscale value is computed
+# Mean of all grayscale values
+float32 mean
+# Median of all grayscale values
+float32 median
+# Total number of points
+uint64 points

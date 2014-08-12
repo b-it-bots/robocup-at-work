@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="mcr_relative_base_controller" type="relative_base_controller_node" name="relative_base_controller" ns="mcr_navigation" output="screen">
+    <param name="world_frame_tf" type="string" value="/odom" />
+    <param name="base_frame_tf" type="string" value="/base_footprint" />
+  </node>
+
+  <test pkg="mcr_relative_base_controller" type="relative_base_controller_test" test-name="relative_base_controller_test"/>
+
+</launch>

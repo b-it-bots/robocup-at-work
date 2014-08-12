@@ -1,0 +1,2 @@
+---
+mcr_perception_msgs/PersonList person_list			# list of found persons

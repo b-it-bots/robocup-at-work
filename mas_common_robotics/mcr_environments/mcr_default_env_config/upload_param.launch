@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="robot_env" default="$(optenv ROBOT_ENV !!NO_ROBOT_ENV_SET!!)"/>
+
+	<!-- include environment specific launch file -->
+  <include file="$(find mcr_default_env_config)/$(arg robot_env)/upload_param_$(arg robot_env).launch" />
+
+</launch>

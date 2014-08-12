@@ -1,0 +1,41 @@
+#!/usr/bin/env python
+
+PACKAGE = 'mcr_object_recognition_bounding_box'
+NODE = 'object_recognizer'
+SERVICE = '~recognize_object'
+
+import roslib
+import rospy
+
+import sys
+from os.path import join
+import numpy as np
+
+# Import helper class for loading trained network
+from mcr_object_recognition_bounding_box.classification_network import ClassificationNetwork
+
+from mcr_perception_msgs.srv import RecognizeObject
+from mcr_perception_msgs.srv import AnalyzeCloudColor
+
+
+def load_neural_network(filename):
+    cfg_folder = join(roslib.packages.get_pkg_dir(PACKAGE), 'common', 'config')
+    return ClassificationNetwork.load(join(cfg_folder, filename))
+
+if __name__ == '__main__':
+    rospy.init_node(NODE)
+    net = load_neural_network(sys.argv[1])
+    analyze = rospy.ServiceProxy('/mcr_perception/cloud_color_analyzer/analyze_cloud_color', AnalyzeCloudColor)
+
+    def recognize_object_cb(request):
+        rospy.loginfo('Received [%s] request.' % SERVICE)
+        r = analyze(request.cloud)
+        d = request.dimensions
+        d = sorted([d.x, d.y, d.z], reverse=True)
+        features = np.array([d[0], d[1], d[2], r.points, r.mean, r.median])
+        c, l = net.classify(features)
+        return l
+
+    s = rospy.Service(SERVICE, RecognizeObject, recognize_object_cb)
+    rospy.loginfo('Started [%s] service.' % SERVICE)
+    rospy.spin()

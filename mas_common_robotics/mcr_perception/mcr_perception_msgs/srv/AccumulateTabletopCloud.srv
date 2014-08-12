@@ -1,0 +1,5 @@
+# Planar polygon that defines the table
+PlanarPolygon polygon
+---
+# Accumulated pointcloud
+sensor_msgs/PointCloud2 cloud
