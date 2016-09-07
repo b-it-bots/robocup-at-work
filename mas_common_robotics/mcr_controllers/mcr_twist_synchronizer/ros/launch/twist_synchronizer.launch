@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- Note: example launch file. Do not modify! -->
+<launch>
+  <arg name="angular_synchronization" default="True"/>
+
+  <include file="$(find mcr_twist_synchronizer)/ros/launch/twist_stamped_synchronizer.launch">
+    <arg name="angular_synchronization" value="$(arg angular_synchronization)" />
+  </include>
+
+  <!-- To extract twist from stamped twist and repulish on different topic -->
+  <node pkg="topic_tools" type="transform" name="twist_transformer" output="screen"
+        args="/mcr_controllers/twist_synchronizer/synchronized_twist /mcr_controllers/twist_synchronizer/twist geometry_msgs/Twist 'm.twist'" />
+</launch>

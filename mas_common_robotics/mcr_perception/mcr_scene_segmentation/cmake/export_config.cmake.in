@@ -1,0 +1,2 @@
+SET(@PROJECT_NAME@_workspace_constraints_file @CMAKE_CURRENT_SOURCE_DIR@/ros/config/workspace_constraints.yaml)
+SET(@PROJECT_NAME@_object_constraints_file @CMAKE_CURRENT_SOURCE_DIR@/ros/config/object_constraints.yaml)

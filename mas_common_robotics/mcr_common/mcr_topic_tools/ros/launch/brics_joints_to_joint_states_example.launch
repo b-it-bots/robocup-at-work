@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- Note: example launch file. Do not modify! -->
+<launch>
+  <node pkg="mcr_topic_tools" type="brics_joints_to_joint_states_node"
+        name="brics_joints_to_joint_states" output="screen" ns="mcr_common">
+
+    <!-- Node cycle rate (in hz) -->
+    <param name="loop_rate" type="double" value="10.0"/>
+  </node>
+</launch>

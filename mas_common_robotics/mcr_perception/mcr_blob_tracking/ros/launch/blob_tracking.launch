@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_blob_tracking" type="blob_tracking_node" name="blob_tracking" ns="mcr_perception" output="screen" respawn="true">
+    	<remap from="~input_image" to="/mcr_perception/edit_image/edited_image"/>
+    	<remap from="~blobs" to="/mcr_perception/blob_detection/blobs"/>
+    	<param name="loop_rate" type="int" value="30"/>
+    </node>
+</launch>

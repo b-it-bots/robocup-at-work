@@ -1,12 +1,18 @@
+# Eclipse
 .autotools
 .cproject
 .project
+.settings/
+
 .pydevproject
 .idea/
 *.pyc
 .idea/
+
+# Visual Paradigm
 *.vpp.*
 *.vpp~*
 
 *~
-
+html/
+latex/

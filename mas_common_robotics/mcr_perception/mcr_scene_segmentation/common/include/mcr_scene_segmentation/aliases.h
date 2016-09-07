@@ -1,5 +1,11 @@
-#ifndef ALIASES_H_
-#define ALIASES_H_
+/*
+ * Copyright 2016 Bonn-Rhein-Sieg University
+ *
+ * Author: Sergey Alexandrov
+ *
+ */
+#ifndef MCR_SCENE_SEGMENTATION_ALIASES_H
+#define MCR_SCENE_SEGMENTATION_ALIASES_H
 
 #include <vector>
 
@@ -24,4 +30,4 @@ typedef boost::shared_ptr<const PlanarPolygon> PlanarPolygonConstPtr;
 typedef pcl::PlanarRegion<PointT> PlanarRegion;
 typedef std::vector<PlanarRegion, Eigen::aligned_allocator<PlanarRegion> > PlanarRegionVector;
 
-#endif
+#endif  // MCR_SCENE_SEGMENTATION_ALIASES_H

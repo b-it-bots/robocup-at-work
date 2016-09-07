@@ -9,8 +9,6 @@ import unittest
 import rostest
 import std_msgs.msg
 import sensor_msgs.msg
-import geometry_msgs.msg
-import tf
 
 PKG = 'mcr_manipulation_converters'
 
@@ -57,14 +55,11 @@ class TestJointPositionMonitor(unittest.TestCase):
         when the desired joint positions have been reached.
 
         """
-        expected_result = std_msgs.msg.String()
-        expected_result.data = 'e_done'
-
         desired_joint_positions = sensor_msgs.msg.JointState()
         current_joint_positions = sensor_msgs.msg.JointState()
 
         current_joint_positions.name = ['a', 'b', 'c', 'd']
-        current_joint_positions.position = [-1.46, -1.48, -2.57, 0.52]
+        current_joint_positions.position = [-1.46, -10.48, -2.57, 0.52]
 
         desired_joint_positions.name = ['d', 'b']
         desired_joint_positions.position = [0.52, -1.48]
@@ -74,9 +69,20 @@ class TestJointPositionMonitor(unittest.TestCase):
             self.joint_states.publish(current_joint_positions)
             self.event_out.publish('e_start')
 
-        self.assertAlmostEqual(
-            self.result.data, expected_result.data
-        )
+        self.assertEqual(self.result.data, 'e_configuration_not_reached')
+
+        # the event should be 'e_done' once the joint values are within the threshold
+        current_joint_positions.name = ['a', 'b', 'c', 'd']
+        current_joint_positions.position = [-1.46, -1.48, -2.57, 0.52]
+
+        self.result = None
+        self.wait_for_result = None
+
+        while not self.wait_for_result:
+            self.desired_joint_positions.publish(desired_joint_positions)
+            self.joint_states.publish(current_joint_positions)
+
+        self.assertEqual(self.result.data, 'e_done')
 
     def result_callback(self, msg):
         self.result = msg

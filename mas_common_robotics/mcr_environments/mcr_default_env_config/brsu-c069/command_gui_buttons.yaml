@@ -1,1 +1,4 @@
-buttons: []
+buttons: [[charge,move,charge],
+  [diner table,move,diner_table],
+  [kitchen,move,kitchen],
+  [couch,move,couch]]

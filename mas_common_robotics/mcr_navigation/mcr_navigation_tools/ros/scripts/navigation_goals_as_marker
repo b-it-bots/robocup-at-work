@@ -6,7 +6,7 @@ from visualization_msgs.msg import *
 if (__name__ == "__main__"):
   
     rospy.init_node('mcr_navigation_goals_as_marker', anonymous=True)
-    location_publisher = rospy.Publisher("/visualization_marker_array", MarkerArray)
+    location_publisher = rospy.Publisher("/visualization_marker_array", MarkerArray, queue_size=1)
     
     while not rospy.is_shutdown():
 		rospy.sleep(5) 
@@ -21,6 +21,9 @@ if (__name__ == "__main__"):
 		
 		for item in param_list:
 			pose = rospy.get_param('/script_server/base/' + item)
+
+			if pose is not list and len(pose) != 3:
+				continue
 
 			single_marker = Marker()
 			single_marker_text = Marker()

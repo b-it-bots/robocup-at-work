@@ -3,6 +3,7 @@
 #include <brics_actuator/JointPositions.h>
 #include <brics_actuator/JointVelocities.h>
 #include <brics_actuator/JointTorques.h>
+#include <std_msgs/Float64MultiArray.h>
 
 
 using namespace forward_command_controller;
@@ -162,6 +163,21 @@ void commandCallback<brics_actuator::JointTorques>(
 
     for (size_t i = 0; i < msg->torques.size(); i++) {
         (*command)[i] = msg->torques[i].value;
+    }
+}
+
+template <>
+void commandCallback<std_msgs::Float64MultiArray>(
+        const std_msgs::Float64MultiArrayConstPtr &msg,
+        std::vector<double> *command)
+{
+    if (msg->data.size() != command->size()) {
+        ROS_ERROR("Input command ignored, because it has the wrong number of joint values!");
+        return;
+    }
+
+    for (size_t i = 0; i < msg->data.size(); i++) {
+        (*command)[i] = msg->data[i];
     }
 }
 

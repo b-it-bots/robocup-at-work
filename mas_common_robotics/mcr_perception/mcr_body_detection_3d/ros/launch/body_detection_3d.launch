@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <node pkg="mcr_body_detection_3d" type="body_detection_3d_node" name="body_detection_3d" ns="mcr_perception" output="screen">
+    <remap from="~pointcloud_xyzrgb" to="/head_cam3d/depth_registered/points" />
+    <remap from="~visualization_marker_array" to="/visualization_marker_array" />
+
+    <param name="model_filename" value="$(find mcr_body_detection_3d)/common/config/body_detection_model.mdl" />
+  </node>
+</launch>

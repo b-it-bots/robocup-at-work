@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+ <arg name="input_topic" default="/tower_cam3d/depth_registered/points" />
+ <node pkg="mcr_perception_tools" type="save_pointcloud" name="save_pointcloud" ns="mcr_perception" output="screen" respawn="false">
+    <param name="input_topic" value="$(arg input_topic)" />
+    <param name="frame_rate" type="int" value="5" />
+    <!-- file type options are ascii, binary and compressed
+         ascii: Points and RGB are stored as floats in ascii. RGB is one packed floating point number
+         binary: uncompressed binary file with point cloud data
+         compressed: compressed version of binary -->
+    <param name="file_type" type="string" value="binary" />
+  </node>
+</launch>

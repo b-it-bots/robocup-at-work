@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_geometric_relation_monitors" type="component_wise_pose_error_monitor_node" name="component_wise_pose_error_monitor" ns="mcr_monitoring" output="screen" respawn="true">
+    	<remap from="~pose_error" to="/component_wise_pose_error_calculator/pose_error"/>
+    	<param name="loop_rate" type="double" value="30" />
+    </node>
+</launch>

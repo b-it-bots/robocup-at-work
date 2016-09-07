@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_manipulation_measurers" type="joint_distance_measurer_node"
+            name="joint_distance_measurer" output="screen">
+
+        <!-- the cycle rate of the node (in hz) -->
+        <param name="loop_rate"  type="double" value="10"/>
+
+        <!-- a list of the joint names to check -->
+        <rosparam param="target_joint_names">
+            - 'b'
+            - 'd'
+            - 'f'
+        </rosparam>
+
+    </node>
+
+    <test pkg="mcr_manipulation_measurers" type="joint_distance_measurer_test.py"
+            test-name="test_cart_dist_calculator">
+
+        <remap from="~component_output" to="/joint_distance_measurer/joint_distances"/>
+        <remap from="~event_out" to="/joint_distance_measurer/event_in"/>
+        <remap from="~current_joint_values" to="/joint_distance_measurer/current_joint_values"/>
+        <remap from="~target_joint_values" to="/joint_distance_measurer/target_joint_values"/>
+
+    </test>
+
+</launch>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="object_cavity_map" default="robocup_at_work"/>
+
+
+    <group ns="mcr_perception">
+        <node pkg="mcr_contour_matching" type="contour_finder" name="contour_finder" output="screen" respawn="false">
+            <remap from="~input/pointcloud" to="/arm_cam3d/depth_registered/points" />
+            <param name="frame_rate" type="int" value="1" />
+        </node>
+
+        <node pkg="mcr_contour_matching" type="contour_template_matcher" name="contour_template_matcher" output="screen" respawn="false">
+            <remap from="~input/contours" to="/mcr_perception/contour_finder/output/pointclouds" />
+            <remap from="~input/template_pointcloud" to="/mcr_perception/cavity_template_publisher/output/template_pointcloud" />
+            <param name="frame_rate" type="int" value="1" />
+        </node>
+
+        <node pkg="mcr_pose_estimation" type="pca_pose_estimator" name="pca_pose_estimator" output="screen" respawn="false">
+            <remap from="~input/pointcloud" to="/mcr_perception/contour_template_matcher/output/matched_contour_pointcloud" />
+            <param name="frame_rate" type="int" value="1" />
+        </node>
+
+        <node pkg="mcr_cavity_recognition" type="cavity_template_publisher" name="cavity_template_publisher" output="screen">
+            <param name="preferred_orientation" type="string" value="horizontal" />
+            <rosparam command="load" file="$(find mcr_cavity_recognition)/common/config/$(arg object_cavity_map).yaml" />
+            <param name="frame_rate" type="int" value="1" />
+        </node>
+
+        <node pkg="mcr_cavity_recognition" type="cavity_message_builder" name="cavity_message_builder" output="screen">
+            <remap from="~input/pointcloud" to="/mcr_perception/contour_template_matcher/output/matched_contour_pointcloud" />
+            <remap from="~input/matching_error" to="/mcr_perception/contour_template_matcher/output/matching_error" />
+            <remap from="~input/pose" to="/mcr_perception/pca_pose_estimator/output/pose" />
+            <param name="frame_rate" type="int" value="1" />
+        </node>
+    </group>
+
+</launch>

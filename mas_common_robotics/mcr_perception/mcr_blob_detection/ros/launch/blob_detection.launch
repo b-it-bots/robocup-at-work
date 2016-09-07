@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_blob_detection" type="blob_detection_node" name="blob_detection" ns="mcr_perception" output="screen" respawn="true">
+        <remap from="~input_image" to="/arm_cam3d/rgb/image_raw"/>
+        <param name="loop_rate" type="int" value="30" />
+    </node>
+</launch>

@@ -29,6 +29,10 @@ catkin_package(
     LIBRARIES blob
 )
 
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
+
 add_library(blob STATIC)
 add_dependencies(blob
   build_cvblobs_lib

@@ -1,0 +1,42 @@
+# configuration_name:
+#   node_name:
+#      param_name: param_value
+#      param_name: param_value
+#   node_name:
+#      param_name: param_value
+#      param_name: param_value
+# configuration_name:
+#   node_name:
+#      param_name: param_value
+#      param_name: param_value
+#   node_name:
+#      param_name: param_value
+#      param_name: param_value
+
+low_platform:
+    /mcr_perception/passthrough_x:
+      filter_limit_max: 1.0
+      filter_limit_min: 0.0
+    /mcr_perception/passthrough_z:
+      filter_limit_max: 0.2
+      filter_limit_min: -0.05
+high_platform:
+    /mcr_perception/passthrough_x:
+      filter_limit_max: 2.0
+      filter_limit_min: 0.0
+    /mcr_perception/passthrough_z:
+      filter_limit_max: 0.4
+      filter_limit_min: -0.01
+floor:
+    /mcr_perception/passthrough_x:
+      filter_limit_max: 2.0
+      filter_limit_min: 0.0
+    /mcr_perception/passthrough_z:
+      filter_limit_max: 0.4
+      filter_limit_min: -0.25
+close_range_camera:
+    /realsense_node:
+      motion_range_trade_off: 100
+far_range_camera:
+    /realsense_node:
+      motion_range_trade_off: 0

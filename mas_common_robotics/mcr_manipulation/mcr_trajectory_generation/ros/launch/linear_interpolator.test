@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Node to test -->
+  <include file="$(find mcr_trajectory_generation)/ros/launch/linear_interpolator_example.launch">
+    <arg name="max_poses" default="5"/>
+  </include>
+
+  <test pkg="mcr_trajectory_generation" type="linear_interpolator_test.py"
+        test-name="test_linear_interpolator" ns="mcr_manipulation">
+
+    <remap from="~event_out" to="/mcr_manipulation/linear_interpolator/event_in"/>
+    <remap from="~start_pose" to="/mcr_manipulation/linear_interpolator/start_pose"/>
+    <remap from="~goal_pose" to="/mcr_manipulation/linear_interpolator/goal_pose"/>
+    <remap from="~component_output" to="/mcr_manipulation/linear_interpolator/path"/>
+  </test>
+</launch>

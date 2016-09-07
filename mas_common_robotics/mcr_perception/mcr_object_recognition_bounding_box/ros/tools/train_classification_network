@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 PACKAGE = 'mcr_object_recognition_bounding_box'
+DATA_PACKAGE = 'mds_object_recognition_bounding_box'
 
 import roslib
 roslib.load_manifest(PACKAGE)
@@ -37,7 +38,7 @@ if __name__ == '__main__':
     parser.add_argument('--output', help='output filename (without folder and '
                         'extension, default: "network")', default='network')
     args = parser.parse_args()
-    data_folder = join(roslib.packages.get_pkg_dir(PACKAGE), 'common', 'data')
+    data_folder = join(roslib.packages.get_pkg_dir(DATA_PACKAGE), 'training_data')
     cfg_folder = join(roslib.packages.get_pkg_dir(PACKAGE), 'common', 'config')
     if isinstance(args.datasets, list):
         datasets = [Dataset(data_folder, name) for name in args.datasets]

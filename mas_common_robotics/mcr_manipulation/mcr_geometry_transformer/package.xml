@@ -30,4 +30,6 @@
   <run_depend>orocos_kdl</run_depend>
   <run_depend>geometry_msgs</run_depend>
   <run_depend>rosunit</run_depend>
+
+  <test_depend>roslaunch</test_depend>
 </package>

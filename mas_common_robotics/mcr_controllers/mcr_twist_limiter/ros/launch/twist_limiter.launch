@@ -3,8 +3,8 @@
     <node pkg="mcr_twist_limiter" type="twist_limiter_node"
             name="twist_limiter" output="screen">
 
-        <!-- the cycle time of the node (in seconds) -->
-        <param name="cycle_time" type="double" value="0.1"/>
+        <!-- the cycle rate of the node (in Hz) -->
+        <param name="loop_rate" type="double" value="10"/>
 
     </node>
 </launch>

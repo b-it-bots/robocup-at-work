@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_pose_generator" type="pose_publisher_node"
+            name="pose_publisher" output="screen" ns="mcr_common">
+
+        <!-- the cycle rate of the node (in hz) -->
+        <param name="loop_rate"  type="double" value="10.0"/>
+
+    </node>
+</launch>

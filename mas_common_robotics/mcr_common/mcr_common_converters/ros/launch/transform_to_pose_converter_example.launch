@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- Note: example launch file. Do not modify! -->
+<launch>
+    <node pkg="mcr_common_converters" type="transform_to_pose_converter_node"
+          name="transform_to_pose_converter" output="screen" ns="mcr_common">
+
+        <!-- the reference frame from which the pose is transformed -->
+        <param name="reference_frame" type="str" value="odom"/>
+
+        <!-- the target frame to which the pose is transformed -->
+        <param name="target_frame" type="str" value="base_link"/>
+
+        <!-- the cycle rate of the node (in Hz) -->
+        <param name="loop_rate" type="double" value="10.0"/>
+    </node>
+</launch>

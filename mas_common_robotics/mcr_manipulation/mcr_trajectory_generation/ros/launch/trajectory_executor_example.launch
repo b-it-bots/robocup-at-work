@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- Note: this is an example launch file, do not modify. -->
+<launch>
+  <arg name="trajectory_controller"
+       default="/arm_controller/joint_trajectory_controller/follow_joint_trajectory"/>
+  <arg name="loop_rate" default="10.0"/>
+
+  <node pkg="mcr_trajectory_generation" type="trajectory_executor_node"
+        name="trajectory_executor" output="screen" ns="mcr_manipulation">
+
+    <!-- Trajectory controller to be used to execute the trajectory. -->
+    <param name="trajectory_controller" type="str" value="$(arg trajectory_controller)"/>
+
+    <!-- Cycle rate of the node (in Hz) -->
+    <param name="loop_rate" type="double" value="$(arg loop_rate)"/>
+  </node>
+</launch>

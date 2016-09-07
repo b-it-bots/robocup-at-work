@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- Note: example launch file. Do not modify! -->
+<launch>
+  <arg name="move_group" default="None"/>
+  <arg name="arm" default="None"/>
+  <arg name="reference_frame" default="None"/>
+  <arg name="joint_names" default="None"/>
+
+  <!-- Do not use namespace to avoid mismatch with Moveit! topics/services -->
+  <node pkg="mcr_trajectory_generation" type="ik_trajectory_solver_node"
+        name="ik_trajectory_solver" output="screen">
+
+    <!-- Move group for MoveIt! -->
+    <param name="move_group" type="str" value="$(arg move_group)"/>
+
+    <!-- Name of the group to compute the inverse kinematics -->
+    <param name="arm" type="str" value="$(arg arm)"/>
+
+    <!-- The reference frame for the trajectory -->
+    <param name="reference_frame" type="str" value="$(arg reference_frame)"/>
+
+    <!-- Joint names of the arm -->
+    <rosparam param="joint_names" subst_value="True">$(arg joint_names)</rosparam>
+  </node>
+</launch>

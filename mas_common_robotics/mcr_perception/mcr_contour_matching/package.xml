@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_contour_matching</name>
+  <version>0.1.0</version>
+  <description>
+      Node to find 2D contours in an image and convert to 3D contours.
+      Node to match 3D contours with a template.
+  </description>
+
+  <maintainer email="santosh.thoduka@smail.inf.h-brs.de">Santosh Thoduka</maintainer>
+
+  <author email="santosh.thoduka@smail.inf.h-brs.de">Santosh Thoduka</author>
+  <author email="bipinkumar.badri@smail.inf.h-brs.de">Bipin Kumar</author>
+
+  <license>GPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>mcr_perception_msgs</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>libpcl-all-dev</build_depend>
+
+  <test_depend>roslaunch</test_depend>
+  <test_depend>rostest</test_depend>
+
+</package>

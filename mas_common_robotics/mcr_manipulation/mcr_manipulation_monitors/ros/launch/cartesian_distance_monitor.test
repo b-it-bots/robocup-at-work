@@ -3,8 +3,8 @@
     <node pkg="mcr_manipulation_monitors" type="cartesian_distance_monitor_node"
             name="cartesian_distance_monitor" output="screen">
 
-        <!-- the cycle rate of the node (in seconds) -->
-        <param name="loop_rate" type="double" value="0.1"/>
+        <!-- Node cycle rate (in hz) -->
+        <param name="loop_rate" type="double" value="10"/>
 
         <!-- the minimum Euclidean distance to activate the monitor (in meters) -->
         <param name="tolerance" type="double" value="0.8"/>

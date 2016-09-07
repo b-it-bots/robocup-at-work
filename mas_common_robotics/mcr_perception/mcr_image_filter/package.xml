@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<package>
+
+  <name>mcr_image_filter</name>
+  <version>0.1.0</version>
+  <description>Image filter package used to do required pre-processing (like cropping, rotation, filters (yet to be implemented), noise reduction (yet to be implemented)) to the rgb image.</description>
+
+  <maintainer email="mashoksc@gmail.com">Ashok Meenakshi Sundaram</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="mashoksc@gmail.com">Ashok Meenakshi Sundaram</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>image_transport</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+
+</package>

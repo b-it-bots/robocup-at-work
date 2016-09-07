@@ -22,12 +22,12 @@ using namespace std;
 class Circle2D
 {
 public:
-	Circle2D(unsigned int max_iterations, double tolerance);
-	void fitCircle(vector<geometry_msgs::Point>& data_points, double& radius, double& center_x, double& center_y, double& residual_sum_of_squares);
+    Circle2D(unsigned int max_iterations, double tolerance);
+    void fitCircle(vector<geometry_msgs::Point>& data_points, double& radius, double& center_x, double& center_y, double& residual_sum_of_squares);
 
 private:
-	unsigned int max_iterations_;
-	double tolerance_;
+    unsigned int max_iterations_;
+    double tolerance_;
 };
 
 #endif /* CIRCLE_2D_H_ */

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- Note: example launch file. Do not modify! -->
+<launch>
+  <arg name="epsilon" default="0.05" />
+  <arg name="target_joint_names" default="['d', 'b']" />
+
+  <node pkg="mcr_manipulation_monitors" type="joint_position_monitors_node"
+        name="joint_position_monitors" output="screen">
+    <!-- Node cycle rate (in hz) -->
+    <param name="loop_rate" type="double" value="10"/>
+
+    <!-- Tolerance for the joint positions -->
+    <param name="epsilon" type="double" value="$(arg epsilon)"/>
+
+    <!-- List of the joint names to check -->
+    <rosparam param="target_joint_names" subst_value="True">$(arg target_joint_names)
+    </rosparam>
+  </node>
+</launch>

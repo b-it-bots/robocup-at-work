@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_common_converters_ros.pose_to_transform_converter
+
+if __name__ == '__main__':
+    mcr_common_converters_ros.pose_to_transform_converter.main()

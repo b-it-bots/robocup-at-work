@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- Note: this is a sample launch file. -->
+<launch>
+  <arg name="node_type" default="reachability_pose_selector_node" />
+
+  <!-- The following node is excluded from the group since they use move_group
+      from MoveIt!, which remaps the 'move_group' namespace to the group's namespace -->
+  <node pkg="mcr_manipulation_pose_selector" type="$(arg node_type)"
+          name="reachability_pose_selector" output="screen">
+
+    <!-- the node cycle rate (in hz) -->
+    <param name="loop_rate" type="double" value="10.0"/>
+
+    <!-- MoveIt! node name -->
+    <param name="move_group" type="str" value="move_group"/>
+
+    <!-- Arm name to be used for giving commands-->
+    <param name="arm" type="str" value="arm_1"/>
+
+    <rosparam param="linear_offset">
+        - 0.00
+        - 0.00
+        - 0.00
+    </rosparam>
+  </node>
+</launch>

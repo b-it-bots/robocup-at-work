@@ -15,7 +15,7 @@
 class FileAccess
 {
 public:
-	static int writeVectorToFile(std::vector<std::vector<double> > &input_vector, std::string filename, std::string separator);
+    static int writeVectorToFile(std::vector<std::vector<double> > &input_vector, std::string filename, std::string separator);
 };
 
 #endif /* FILE_ACCESS_H_ */

@@ -3,7 +3,7 @@
   <name>mcr_twist_limiter</name>
   <version>0.1.0</version>
   <description>
-  A package that sets the individual components of a twist
+  This component sets the individual components of a twist
   (represented as a geometry_msgs/TwistStamped message) to
   a specified maximum, if they exceed their respective limit.
   </description>
@@ -19,4 +19,8 @@
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>geometry_msgs</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+  <test_depend>rostest</test_depend>
+
 </package>

@@ -5,6 +5,8 @@ find_package(catkin REQUIRED)
 
 catkin_package()
 
+
+### INSTALLS
 set(INSTALL_DIRS common/objects/ common/worlds/ ros/launch/) 
 foreach(dir ${INSTALL_DIRS}) 
   install(DIRECTORY ${dir}
@@ -13,3 +15,9 @@ foreach(dir ${INSTALL_DIRS})
 endforeach(dir) 
 
 
+### TESTS
+if(CATKIN_ENABLE_TESTING)
+  find_package(roslaunch REQUIRED)
+
+  roslaunch_add_file_check(ros/launch robot_env:=brsu-c025-sim)
+endif()

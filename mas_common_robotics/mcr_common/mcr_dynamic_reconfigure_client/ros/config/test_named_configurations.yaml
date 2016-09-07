@@ -1,0 +1,8 @@
+test_node_params_low:
+    /test_dynamic_reconfigure_client:
+      int_param: 0
+      double_param: 0.0
+test_node_params_high:
+    /test_dynamic_reconfigure_client:
+      int_param: 10
+      double_param: 10.0

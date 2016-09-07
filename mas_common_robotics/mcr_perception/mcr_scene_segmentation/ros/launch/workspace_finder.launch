@@ -1,0 +1,58 @@
+<launch>
+
+  <arg name="manager" default="workspace_finder_manager" />
+  <arg name="input_pointcloud_topic" default="/arm_cam3d/depth_registered/points" />
+  <arg name="workspace_finder_config_file" default="$(find mcr_scene_segmentation)/ros/config/workspace_constraints.yaml" />
+
+  <group ns="mcr_perception">
+
+    <rosparam file="$(arg workspace_finder_config_file)" command="load"/>
+    <node pkg="nodelet" type="nodelet" name="$(arg manager)" args="manager"/>
+
+    <node pkg="nodelet" type="nodelet" name="mux_pointcloud"
+        args="load mcr_topic_tools/TopicMux $(arg manager) mux:=mux_pointcloud /mcr_perception/depth_registered/points /empty_topic $(arg input_pointcloud_topic)" output="screen">
+      <param name="lazy" type="bool" value="true" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="transform"
+          args="load pcl/PassThrough $(arg manager)">
+      <remap from="~input" to="/mcr_perception/depth_registered/points" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="voxel_filter"
+          args="load pcl/VoxelGrid $(arg manager)">
+      <remap from="~input" to="/mcr_perception/transform/output" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="passthrough_x"
+          args="load pcl/PassThrough $(arg manager)">
+      <remap from="~input" to="/mcr_perception/voxel_filter/output" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="normal_estimation"
+          args="load pcl/NormalEstimation $(arg manager)">
+      <remap from="~input" to="/mcr_perception/passthrough_x/output" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="planar_segmentation"
+          args="load pcl/SACSegmentationFromNormals $(arg manager)" output="screen">
+      <remap from="~input"   to="/mcr_perception/passthrough_x/output" />
+      <remap from="~normals" to="/mcr_perception/normal_estimation/output" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="project_plane_inliers" args="load pcl/ProjectInliers $(arg manager)" output="screen">
+       <remap from="~input"   to="/mcr_perception/passthrough_x/output" />
+       <remap from="~indices" to="/mcr_perception/planar_segmentation/inliers" />
+       <remap from="~model"   to="/mcr_perception/planar_segmentation/model" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="statistical_outlier_removal" args="load pcl/StatisticalOutlierRemoval $(arg manager)" output="screen">
+      <remap from="~input"   to="/mcr_perception/project_plane_inliers/output" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="convex_hull" args="load pcl/ConvexHull2D $(arg manager)" output="screen">
+      <remap from="~input"   to="/mcr_perception/statistical_outlier_removal/output" />
+    </node>
+
+  </group>
+</launch>

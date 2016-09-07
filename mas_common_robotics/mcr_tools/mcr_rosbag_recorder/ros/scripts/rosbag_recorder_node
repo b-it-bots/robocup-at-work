@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_rosbag_recorder.rosbag_recorder
+
+if __name__ == '__main__':
+    mcr_rosbag_recorder.rosbag_recorder.main()

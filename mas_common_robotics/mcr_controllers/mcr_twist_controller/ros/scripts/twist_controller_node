@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_twist_controller_ros.twist_controller
+
+if __name__ == '__main__':
+    mcr_twist_controller_ros.twist_controller.main()

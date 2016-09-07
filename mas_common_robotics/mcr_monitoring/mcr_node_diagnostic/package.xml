@@ -1,0 +1,38 @@
+<package>
+  <name>mcr_node_diagnostic</name>
+  <version>0.1.0</version>
+  
+  <description>
+     Node diagnostic package
+  </description>
+
+  <author email="matthias.fueller@h-brs.de">Matthias Füller</author>
+  <maintainer email="matthias.fueller@h-brs.de">Matthias Füller</maintainer>
+  <maintainer email="sven.schneider@h-brs.de">Sven Schneider</maintainer>
+  <maintainer email="frederik.hegger@h-brs.de">Frederik Hegger</maintainer>
+
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>diagnostic_msgs</build_depend>
+  <build_depend>diagnostic_aggregator</build_depend>
+  <build_depend>diagnostic_analysis</build_depend>
+  <build_depend>pluginlib</build_depend>
+
+  <run_depend>diagnostic_aggregator</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>diagnostic_msgs</run_depend>
+  <run_depend>pluginlib</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+
+  <export> 
+     <diagnostic_aggregator plugin="${prefix}/mcr_node_analyzer_plugin.xml" />
+  </export>
+ 
+</package>
+
+

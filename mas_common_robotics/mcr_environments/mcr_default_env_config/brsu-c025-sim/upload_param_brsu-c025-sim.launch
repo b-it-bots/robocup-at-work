@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <group ns="/script_server">
+    <!-- send ROBOT parameters to parameter server -->
+    <rosparam command="load" ns="base" file="$(find mcr_default_env_config)/brsu-c025-sim/navigation_goals.yaml"/>
+    <rosparam command="load" ns="base_orientations" file="$(find mcr_default_env_config)/brsu-c025-sim/navigation_orientations.yaml"/>
+
+  </group>
+
+</launch>
+

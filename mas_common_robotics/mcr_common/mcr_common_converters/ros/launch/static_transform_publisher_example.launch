@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- Note: example launch file. Do not modify! -->
+<launch>
+    <node pkg="mcr_common_converters" type="static_transform_publisher_node"
+          name="static_transform_publisher_node" output="screen">
+
+        <!-- the reference frame for the static transform -->
+        <param name="reference_frame" type="str" value="odom"/>
+
+        <!-- the target frame for the static transform -->
+        <param name="target_frame" type="str" value="base_link"/>
+
+        <!-- the name of the frame to be published as static transform -->
+        <param name="static_transform_frame" type="str" value="base_link_static"/>
+
+        <!-- select trigger behavior of the node -->
+        <param name="trigger_mode" type="bool" value="false"/>
+
+        <!-- the cycle rate of the node (in Hz) -->
+        <param name="loop_rate" type="double" value="10.0"/>
+    </node>
+</launch>

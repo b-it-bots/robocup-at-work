@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- Note: example launch file. Do not modify! -->
+<launch>
+    <node pkg="mcr_twist_controller" type="twist_controller_node"
+            name="twist_controller" output="screen">
+
+        <!-- the cycle rate of the node (in Hz) -->
+        <param name="loop_rate" type="double" value="10"/>
+
+        <!-- proportional gains for the Cartesian linear velocities -->
+        <param name="p_gain_x" type="double" value="0.8"/>
+        <param name="p_gain_y" type="double" value="0.4"/>
+        <param name="p_gain_z" type="double" value="-0.8"/>
+    </node>
+</launch>

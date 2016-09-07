@@ -1,17 +1,18 @@
 #!/usr/bin/env python
+# -*- encoding: utf-8 -*-
 """
 This module contains a component that monitors if the
 distance between two poses is within a specified tolerance.
 
 """
-#-*- encoding: utf-8 -*-
-__author__ = 'jsanch'
 
 import math
 import rospy
 import std_msgs.msg
 import geometry_msgs.msg
 import tf
+
+__author__ = 'jsanch'
 
 
 class CartesianDistanceMonitor(object):
@@ -28,8 +29,8 @@ class CartesianDistanceMonitor(object):
 
         self.listener = tf.TransformListener()
 
-        # node cycle rate (in seconds)
-        self.loop_rate = rospy.get_param('~loop_rate', 0.1)
+        # node cycle rate (in hz)
+        self.loop_rate = rospy.Rate(rospy.get_param('~loop_rate', 10))
         # how long to wait for transform (in seconds)
         self.wait_for_transform = rospy.get_param('~wait_for_transform', 0.1)
         # the minimum Euclidean distance to activate the monitor (in meters)
@@ -61,7 +62,7 @@ class CartesianDistanceMonitor(object):
                 state = self.running_state()
 
             rospy.logdebug("State: {0}".format(state))
-            rospy.sleep(self.loop_rate)
+            self.loop_rate.sleep()
 
     def event_in_cb(self, msg):
         """
@@ -108,8 +109,6 @@ class CartesianDistanceMonitor(object):
         if self.event == 'e_start':
             return 'RUNNING'
         elif self.event == 'e_stop':
-            self.pose_1 = None
-            self.pose_2 = None
             self.transformed_pose = None
             return 'INIT'
         else:
@@ -124,8 +123,6 @@ class CartesianDistanceMonitor(object):
 
         """
         if self.event == 'e_stop':
-            self.pose_1 = None
-            self.pose_2 = None
             self.transformed_pose = None
             return 'INIT'
         else:

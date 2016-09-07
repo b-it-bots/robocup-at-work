@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="mux" default="mux_topics" />
+  <arg name="output_topic" default="/output" />
+  <arg name="input_topic1" default="/input1" />
+  <arg name="input_topic2" default="/input2" />
+  <arg name="node_name" default="mux_topics" />
+  <arg name="manager" default="mux_manager" />
+  <arg name="type" default="load" />
+
+  <!-- after the mux argument, specify the output topic and all the input topics after that -->
+  <node pkg="nodelet" type="nodelet" name="$(arg node_name)" args="$(arg type) mcr_topic_tools/TopicMux $(arg manager) mux:=$(arg mux) $(arg output_topic) $(arg input_topic1) $(arg input_topic2)" output="screen" >
+      <param name="lazy" type="bool" value="true" />
+  </node>
+
+</launch>

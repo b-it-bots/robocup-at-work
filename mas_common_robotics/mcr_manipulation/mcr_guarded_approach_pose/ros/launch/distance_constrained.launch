@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Note: this is an example launch file -->
+    <group ns="mcr_manipulation/distance_constrained">
+        <node pkg="mcr_arm_motions" type="cartesian_motion_node"
+                name="cartesian_motion" output="screen">
+
+            <!-- the cycle time of the node (in seconds) -->
+            <param name="cycle_time" type="double" value="0.1"/>
+
+            <!-- the duration of the arm motion (in seconds) -->
+            <param name="motion_duration" type="double" value="550.2"/>
+        </node>
+
+        <node pkg="mcr_geometric_relation_monitors" type="component_wise_pose_error_monitor_node"
+                name="component_wise_pose_error_monitor" output="screen">
+
+            <!-- the cycle rate of the node (in Hz) -->
+            <param name="loop_rate" type="double" value="10.0"/>
+
+            <!-- the linear threshold for the Z axis -->
+            <param name="threshold_linear_z" type="double" value="0.25"/>
+        </node>
+
+        <node pkg="mcr_guarded_approach_pose" type="distance_constrained_node"
+                name="distance_constrained" output="screen">
+
+            <!-- the cycle rate of the node (in Hz) -->
+            <param name="loop_rate" type="double" value="10.0"/>
+
+            <!-- the elements of a component-wise pose error to be checked if they are
+                within tolerance (e.g. this checks the linear tolerance on the Z axis -->
+            <rosparam param="desired_tolerances">
+                - 'linear_z'
+            </rosparam>
+
+            <remap from="~start_monitor" to="/mcr_manipulation/component_wise_pose_error_monitor/event_in"/>
+            <remap from="~start_cartesian_motion" to="/mcr_manipulation/cartesian_motion/event_in"/>
+            <remap from="~monitor_feedback" to="/mcr_manipulation/component_wise_pose_error_monitor/feedback"/>
+        </node>
+    </group>
+</launch>

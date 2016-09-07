@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_event_gui.node_widgets_container
+
+if __name__ == '__main__':
+    mcr_event_gui.node_widgets_container.main()

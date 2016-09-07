@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <include file="$(find mcr_body_detection_3d)/ros/launch/body_detection_3d.launch" />
+
+  <test pkg="mcr_body_detection_3d" type="body_detection_3d_integration_test" test-name="body_detection_3d_integration_test" time-limit="120.0">
+    <param name="dataset_path" value="$(find mds_pointclouds)/people/single_persons/" />
+
+    <remap from="~input_pointcloud" to="/head_cam3d/depth_registered/points" />
+    <remap from="~people_positions" to="/mcr_perception/body_detection_3d/people_positions" />
+    <remap from="~event_out" to="/mcr_perception/body_detection_3d/event_in" />
+  </test>
+
+</launch>

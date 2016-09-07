@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- NOTE: This is an example launch file, please do not modify! -->
+
+    <arg name="script_path" default="$(find mcr_task_planning_tools)/ros/test/test_script.sh" />
+    <arg name="use_script_args" default="false" />
+    <arg name="config_file" default="$(find mcr_task_planning_tools)/ros/config/run_script_params.yaml" if="$(arg use_script_args)" />
+
+    <!-- generic class to run bash scripts -->
+    <node pkg="mcr_task_planning_tools" type="run_script_node" name="run_script_node" output="screen" ns="mcr_task_planning_tools" >
+        <param name="script_path" value="$(arg script_path)" />
+        <rosparam file="$(arg config_file)" command="load" if="$(arg use_script_args)" />
+    </node>
+
+</launch>

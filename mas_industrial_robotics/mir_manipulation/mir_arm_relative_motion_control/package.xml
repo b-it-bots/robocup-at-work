@@ -2,7 +2,9 @@
 <package>
   <name>mir_arm_relative_motion_control</name>
   <version>0.0.1</version>
-  <description>The mir_arm_relative_motion_control package</description>
+  <description>
+    Relative motion control interface for a manipulator
+  </description>
   
   <maintainer email="shehzad@h-brsu.de">Shehzad Ahmed</maintainer>
   <license>BSD</license>
@@ -16,5 +18,7 @@
   <run_depend>std_msgs</run_depend>
   <run_depend>tf</run_depend>
   <run_depend>actionlib</run_depend>
-  
+
+  <test_depend>roslaunch</test_depend>  
+
 </package>

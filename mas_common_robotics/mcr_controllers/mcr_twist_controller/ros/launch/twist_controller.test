@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_twist_controller" type="twist_controller_node"
+            name="twist_controller" output="screen">
+
+        <!-- the cycle rate of the node (in Hz) -->
+        <param name="loop_rate" type="double" value="10"/>
+
+        <!-- proportional gains for the Cartesian linear/angular velocities -->
+        <param name="p_gain_x" type="double" value="0.8"/>
+        <param name="p_gain_y" type="double" value="0.4"/>
+        <param name="p_gain_z" type="double" value="-0.8"/>
+        <param name="p_gain_roll" type="double" value="-0.8"/>
+        <param name="p_gain_yaw" type="double" value="-0.8"/>
+
+    </node>
+
+    <test pkg="mcr_twist_controller" type="twist_controller_test.py"
+            test-name="test_twist_controller">
+
+        <remap from="~component_output" to="/twist_controller/controlled_twist"/>
+        <remap from="~event_out" to="/twist_controller/event_in"/>
+        <remap from="~pose_error" to="/twist_controller/pose_error"/>
+
+    </test>
+</launch>

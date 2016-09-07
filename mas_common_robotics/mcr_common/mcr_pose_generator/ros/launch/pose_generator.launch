@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_pose_generator" type="pose_generator_node"
+            name="pose_generator" output="screen" ns="mcr_common">
+        <rosparam command="load"
+                  file="$(find mcr_pose_generator)/ros/config/gripper_configuration_matrix.yaml" />
+
+        <!-- the cycle rate of the node (in hz) -->
+        <param name="loop_rate"  type="double" value="10.0"/>
+
+        <!-- the sampling step for linear variables (in meters) -->
+        <param name="linear_step" type="double" value="0.01"/>
+
+        <!-- the sampling step for angular variables (in radians) -->
+        <param name="angular_step" type="double" value="0.2618"/>
+
+        <!-- the configuration matrix of the gripper to be used -->
+        <param name="gripper_config_matrix" type="str" value="sdh_side_grasp"/>
+
+    </node>
+</launch>

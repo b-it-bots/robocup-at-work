@@ -16,13 +16,13 @@
   <build_depend>controller_interface</build_depend>
   <build_depend>hardware_interface</build_depend>
   <build_depend>brics_actuator</build_depend>
-  <build_depend>rostest</build_depend>
 
   <run_depend>actionlib</run_depend>
   <run_depend>controller_interface</run_depend>
   <run_depend>hardware_interface</run_depend>
   <run_depend>brics_actuator</run_depend>
-  <run_depend>rostest</run_depend>
+
+  <test_depend>rostest</test_depend>
 
   <export>
     <controller_interface plugin="${prefix}/ros_control_plugins.xml"/>

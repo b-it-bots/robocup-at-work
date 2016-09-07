@@ -1,69 +1,119 @@
 #!/usr/bin/env python
 
+NODE = 'object_detector'
+
 import rospy
+import numpy as np
+from tf.transformations import quaternion_from_euler
+import tf
 
-from mcr_perception_msgs.msg import Object, ObjectList
-from mcr_perception_msgs.srv import RecognizeObject
-from mcr_perception_msgs.srv import GetObjectList, GetObjectListResponse
+from mcr_scene_segmentation.label_visualizer import LabelVisualizer
+from mcr_perception_msgs.msg import ObjectList
+from mcr_perception_msgs.msg import Object
 
-from geometry_msgs.msg import PoseStamped
-
-object_list = []
-
-
-def _objectlist_to_str(list):
-    object_str = "["
-    for o in list:
-        object_str += o.name + ", "
-    object_str += "]"
-    
-    return object_str
-
-def _set_object_cb(new_obj_list):
-    global object_list
-    
-    object_list = new_obj_list.objects
-    rospy.loginfo("Setting new object list to " + _objectlist_to_str(object_list))
+import std_msgs.msg
+import geometry_msgs.msg
 
 
-def _add_object_cb(object):
-    global object_list
-    
-    object_list.append(object)
-    rospy.loginfo("Adding new object to list: " + str(object.name))
-    rospy.loginfo("current list: " + _objectlist_to_str(object_list))
-    
-def _rm_object_cb(object):
-    global object_list
-    
-    for o in object_list:
-        if (o.name == object.name):
-            object_list.remove(o)
-            rospy.loginfo("Removing object from list " + str(object.name))
-            rospy.loginfo("current list: " + _objectlist_to_str(object_list))
-            return
+class ObjectDetectorMockup(object):
+    """
+    This class publishes an object list with positions, orientations and names defined as parameters
+    It also broadcasts TFs for the objects and visualization labels of the object names
+    """
 
-def _detect_objects_cb(request):
-    global object_list
-    
-    rospy.loginfo("_detect_objects_cb")
-    
-    get_object_response = GetObjectListResponse()
-    get_object_response.objects = list(object_list)
-    
-    rospy.loginfo("Returning list: " + _objectlist_to_str(get_object_response.objects))
-    rospy.loginfo("current list: " + _objectlist_to_str(object_list))
-    
-    return get_object_response
-    
+    def __init__(self):
+        self.object_list_pub = rospy.Publisher('~object_list', ObjectList)
+        self.event_out_pub = rospy.Publisher('~event_out', std_msgs.msg.String)
+        self.event_in_sub = rospy.Subscriber('~event_in', std_msgs.msg.String, self.event_in_cb)
+        self.tf_broadcaster = tf.TransformBroadcaster()
+        self.tf_listener = tf.TransformListener()
+        self.label_vis = LabelVisualizer('/visualization_marker_array', 'teal')
+
+    def event_in_cb(self, msg):
+        if msg.data == "e_trigger":
+            if self.publish_object_list():
+                self.event_out_pub.publish("e_done")
+            else:
+                self.event_out_pub.publish("e_failed")
+
+    def publish_object_list(self):
+        object_list = self.generate_object_list()
+        if object_list.objects:
+            self.visualize_labels(object_list)
+            self.broadcast_tf(object_list)
+            self.object_list_pub.publish(object_list)
+            return True
+        else:
+            return False
+
+    def generate_object_list(self):
+        object_list = ObjectList()
+
+        target_frame_id = None
+        if rospy.has_param('~target_frame'):
+            target_frame_id = rospy.get_param('~target_frame')
+
+        objects = rospy.get_param('~objects')
+
+        ctr = 0
+        for mockup_object in objects:
+            obj = Object()
+
+            obj_pose = geometry_msgs.msg.PoseStamped()
+            obj_pose.header.frame_id = '/base_link'
+            obj_pose.header.stamp = rospy.Time.now()
+
+            mockup_object_pose = mockup_object.values()[0]
+            obj_pose.pose.position.x = mockup_object_pose[0]
+            obj_pose.pose.position.y = mockup_object_pose[1]
+            obj_pose.pose.position.z = 0.05
+
+            q = quaternion_from_euler(0.0, 0.0, np.radians(mockup_object_pose[2]))
+            obj_pose.pose.orientation.x = q[0]
+            obj_pose.pose.orientation.y = q[1]
+            obj_pose.pose.orientation.z = q[2]
+            obj_pose.pose.orientation.w = q[3]
+
+            if target_frame_id:
+                try:
+                    common_time = self.tf_listener.getLatestCommonTime(target_frame_id, obj_pose.header.frame_id)
+                    obj_pose.header.stamp = common_time
+
+                    self.tf_listener.waitForTransform(
+                        target_frame_id, obj_pose.header.frame_id,
+                        obj_pose.header.stamp, rospy.Duration(0.1)
+                    )
+
+                    obj_pose = self.tf_listener.transformPose(target_frame_id, obj_pose)
+                except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException, tf.Exception):
+                    rospy.logerr('Unable to transform %s -> %s' % (obj_pose.header.frame_id, target_frame_id))
+                    continue
+
+            obj.pose = obj_pose
+            obj.bounding_box.center = obj_pose.pose.position
+            obj.name = mockup_object.keys()[0]
+            obj.database_id = ctr
+            obj.probability = np.random.rand()
+            object_list.objects.append(obj)
+            ctr += 1
+        return object_list
+
+    def visualize_labels(self, object_list):
+        self.label_vis.publish([obj.name for obj in object_list.objects],
+                               [obj.bounding_box.center for obj in object_list.objects],
+                               object_list.objects[0].pose.header.frame_id)
+
+    def broadcast_tf(self, object_list):
+        for i, obj in enumerate(object_list.objects):
+            p = obj.pose.pose.position
+            q = obj.pose.pose.orientation
+            self.tf_broadcaster.sendTransform(
+                (p.x, p.y, p.z), (q.x, q.y, q.z, q.w),
+                rospy.Time.now(), 'object_%i' % i, obj.pose.header.frame_id
+            )
+
 if __name__ == '__main__':
-    rospy.init_node("detect_objects_node_mockup")
-
-    s = rospy.Service('~detect_objects', GetObjectList, _detect_objects_cb)
-    rospy.loginfo('detect_objects service MOCKUP started')
-    
-    rospy.Subscriber("~set_object_to_mockup", ObjectList, _set_object_cb)
-    rospy.Subscriber("~add_object_to_mockup", Object, _add_object_cb)
-    rospy.Subscriber("~rm_object_from_mockup", Object, _rm_object_cb)
-    
+    rospy.init_node(NODE)
+    rospy.loginfo('Started [object_detector] node (mockup)')
+    object_detector_mockup = ObjectDetectorMockup()
     rospy.spin()

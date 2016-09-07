@@ -10,6 +10,14 @@ install(PROGRAMS
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
+### TESTS
+if(CATKIN_ENABLE_TESTING)
+  find_package(roslaunch REQUIRED)
+  roslaunch_add_file_check(ros/launch)
+endif()
+
+
+### INSTALLS
 set(INSTALL_DIRS common/models/ ros/launch/ ros/templates/ ros/urdf/) 
 foreach(dir ${INSTALL_DIRS}) 
   install(DIRECTORY ${dir}

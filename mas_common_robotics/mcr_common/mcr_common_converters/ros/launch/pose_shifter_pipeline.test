@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find mcr_common_converters)/ros/launch/pose_shifter_pipeline_example.launch">
+    <!-- <arg name="linear_offset" default="[0.0, 0.0, 0.0]"/> -->
+    <arg name="reference_frame" default="base_link"/>
+    <arg name="target_frame" default="base_link"/>
+  </include>
+
+  <test pkg="mcr_common_converters" type="pose_shifter_pipeline_test.py"
+        test-name="test_pose_shifter" ns="mcr_common" >
+
+    <remap from="~pose_in" to="/mcr_common/pose_shifter/pose_in"/>
+    <remap from="~event_out" to="/mcr_common/pose_shifter/event_in"/>
+    <remap from="~component_output" to="/mcr_common/pose_shifter/pose_out"/>
+  </test>
+</launch>

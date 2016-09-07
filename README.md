@@ -1,7 +1,7 @@
 ## Install Ubuntu
 The repository and its related components have been tested under the following Ubuntu distributions:
 
-- ROS Hydro: Ubuntu 12.04
+- ROS Indigo: Ubuntu 14.04
 
 If you do not have a Ubuntu distribution on your computer you can download it here
 
@@ -18,7 +18,7 @@ Now it's time to configure your settings. To do this you need to open a new Term
 
      git config --global user.name "Your Name Here"
 
-Git also saves your email address into the commits you make. We use the email address to associate your commits with your GitHub account:
+Git also saves your email address into the commits you make.
 
      git config --global user.email "your-email@youremail.com"
 
@@ -33,7 +33,8 @@ If you have never worked with git before, we recommend to go through the followi
 ### Install ROS
 The repository has been tested successfully with the following ROS distributions. Use the link behind a ROS distribution to get to the particular ROS installation instructions.
 
-- ROS Hydro - http://www.ros.org/wiki/Hydro/Installation/Ubuntu
+
+- ROS Indigo - http://wiki.ros.org/indigo/Installation/Ubuntu
 
 NOTE: Do not forget to update your .bashrc!
  
@@ -41,23 +42,23 @@ NOTE: Do not forget to update your .bashrc!
 ### ROS Tutorials
 If you have never worked with ROS before, we recommend to go through the beginner tutorials provided by ROS:
 
-     http://www.ros.org/wiki/ROS/Tutorials
+     http://wiki.ros.org/ROS/Tutorials
 
 In order to understand at least the different core components of ROS, you have to start from tutorial 1 ("Installing and Configuring Your ROS Environment") till tutorial 7 ("Understanding ROS Services and Parameters"). 
 
 
 ## Set up a catkin workspace
 
-    source /opt/ros/hydro/setup.bash
+    source /opt/ros/indigo/setup.bash
     mkdir -p ~/catkin_ws/src; cd ~/catkin_ws/src
     catkin_init_workspace
-    cd ..
+    cd ~/catkin_ws
     catkin_make
     
 ## Clone and compile the RoboCup@Work source code
 First of all you have to clone the repository.
 
-    cd ~/catkin_ws/src;
+    cd ~/catkin_ws/src
     git clone git@github.com:mas-group/robocup-at-work.git
 
 Then go on with installing further external dependencies:
@@ -105,11 +106,10 @@ The ROBOT_ENV variable can be used to switch between different environments. The
 In a new terminal you can open the Gazebo GUI to see the environment and the robot
 
      rosrun gazebo_ros gzclient
-     
 
 ### At the Real Robot
 
-     roslaunch mir_bringup robot.launch (NOT YET WORKING WITH CATKIN AND HYDRO)
+     roslaunch mir_bringup robot.launch
      
 
 ## Test the base
@@ -131,3 +131,7 @@ In a new terminal you can open the Gazebo GUI to see the environment and the rob
 ### Omni-directional navigation
 
      roslaunch mir_2dnav 2dnav.launch nav_mode:=dwa
+
+     
+
+Click on the menu bar "File -> Open Config", navigate to "~/catkin_ws/src/robocup-at-work/mas_industrial_robotics" and select the "youbot.rviz" file.

@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_trajectory_generation_ros.ik_trajectory_solver
+
+if __name__ == '__main__':
+    mcr_trajectory_generation_ros.ik_trajectory_solver.main()

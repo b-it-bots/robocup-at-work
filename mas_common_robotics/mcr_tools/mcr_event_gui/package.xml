@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_event_gui</name>
+  <version>0.1.0</version>
+  <description>GUI for sending event_in and receiving event_out messages from nodes</description>
+
+  <maintainer email="santosh.thoduka@smail.h-brs.de">Santosh Thoduka</maintainer>
+  <author email="santosh.thoduka@smail.h-brs.de">Santosh Thoduka</author>
+
+  <license>GPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>rqt_gui_py</build_depend>
+  <build_depend>roslint</build_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>rqt_gui</run_depend>
+  <run_depend>rqt_gui_py</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+
+</package>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_guarded_approach_pose</name>
+  <version>0.1.0</version>
+  <description>
+  A package that moves a manipulator in Cartesian space until a contact is detected.
+  It uses two nodes:
+    (mcr_arm_motions) cartesian_motion_node and
+    (mcr_twitch_detection) twitch_detector.
+  </description>
+  <license>GPLv3</license>
+
+  <maintainer email="shehzad.ahmed@smail.inf.h-brs.de">Shehzad Ahmed</maintainer>
+  <maintainer email="jose.sanchez.loza@gmail.com">Jose Sanchez</maintainer>
+  <author email="jose.sanchez.loza@gmail.com">Jose Sanchez</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>rospy</build_depend>
+  <build_depend>roslint</build_depend>
+
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>mcr_manipulation_msgs</run_depend>
+  <run_depend>mcr_monitoring_msgs</run_depend>
+  <run_depend>mcr_manipulation_measurers</run_depend>
+  <run_depend>mcr_pose_generator</run_depend>
+  <run_depend>mcr_geometric_relation_monitors</run_depend>
+  <run_depend>mcr_arm_motions</run_depend>
+  <run_depend>mcr_common_converters</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+  <test_depend>rostest</test_depend>
+</package>

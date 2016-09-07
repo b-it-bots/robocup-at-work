@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- Note: this is an example launch file, do not modify. -->
+<launch>
+  <arg name="file_path" default="~/.ros/bagfiles"/>
+  <arg name="file_prefix" default="b-it-bots"/>
+  <arg name="topics" default="$(find mcr_rosbag_recorder)/ros/config/topics.yaml" />
+
+  <node pkg="mcr_rosbag_recorder" type="rosbag_recorder_node"
+        name="rosbag_recorder" ns="mcr_tools" output="screen">
+    <param name="topics" type="str" value="$(arg topics)"/>
+    <param name="file_path" type="str" value="$(arg file_path)"/>
+    <param name="file_prefix" type="str" value="$(arg file_prefix)"/>
+    <param name="loop_rate" type="double" value="1.0"/>
+  </node>
+</launch>

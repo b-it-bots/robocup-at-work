@@ -1,14 +1,36 @@
 #!/bin/bash
+if [ $# == 0 ]; then
+    INSTALL_PACKAGES=true
+else
+    INSTALL_PACKAGES=$1
+fi
 
 # create list of packages to install
 packagelist=(
-  gobject-introspection
-  gtk-doc-tools 
-  intltool
-  ros-hydro-opencv2
-  ros-hydro-ros
+  bison
+  flex
+  gawk
+  g++-multilib
+  pypy
+  python-catkin-lint
+  python-rosinstall
+  ros-indigo-ros
+  ros-indigo-vision-opencv
   unzip
 )
 
 ### Install debian packages listed in array above
-sudo apt-get install -y ${packagelist[@]}
+if [ $INSTALL_PACKAGES != false ]; then
+    sudo apt-get install -y ${packagelist[@]}
+fi
+
+### install further repositories
+rosinstall .. /opt/ros/indigo repository.rosinstall
+
+### install dependencies of BRSU repositories
+dependent_repositories=$(grep -r "local-name:" repository.rosinstall  | cut -d":" -f 2 | sed -r 's/\s+//g')
+for i in $dependent_repositories
+do
+    cd ../$i
+    if [ -f repository.debs ]; then ./repository.debs $INSTALL_PACKAGES ; fi
+done

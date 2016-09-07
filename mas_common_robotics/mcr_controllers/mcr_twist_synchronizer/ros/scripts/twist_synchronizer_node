@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_twist_synchronizer_ros.twist_synchronizer
+
+if __name__ == '__main__':
+    mcr_twist_synchronizer_ros.twist_synchronizer.main()

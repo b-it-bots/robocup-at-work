@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<package>
+
+  <name>mcr_twist_demultiplexer</name>
+  <version>0.1.0</version>
+  <description>Twist demultiplexer component used to split a twist message to the base and arm as required</description>
+
+  <maintainer email="mashoksc@gmail.com">Ashok Meenakshi Sundaram</maintainer>
+  <maintainer email="arkamallick30@gmail.com">Arka Mallick</maintainer>
+  <maintainer email="santosh.thoduka@smail.inf.h-brs.de">Santosh Thoduka</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="mashoksc@gmail.com">Ashok Meenakshi Sundaram</author>
+  <author email="arkamallick30@gmail.com">Arka Mallick</author>
+  <author email="santosh.thoduka@smail.inf.h-brs.de">Santosh Thoduka</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>mcr_monitoring_msgs</build_depend>
+
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>mcr_monitoring_msgs</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+</package>

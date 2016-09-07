@@ -25,10 +25,10 @@ class TestCartesianMotion(unittest.TestCase):
 
         # publishers
         self.event_out = rospy.Publisher(
-            '~event_out', std_msgs.msg.String, latch=True
+            '~event_out', std_msgs.msg.String, latch=True, queue_size=1
         )
         self.desired_velocity = rospy.Publisher(
-            '~desired_velocity', geometry_msgs.msg.TwistStamped
+            '~desired_velocity', geometry_msgs.msg.TwistStamped, queue_size=1
         )
 
         # subscribers
@@ -50,6 +50,9 @@ class TestCartesianMotion(unittest.TestCase):
         Verifies that the node returns the correct twist message.
 
         """
+        # Note: This parameter has to match the one specified in the .test file.
+        motion_duration = 0.5       # in seconds
+
         test_velocity = geometry_msgs.msg.TwistStamped()
         test_velocity.twist.linear.x = 0.0
         test_velocity.twist.linear.y = 0.0
@@ -86,6 +89,32 @@ class TestCartesianMotion(unittest.TestCase):
         self.assertAlmostEqual(self.result.twist.linear.x, 0.0)
         self.assertAlmostEqual(self.result.twist.linear.y, 0.0)
         self.assertAlmostEqual(self.result.twist.linear.z, 0.0)
+        self.assertAlmostEqual(self.result.twist.angular.x, 0.0)
+        self.assertAlmostEqual(self.result.twist.angular.y, 0.0)
+        self.assertAlmostEqual(self.result.twist.angular.z, 0.0)
+
+        # Check for time to ran out.
+        self.wait_for_result = None
+        self.result = None
+
+        while not self.wait_for_result:
+            self.event_out.publish('e_start')
+            self.desired_velocity.publish(test_velocity)
+
+        self.assertAlmostEqual(
+            self.result.twist.linear.x, expected_result.twist.linear.x,
+            msg="First"
+        )
+        self.assertAlmostEqual(
+            self.result.twist.linear.z, expected_result.twist.linear.z,
+            msg="Second"
+        )
+
+        rospy.sleep(motion_duration)
+
+        self.assertAlmostEqual(self.result.twist.linear.x, 0.0, msg="Third")
+        self.assertAlmostEqual(self.result.twist.linear.y, 0.0)
+        self.assertAlmostEqual(self.result.twist.linear.z, 0.0, msg="Fourth")
         self.assertAlmostEqual(self.result.twist.angular.x, 0.0)
         self.assertAlmostEqual(self.result.twist.angular.y, 0.0)
         self.assertAlmostEqual(self.result.twist.angular.z, 0.0)

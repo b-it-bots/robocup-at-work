@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>	
+  <node pkg="mcr_leg_detection" type="leg_detection_node" name="leg_detection" ns="mcr_perception" args="$(find mcr_leg_detection)/ros/config/trained_leg_detection.yaml" output="screen">
+    <remap from="~scan" to="/scan_front" />
+  </node>
+</launch>

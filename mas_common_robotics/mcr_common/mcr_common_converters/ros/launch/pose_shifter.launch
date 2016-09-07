@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- Note: example launch file. Do not modify! -->
+<launch>
+  <!-- Linear offset in X, Y and Z (in meters) -->
+  <arg name="linear_offset" default="[0.0, 0.0, 0.0]"/>
+
+  <node pkg="mcr_common_converters" type="pose_shifter_node"
+        name="pose_shifter" output="screen" ns="mcr_common" >
+
+    <!-- Linear offset in X, Y and Z (in meters) -->
+    <rosparam param="linear_offset" subst_value="True">$(arg linear_offset)</rosparam>
+  </node>
+</launch>

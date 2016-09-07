@@ -41,8 +41,9 @@ class move_arm(smach.State):
     move_arm_to: str | tuple | list
         target where the arm should move. If it is a string, then it gives
         target name (should be availabile on the parameter server). If it as
-        tuple or a list, then it is treated differently based on the length. If
-        are 7 items, then it is cartesian pose (x, y, z, r, p ,y) + the corresponding frame
+        tuple or a list, then it is treated differently based on the length. If it
+        has 7 items, then it is cartesian pose (x, y, z, r, p ,y) + the corresponding frame.
+        If it has 5 items, then it is arm configuration in join space.
     """
 
     def __init__(self, target=None, blocking=True, tolerance=None):
@@ -83,6 +84,12 @@ class move_arm(smach.State):
                 except Exception as e:
                     rospy.logerr('unable to set target position: %s' % (str(e)))
                     return 'failed'
+            elif len(target) == 5:      # ... of 5 items: Joint space configuration
+                try:
+                    arm_command.set_joint_value_target(target)               
+                except Exception as e:
+                    rospy.logerr('unable to set target position: %s' % (str(e)))
+                    return 'failed'
             else:
                 rospy.logerr("target list is malformed")
                 return 'failed'
@@ -92,7 +99,7 @@ class move_arm(smach.State):
 
         # plan and execute arm movement        
         error_code = arm_command.go(wait=self.blocking)
-
+        error_code = arm_command.go(wait=self.blocking)
         if error_code == moveit_msgs.msg.MoveItErrorCodes.SUCCESS:
             return 'succeeded'
         else:
@@ -117,35 +124,46 @@ class control_gripper(smach.State):
         return 'succeeded'
        
 
-class grasp_object(smach.State):
+class linear_motion(smach.State):
 
     """
     Should be called after visual servoing has aligned the gripper with the object.
+    Should probably be renamed in the future, or seperated into linear motion and grasping/releasing. 
     """
 
-    def __init__(self):
+    def __init__(self, operation='grasp', offset_x=0.0):
         smach.State.__init__(self, outcomes=['succeeded', 'failed'])
+        self.operation = operation
         self.result = None
         self.event_out = rospy.Publisher('/arm_relative_motion_controller/event_in', std_msgs.msg.String)
         rospy.Subscriber('/arm_relative_motion_controller/event_out', std_msgs.msg.String, self.event_cb)
+        self.offset_x = offset_x
         
 
     def execute(self, userdata):
+        rospy.set_param('/arm_relative_motion_controller/relative_distance_x', self.offset_x)
         self.result = None
 
-        gripper_command.set_named_target('open')
-        gripper_command.go()
-        
+        if self.operation == 'grasp': 
+            gripper_command.set_named_target('open')
+            gripper_command.go(wait=True)
+        elif self.operation == 'release':
+            pass # Don't do anything, assume the gripper is already closed
+
         # start the relative approach and wait for the result
         self.event_out.publish('e_start')
         while not self.result:
-            rospy.sleep(0.1)
+            rospy.sleep(0.01)
 
         if self.result.data != 'e_success':
             return 'failed'
-
-        gripper_command.set_named_target('close')
-        gripper_command.go()
+        
+        if self.operation == 'grasp':
+            gripper_command.set_named_target('close')
+            gripper_command.go(wait=True)
+        elif self.operation == 'release':
+            gripper_command.set_named_target('open')
+            gripper_command.go(wait=True)
 
         return 'succeeded'
 
@@ -171,12 +189,13 @@ class place_object_in_configuration(smach.State):
         
         arm_command.set_named_target(cfg_goal_pose)
         arm_command.go()
+        arm_command.go()
         
         gripper_command.set_named_target("open")
         gripper_command.go()
         
-        arm_command.set_named_target("platform_intermediate")
-        arm_command.go()
+        #arm_command.set_named_target("platform_intermediate")
+        #arm_command.go()
                 
         return 'succeeded'
 
@@ -266,4 +285,35 @@ class update_robot_planning_scene(smach.State):
         self.pub_object_id.publish(userdata.object.database_id)
         self.pub_event.publish("e_" + self.action)
         
+        return 'succeeded'
+
+class select_arm_pose(smach.State):
+
+    """
+    TODO
+    """
+
+    def __init__(self, pose_name_list=None):
+        smach.State.__init__(self,
+                             outcomes=['succeeded','failed','completed'],
+                 input_keys=['next_arm_pose_index'],
+                             output_keys=['move_arm_to','next_arm_pose_index'])
+        self.pose_name_list = pose_name_list
+    
+    def execute(self, userdata):
+        if type(userdata.next_arm_pose_index) is not int:
+             userdata.next_arm_pose_index = 0
+
+        if len(self.pose_name_list) <= 0:
+            rospy.logerr("pose name list is empty")
+            return 'failed'
+
+        if userdata.next_arm_pose_index >= len(self.pose_name_list):
+            rospy.loginfo("[manipulation states] All poses covered ending loop")
+            userdata.next_arm_pose_index = 0
+            return 'completed'
+
+        userdata.move_arm_to = self.pose_name_list[userdata.next_arm_pose_index]
+        userdata.next_arm_pose_index += 1
+
         return 'succeeded'

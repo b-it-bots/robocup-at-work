@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <group ns="mcr_perception">
+        <node pkg="mcr_pose_estimation" type="pca_pose_estimator" name="pca_pose_estimator" output="screen" respawn="false">
+            <remap from="~input/pointcloud" to="/mcr_perception/contour_template_matcher/output/matched_contour_pc" />
+        </node>
+    </group>
+</launch>

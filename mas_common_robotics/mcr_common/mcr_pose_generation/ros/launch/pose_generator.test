@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find mcr_pose_generation)/ros/launch/pose_generator.launch">
+    <arg name="gripper_config_matrix" default="sdh_side_grasp"/>
+  </include>
+
+  <test pkg="mcr_pose_generation" type="pose_generator_test.py"
+        test-name="test_pose_generator" ns="mcr_common">
+
+    <remap from="~component_output" to="/mcr_common/pose_generator/poses_list"/>
+    <remap from="~event_out" to="/mcr_common/pose_generator/event_in"/>
+    <remap from="~sampling_parameters" to="/mcr_common/pose_generator/sampling_parameters"/>
+    <remap from="~target_pose" to="/mcr_common/pose_generator/target_pose"/>
+  </test>
+</launch>

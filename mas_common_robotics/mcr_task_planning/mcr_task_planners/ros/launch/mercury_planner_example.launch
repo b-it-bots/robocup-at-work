@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- NOTE : This is an example launch file, please do not modify ! -->
+
+    <!-- Calls mas_third_party_software mercury_planner -->
+
+    <arg name="domain" default="example_domain" />
+    <arg name="problem" default="p1" />
+
+    <arg name="domain_path" default="$(find mcr_task_planners)/common/pddl/$(arg domain)/domain.pddl" />
+    <arg name="problem_path" default="$(find mcr_task_planners)/common/pddl/$(arg domain)/problems/$(arg problem).pddl" />
+
+    <arg name="mercury_planner_base_path" default="$(find mercury_planner)/build/Mercury-fixed/seq-sat-mercury" />
+    <arg name="timeout" default="10.0" /> <!-- the maximum amount of time for the planner to produce a plan in seconds-->
+    <arg name="parametrized_search" default="false" /> <!-- false : single search, true : 10 times search with different params -->
+    <arg name="search_cost_type" default="1" unless="$(arg parametrized_search)" /> <!-- options : 1,2 -->
+    <arg name="search_weigth" default="3" unless="$(arg parametrized_search)" /> <!-- suggested : 1-5 -->
+
+    <node pkg="mcr_task_planning_tools" type="run_script_node" name="mercury_planner" output="screen" ns="mcr_task_planning" >
+        <param name="script_path" value="$(find mcr_task_planners)/common/scripts/mercury_planner/mercury_planner.sh" />
+        <rosparam param="script_arguments" subst_value="True" if="$(arg parametrized_search)" >
+            [   $(arg domain_path),
+                $(arg problem_path),
+                $(arg mercury_planner_base_path),
+                "$(arg timeout)",
+                "$(arg parametrized_search)"]</rosparam>
+        <rosparam param="script_arguments" subst_value="True" unless="$(arg parametrized_search)" >
+            [   $(arg domain_path),
+                $(arg problem_path),
+                $(arg mercury_planner_base_path),
+                "$(arg timeout)",
+                "$(arg parametrized_search)",
+                "$(arg search_cost_type)",
+                "$(arg search_weigth)"]</rosparam>
+    </node>
+
+</launch>

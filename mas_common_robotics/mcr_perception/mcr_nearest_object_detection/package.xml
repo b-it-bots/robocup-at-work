@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_nearest_object_detection</name>
+  <version>0.0.1</version>
+  <description>Detects the nearest object in a laser scan w.r.t. the robot</description>
+
+  <maintainer email="frederik.hegger@h-brs.de">Frederik Hegger</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="frederik.hegger@h-brs.de">Frederik Hegger</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>laser_filters</build_depend>
+  <build_depend>mcr_algorithms</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>mcr_algorithms</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_srvs</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+
+ </package>

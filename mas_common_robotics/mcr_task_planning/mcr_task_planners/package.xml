@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>mcr_task_planners</name>
+    <version>1.0.0</version>
+    <description>Store calls to different task planning algorithms</description>
+
+    <maintainer email="olima_84@yahoo.com">Oscar Lima</maintainer>
+
+    <license>GPLv3</license>
+
+    <author email="olima_84@yahoo.com">Oscar Lima</author>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    
+    <run_depend>mcr_task_planning_tools</run_depend>
+
+    <test_depend>roslaunch</test_depend>
+</package>

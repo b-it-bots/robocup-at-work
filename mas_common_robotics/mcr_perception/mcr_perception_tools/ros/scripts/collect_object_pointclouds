@@ -1,0 +1,154 @@
+#!/usr/bin/env python
+
+PACKAGE = 'mcr_perception_tools'
+NODE = 'collect_object_pointclouds'
+DATA_PACKAGE = 'mds_pointclouds'
+
+import sys
+from os.path import join
+import os.path
+import roslib
+
+# Import helper states for user input and counting
+sys.path.append(join(roslib.packages.get_pkg_dir('mcr_object_recognition_bounding_box'), 'common', 'src'))
+from mcr_object_recognition_bounding_box.counter_state import CounterState
+from mcr_object_recognition_bounding_box.confirm_state import ConfirmState
+from mcr_object_recognition_bounding_box.counter_state import CounterState
+
+# Import states for calling services from mcr_scene_segmentation
+sys.path.append(join(roslib.packages.get_pkg_dir('mcr_object_detection'),
+                     'ros', 'src'))
+import mcr_object_detection.service_states
+import mcr_object_detection.topic_states
+
+import rospy
+import argparse
+from sensor_msgs.msg import PointCloud2
+from std_msgs.msg import String
+
+from smach import State, StateMachine, cb_interface
+from smach_ros import ServiceState, ConditionState
+
+
+class SavePointCloud(State):
+    def __init__(self, object_id, dataset):
+        State.__init__(self,
+                       outcomes=['saved', 'failed'],
+                       input_keys=['clusters'])
+
+        self.object_id = object_id
+        self.directory = join(roslib.packages.get_pkg_dir(DATA_PACKAGE), 'objects', 'workspace_setups', dataset)
+
+        self.pc_pub = rospy.Publisher("~object_cloud", PointCloud2)
+        self.name_pub = rospy.Publisher("/mcr_perception/save_pointcloud/input/file_path", String)
+        self.event_sub = rospy.Subscriber("/mcr_perception/save_pointcloud/event_out", String, self.save_cloud_cb)
+        self.count = 0
+
+    def save_cloud_cb(self, event):
+        self.save_cloud_event = event.data
+
+    def execute(self, ud):
+        self.save_cloud_event = ""
+
+        directory_path = join(self.directory, self.object_id)
+        if not os.path.exists(directory_path):
+            os.makedirs(directory_path)
+
+        file_path = directory_path + "/" + str(self.count) + ".pcd"
+        self.name_pub.publish(file_path)
+        self.pc_pub.publish(ud.clusters[0])
+
+        timeout = rospy.Duration.from_sec(5.0)
+        start_time = rospy.Time.now()
+
+        while (True):
+            if self.save_cloud_event == "e_done":
+                self.count += 1
+                return 'saved'
+
+            if self.save_cloud_event == "e_failed":
+                return 'failed'
+
+            if (rospy.Time.now() - start_time) > timeout:
+                rospy.logerr('Timeout of %f seconds exceeded for SavePointCloud' % float(timeout.to_sec()))
+                return 'failed'
+
+            rospy.sleep(0.01)
+
+class SetPolygonTimestamp(State):
+    def __init__(self):
+        State.__init__(self,
+                       outcomes=['succeeded'],
+                       input_keys=['polygon'],
+                       output_keys=['polygon'])
+
+    def execute(self, ud):
+        ud.polygon.header.stamp = rospy.Time.now()
+        return 'succeeded'
+
+if __name__ == '__main__':
+    rospy.init_node(NODE)
+    parser = argparse.ArgumentParser(description='''
+    Collect segmented pointclouds for objects.
+    ''')
+    parser.add_argument('object_id', help='id of the object (as in database)')
+    parser.add_argument('--dataset', help='dataset (default "objects_default")',
+                        default='objects_default')
+    parser.add_argument('--confirm-every', help=('ask for confirmation after '
+                        'this many successful calls to the object detection '
+                        'service'), default=1)
+    args = parser.parse_args()
+
+    cloud_topic = rospy.get_param("input_pointcloud_topic")
+
+    sm = StateMachine(['succeeded', 'aborted', 'preempted'])
+    with sm:
+        StateMachine.add('CONFIRM_OBJECT_AND_DATASET',
+                         ConfirmState('Object: ' + args.object_id + ' Dataset: ' + args.dataset + '. Is this correct?'),
+                         transitions={'yes': 'SUBSCRIBE_TO_POINTCLOUD',
+                                      'no': 'aborted'})
+        StateMachine.add('SUBSCRIBE_TO_POINTCLOUD',
+                         mcr_object_detection.topic_states.PointCloudSubscription(True, cloud_topic),
+                         transitions={'done': 'FIND_WORKSPACE'})
+        StateMachine.add('FIND_WORKSPACE',
+                         mcr_object_detection.topic_states.FindWorkspace(),
+                         transitions={'succeeded': 'CONFIRM_WORKSPACE',
+                                      'aborted': 'FIND_WORKSPACE'})
+        StateMachine.add('CONFIRM_WORKSPACE',
+                         ConfirmState('Is the detected workspace correct?'),
+                         transitions={'yes': 'SET_POLYGON_TIMESTAMP',
+                                      'no': 'FIND_WORKSPACE'})
+        StateMachine.add('SET_POLYGON_TIMESTAMP',
+                         SetPolygonTimestamp(),
+                         transitions={'succeeded':'ACCUMULATE_CLOUD'})
+        StateMachine.add('ACCUMULATE_CLOUD',
+                         mcr_object_detection.service_states.accumulate_tabletop_cloud,
+                         transitions={'succeeded': 'CLUSTER_CLOUD'})
+        StateMachine.add('CLUSTER_CLOUD',
+                         mcr_object_detection.service_states.cluster_tabletop_cloud,
+                         transitions={'succeeded': 'IS_ONLY_ONE_OBJECT'})
+        StateMachine.add('IS_ONLY_ONE_OBJECT',
+                         ConditionState(cond_cb=lambda userdata:
+                                        len(userdata.clusters) == 1,
+                                        input_keys=['clusters']),
+                         transitions={'true': 'COUNTER',
+                                      'false': 'SET_POLYGON_TIMESTAMP'})
+
+        StateMachine.add('COUNTER',
+                         CounterState(int(args.confirm_every)),
+                         transitions={'overflow': 'CONFIRM_OBJECT',
+                                      'counting': 'SAVE_CLUSTER'})
+        StateMachine.add('CONFIRM_OBJECT',
+                         ConfirmState('Is the detected object correct?'),
+                         transitions={'yes': 'SAVE_CLUSTER',
+                                      'no': 'SET_POLYGON_TIMESTAMP'})
+        StateMachine.add('SAVE_CLUSTER',
+                         SavePointCloud(args.object_id, args.dataset),
+                         transitions={'saved': 'SET_POLYGON_TIMESTAMP',
+                                      'failed': 'UNSUBSCRIBE_FROM_POINTCLOUD_AND_ABORT'})
+        StateMachine.add('UNSUBSCRIBE_FROM_POINTCLOUD_AND_ABORT',
+                         mcr_object_detection.topic_states.PointCloudSubscription(False),
+                         transitions={'done': 'aborted'})
+
+    rospy.loginfo('Starting data collection...')
+    outcome = sm.execute()

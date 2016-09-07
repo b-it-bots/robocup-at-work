@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find mcr_dynamic_reconfigure_client)/ros/launch/dynamic_reconfigure_client.launch">
+    <arg name="config_file" default="$(find mcr_dynamic_reconfigure_client)/ros/config/test_named_configurations.yaml" />
+  </include>
+
+  <test pkg="mcr_dynamic_reconfigure_client" type="test_dynamic_reconfigure_client.py"
+        test-name="test_dynamic_reconfigure_client">
+
+    <remap from="~event_in" to="/mcr_common/dynamic_reconfigure_client/event_out" />
+    <remap from="~event_out" to="/mcr_common/dynamic_reconfigure_client/event_in" />
+    <remap from="~configuration_name" to="/mcr_common/dynamic_reconfigure_client/configuration_name" />
+  </test>
+</launch>

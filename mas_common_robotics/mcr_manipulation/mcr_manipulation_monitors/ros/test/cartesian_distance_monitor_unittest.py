@@ -4,12 +4,12 @@ Test unit for the functions/methods used in cartesian_distance_monitor.py module
 
 """
 
-PKG = 'mcr_manipulation_monitors'
-
 import unittest
 import rosunit
 import mcr_manipulation_monitors_ros.cartesian_distance_monitor \
     as cartesian_distance_monitor
+
+PKG = 'mcr_manipulation_monitors'
 
 
 class TestCartesianDistanceMonitor(unittest.TestCase):

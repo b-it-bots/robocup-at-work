@@ -11,6 +11,8 @@ find_package(catkin REQUIRED
     roscpp
     sensor_msgs
     std_srvs
+    mcr_manipulation_msgs
+    roslint
 )
 
 find_package(Boost REQUIRED)
@@ -23,10 +25,14 @@ catkin_package(
   CATKIN_DEPENDS
     brics_actuator
     geometry_msgs
+    joy
     mcr_teleop
+    mir_default_robot_config
+    mir_hardware_config
     moveit_msgs
     sensor_msgs
     std_srvs
+    mcr_manipulation_msgs
 )
 
 include_directories(
@@ -46,6 +52,18 @@ target_link_libraries(teleop_joypad_node
   ${catkin_LIBRARIES}
 )
 
+
+### TESTS
+roslint_cpp()
+
+if(CATKIN_ENABLE_TESTING)
+  find_package(roslaunch REQUIRED)
+
+  roslaunch_add_file_check(ros/launch robot:=youbot-brsu-1)
+endif()
+
+
+### INSTALLS
 install(TARGETS teleop_joypad_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}

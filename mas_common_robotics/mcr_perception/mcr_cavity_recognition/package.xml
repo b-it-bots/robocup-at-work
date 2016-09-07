@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_cavity_recognition</name>
+  <version>0.1.0</version>
+  <description>Cavity recognition by finding contours and matching against templates</description>
+
+  <maintainer email="santosh.thoduka@smail.inf.h-brs.de">Santosh Thoduka</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="santosh.thoduka@smail.inf.h-brs.de">Santosh Thoduka</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>roslib</build_depend>
+  <build_depend>mcr_perception_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>message_filters</build_depend>
+
+  <run_depend>mcr_perception_msgs</run_depend>
+  <run_depend>mcr_contour_matching</run_depend>
+  <run_depend>mcr_pose_estimation</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+
+</package>

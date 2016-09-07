@@ -1,0 +1,19 @@
+Priority:
+INFO
+OUTPUT:
+/home/b-it-bots/log_object_categorization.txt
+
+logFile.txt
+
+
+^-=In use
+
+Priority:
+INFO
+OUTPUT:
+logFile.txt
+
+Priority:
+INFO
+OUTPUT:
+cout

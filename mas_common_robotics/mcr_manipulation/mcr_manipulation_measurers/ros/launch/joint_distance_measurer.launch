@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- This is an example launch file for the 'joint_distance_measurer' -->
+    <node pkg="mcr_manipulation_measurers" type="joint_distance_measurer_node"
+            name="joint_distance_measurer" output="screen">
+
+        <!-- the cycle rate of the node (in hz) -->
+        <param name="loop_rate"  type="double" value="10"/>
+
+        <!-- a list of the joint names to check -->
+        <rosparam param="target_joint_names">
+            - 'arm_1_joint'
+            - 'arm_2_joint'
+        </rosparam>
+
+        <remap from="~current_joint_values" to="/joint_states"/>
+
+    </node>
+</launch>

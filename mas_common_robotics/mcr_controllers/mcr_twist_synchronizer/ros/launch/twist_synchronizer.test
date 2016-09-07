@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find mcr_twist_synchronizer)/ros/launch/twist_stamped_synchronizer.launch">
+    <arg name="angular_synchronization" default="True"/>
+  </include>
+
+  <test pkg="mcr_twist_synchronizer" type="twist_synchronizer_test.py"
+        test-name="test_twist_synchronizer">
+
+    <remap from="~component_output" to="/twist_synchronizer/synchronized_twist"/>
+    <remap from="~event_out" to="/twist_synchronizer/event_in"/>
+    <remap from="~twist" to="/twist_synchronizer/twist"/>
+    <remap from="~pose_error" to="/twist_synchronizer/pose_error"/>
+  </test>
+</launch>

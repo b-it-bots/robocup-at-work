@@ -5,7 +5,7 @@ import catkin_pkg.python_setup
 
 d = catkin_pkg.python_setup.generate_distutils_setup(
    packages=['mcr_object_detection'],
-   package_dir={'mcr_object_detection': 'ros/src'}
+   package_dir={'mcr_object_detection': 'ros/src/mcr_object_detection'}
 )
 
 distutils.core.setup(**d)

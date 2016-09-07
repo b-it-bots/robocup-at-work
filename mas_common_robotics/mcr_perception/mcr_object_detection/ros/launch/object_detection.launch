@@ -1,15 +1,29 @@
 <?xml version="1.0"?>
 <launch>
 
+  <arg name="workspace_finder_config_file" default="$(find mcr_scene_segmentation)/ros/config/workspace_constraints.yaml" />
+  <arg name="object_constraints_config_file" default="$(find mcr_scene_segmentation)/ros/config/object_constraints.yaml" />
+  <arg name="input_pointcloud_topic" default="/arm_cam3d/depth_registered/points" />
+  <arg name="camera_frame" default="arm_cam3d_rgb_optical_frame" />
+  <arg name="target_frame" default="/base_link" />
+
   <!-- This launch file brings up the nodes from mcr_scene_segmentation that are needed for object detection and the object detector itself.
        The parameters have been adjusted to work well with @Work scenarios. -->
 
-  <include file="$(find mcr_scene_segmentation)/ros/launch/scene_segmentation.launch" />
+  <include file="$(find mcr_scene_segmentation)/ros/launch/scene_segmentation.launch" >
+    <arg name="workspace_finder_config_file" value="$(arg workspace_finder_config_file)" />
+    <arg name="object_constraints_config_file" value="$(arg object_constraints_config_file)" />
+    <arg name="input_pointcloud_topic" value="$(arg input_pointcloud_topic)" />
+    <arg name="camera_frame" default="$(arg camera_frame)" />
+  </include>
 
 
   <group ns="mcr_perception">
 
-    <node pkg="mcr_object_detection" type="object_detector" name="object_detector" output="screen"/>
+    <node pkg="mcr_object_detection" type="object_detector" name="object_detector" output="screen">
+      <param name="target_frame" type="string" value="$(arg target_frame)" />
+      <param name="input_pointcloud_topic" type="string" value="$(arg input_pointcloud_topic)" />
+    </node>
 
   </group>
 

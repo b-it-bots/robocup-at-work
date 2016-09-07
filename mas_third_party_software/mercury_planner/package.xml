@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>mercury_planner</name>
+  <version>1.0.0</version>
+  <description>IPC 2014 mercury planner</description>
+
+  <maintainer email="olima_84@yahoo.com">Oscar Lima</maintainer>
+
+  <license>IPC 2014 open source code release license</license>
+
+  <url type="website">https://helios.hud.ac.uk/scommv/IPC-14/repo_planners/</url>
+
+  <author email="katz@cs.uni-saarland.de">Michael Katz</author>
+  <author email="hoffmann@cs.uni-saarland.de">Jörg Hoffmann</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>mk</build_depend>
+  
+</package>

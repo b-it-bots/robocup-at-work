@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- Note: this is an example launch file, do not modify. -->
+<launch>
+  <arg name="max_poses" default="5"/>
+  <arg name="loop_rate" default="10.0"/>
+
+  <node pkg="mcr_trajectory_generation" type="linear_interpolator_node"
+        name="linear_interpolator" output="screen" ns="mcr_manipulation">
+
+    <!-- Number of poses to generate between the start and goal pose
+        (including those two), e.g. specifying 5 'max_poses' will output
+        the start pose as the first pose, then three poses equally separated, and
+        finally the goal pose as the fifth pose. -->
+    <param name="max_poses" type="int" value="$(arg max_poses)"/>
+
+    <!-- Cycle rate of the node (in Hz) -->
+    <param name="loop_rate" type="double" value="$(arg loop_rate)"/>
+  </node>
+</launch>

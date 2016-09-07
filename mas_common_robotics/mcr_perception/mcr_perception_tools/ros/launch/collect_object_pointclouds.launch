@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="input_pointcloud_topic" default="/arm_cam3d/depth_registered/points" />
+  <arg name="workspace_finder_config_file" default="$(find mcr_scene_segmentation)/ros/config/workspace_constraints.yaml" />
+  <arg name="object_constraints_config_file" default="$(find mcr_scene_segmentation)/ros/config/object_constraints.yaml" />
+
+  <param name="input_pointcloud_topic" value="$(arg input_pointcloud_topic)" />
+
+  <include file="$(find mcr_scene_segmentation)/ros/launch/scene_segmentation.launch" >
+    <arg name="input_pointcloud_topic" value="$(arg input_pointcloud_topic)" />
+    <arg name="camera_frame" default="arm_cam3d_rgb_optical_frame" />
+    <arg name="workspace_finder_config_file" default="$(arg workspace_finder_config_file)" />
+    <arg name="object_constraints_config_file" default="$(arg object_constraints_config_file)" />
+  </include>
+
+  <include file="$(find mcr_perception_tools)/ros/launch/save_pointcloud.launch" >
+    <arg name="input_topic" value="/collect_object_pointclouds/object_cloud" />
+  </include>
+
+</launch>

@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_guarded_approach_pose_ros.approach_pose_distance_constrained
+
+if __name__ == '__main__':
+    mcr_guarded_approach_pose_ros.approach_pose_distance_constrained.main()

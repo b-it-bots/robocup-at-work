@@ -10,13 +10,12 @@ import actionlib_msgs.msg
 import random
 import math
 
-from geometry_msgs.msg import PoseStamped, Twist
+from geometry_msgs.msg import PoseStamped, Twist, Quaternion
 from std_msgs.msg import String
 
 from actionlib.simple_action_client import GoalStatus
 
 from mir_navigation_msgs.msg import OrientToBaseAction, OrientToBaseActionGoal
-from mcr_navigation_msgs.srv import MoveRelative
 
 
 class adjust_to_workspace(smach.State):
@@ -61,21 +60,25 @@ class move_base_relative(smach.State):
     Input
     -----
     move_base_by: 3-tuple
-        x, y, and theta displacement the shift the robot by. If an offset was
+        x, y, and yaw displacement the shift the robot by (in /base_link). If an offset was
         supplied to the state constructor then it will override this input.
     """
 
     def __init__(self, offset=None):
         smach.State.__init__(self,
-                             outcomes=['succeeded', 'timeout'],
+                             outcomes=['succeeded', 'timeout','unreachable'],
                              input_keys=['move_base_by'])
         self.offset = offset
 
-        self.pub_relative_base_ctrl_command = rospy.Publisher('/mcr_navigation/relative_base_controller/command', Twist, latch=True)
+        self.pub_relative_base_ctrl_command = rospy.Publisher('/mcr_navigation/relative_base_controller/command', PoseStamped, latch=True)
         self.pub_relative_base_ctrl_event = rospy.Publisher('/mcr_navigation/relative_base_controller/event_in', String, latch=True)
         self.sub_relative_base_ctrl_event = rospy.Subscriber('/mcr_navigation/relative_base_controller/event_out', String, self.relative_base_controller_event_cb)
-
+        self.sub_collision_velocity_filter_event = rospy.Subscriber('/mcr_navigation/collision_velocity_filter/event_out', String, self.collision_velocity_filter_event_cb)
         self.relative_base_ctrl_event = ""
+        self.collision_velocity_filter_event = ""
+   
+    def collision_velocity_filter_event_cb(self, event):
+        self.collision_velocity_filter_event = event.data  
 
     def relative_base_controller_event_cb(self, event):
         self.relative_base_ctrl_event = event.data  
@@ -96,20 +99,26 @@ class move_base_relative(smach.State):
         if not offset: 
           offset = [0,0,0]
 
-        relative_base_move = Twist()
+        relative_base_move = PoseStamped()
+        relative_base_move.header.stamp = rospy.Time.now()
+        relative_base_move.header.frame_id = "/base_link"
 
         if(len(offset) == 3):
-            relative_base_move.linear.x = offset[0]
-            relative_base_move.linear.y = offset[1]
-            relative_base_move.angular.z = offset[2]
+            relative_base_move.pose.position.x = offset[0]
+            relative_base_move.pose.position.y = offset[1]
+            
+            q = tf.transformations.quaternion_from_euler(0, 0, offset[2])
+            relative_base_move.pose.orientation = Quaternion(*q)
 
         elif(len(offset) == 6):
-            relative_base_move.linear.x = self.sample_with_boundary(offset[0], offset[1])
-            relative_base_move.linear.y = self.sample_with_boundary(offset[2], offset[3])
-            relative_base_move.angular.z = self.sample_with_boundary(offset[4], offset[5])
+            relative_base_move.pose.position.x = self.sample_with_boundary(offset[0], offset[1])
+            relative_base_move.pose.position.y = self.sample_with_boundary(offset[2], offset[3])
+            
+            q = tf.transformations.quaternion_from_euler(0, 0, self.sample_with_boundary(offset[4], offset[5]))
+            relative_base_move.pose.orientation = Quaternion(*q)
 
         self.relative_base_ctrl_event = ""
-
+        self.collision_velocity_filter_event = ""
         # publish desired relative movement
         self.pub_relative_base_ctrl_command.publish(relative_base_move)
 
@@ -124,6 +133,11 @@ class move_base_relative(smach.State):
                 rospy.loginfo('relative pose reached')
                 return 'succeeded'
 
+            if self.collision_velocity_filter_event == 'e_zero_velocities_forwarded':
+                rospy.loginfo('relative pose unreachable')
+                self.pub_relative_base_ctrl_event.publish('e_stop')
+                return 'unreachable'
+
             if (rospy.Time.now() - start_time) > timeout:
                 rospy.logerr('timeout of %f seconds exceeded for relative base movement' % float(timeout.to_sec()))
                 return 'timeout'
@@ -132,35 +146,19 @@ class move_base_relative(smach.State):
         
         return 'succeeded'
 
-## copied from old states
-## same as move_base?
+
 class approach_pose(smach.State):
 
-    def __init__(self, pose_name = "", clear_costmaps=True):
+    def __init__(self, pose_name = ""):
         smach.State.__init__(self, outcomes=['succeeded', 'failed'], input_keys=['base_pose_to_approach'])
 
-        self.clear_costmaps = clear_costmaps
         self.pose_name = pose_name;  
 
         self.move_base_action_name = '/move_base'
         self.move_base_action = actionlib.SimpleActionClient(self.move_base_action_name, move_base_msgs.msg.MoveBaseAction)
 
-        self.clear_costmap_srv_name = '/move_base/clear_costmaps'
-        self.clear_costmap_srv = rospy.ServiceProxy(self.clear_costmap_srv_name, std_srvs.srv.Empty)  
-
     def execute(self, userdata):
     
-        if(self.clear_costmaps):
-          # remove close obstacles from the costmap
-          try:
-              rospy.loginfo("wait for service: %s", self.clear_costmap_srv_name)
-              rospy.wait_for_service(self.clear_costmap_srv_name, 30)
-
-              self.clear_costmap_srv()
-          except:
-              rospy.logerr("could not execute service <<%s>>", self.clear_costmap_srv_name)
-              return 'failed'
-
         # wait for action server
         rospy.loginfo("Wait for action: %s", self.move_base_action_name)
         if not self.move_base_action.wait_for_server(rospy.Duration(5)):

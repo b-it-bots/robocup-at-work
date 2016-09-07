@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- Note: this is an example launch file, do not modify. -->
+<launch>
+  <arg name="primitive_motion" default="example"/>
+  <arg name="reference_frame" default="base_link"/>
+  <arg name="duration" default="1.0"/>
+
+  <node pkg="mcr_trajectory_generation" type="dmp_based_task_space_node"
+        name="dmp_based_task_space" output="screen" ns="mcr_manipulation">
+
+    <!-- Load configuration parameters -->
+    <rosparam command="load"
+              file="$(find mcr_trajectory_generation)/ros/config/task_space_examples.yaml" />
+
+    <!-- Type of motion to plan for -->
+    <param name="primitive_motion" type="str" value="$(arg primitive_motion)"/>
+
+    <!-- Reference frame in which the pose array is specified -->
+    <param name="reference_frame" type="str" value="$(arg reference_frame)"/>
+
+    <!--  Desired duration of the trajectory (scaled to the duration of the
+    demonstrated trajectory, e.g. a value of 2 will generate a plan twice as
+    long as the demonstrated one) -->
+    <param name="duration" type="double" value="$(arg duration)"/>
+  </node>
+</launch>

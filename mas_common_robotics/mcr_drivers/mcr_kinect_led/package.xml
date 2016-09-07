@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_kinect_led</name>
+  <version>0.0.0</version>
+  <description>node to control the color and mode of the Kinect LED</description>
+
+  <maintainer email="frederik.hegger@h-brs.de">Frederik Hegger</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="frederik.hegger@h-brs.de">Frederik Hegger</author>
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <run_depend>std_msgs</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+
+</package>

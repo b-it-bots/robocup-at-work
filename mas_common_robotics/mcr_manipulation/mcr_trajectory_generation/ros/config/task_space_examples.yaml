@@ -1,0 +1,25 @@
+# A collection of [example] movements as a list of poses.
+
+# The pose is a seven-dimensional array (three for position
+# and four for orientation), and is represented as follows:
+# [position.x, position.y, position.z, orientation.x,
+#  orientation.y, orientation.z, orientation.w].
+
+# Example motion.
+example: [
+  [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0],
+  [2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0],
+  [3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0],
+  [4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0],
+  [5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0]
+]
+
+# Straight down motion (forwards in 'Z' axis of eef).
+straight_down: [
+  [0.485, 0.0, 0.2, 0.0, 1.0, 0.0, 0.0],
+  [0.485, 0.0, 0.16, 0.0, 1.0, 0.0, 0.0],
+  [0.485, 0.0, 0.12, 0.0, 1.0, 0.0, 0.0],
+  [0.485, 0.0, 0.08, 0.0, 1.0, 0.0, 0.0],
+  [0.485, 0.0, 0.04, 0.0, 1.0, 0.0, 0.0],
+  [0.485, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0],
+]

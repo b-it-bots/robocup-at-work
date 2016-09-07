@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <!-- global planner with orientation topic -->
+    <arg name="global_plan_topic" default="/move_base/GlobalPlannerWithOrientations/path_plan" />
+
+    <node pkg="mcr_navigation_tools" type="path_length_calculator_node" name="path_length_calculator" output="screen" ns="mcr_navigation" >
+        <!-- control node frequency -->
+        <param name="node_frequency" value="10.0" />
+
+        <!-- Remap to listen to desired global plan -->
+        <remap from="~plan" to="$(arg global_plan_topic)"/>
+    </node>
+
+</launch>

@@ -1,0 +1,2 @@
+frame_id: /base_link
+distance_to_frame: 1.5

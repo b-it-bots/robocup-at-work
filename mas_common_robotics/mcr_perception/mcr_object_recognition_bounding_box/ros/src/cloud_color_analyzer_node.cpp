@@ -15,37 +15,37 @@
 
 bool analyzeCallback(mcr_perception_msgs::AnalyzeCloudColor::Request& request, mcr_perception_msgs::AnalyzeCloudColor::Response& response)
 {
-  ROS_INFO("Received [analyze_cloud_color] request.");
+    ROS_INFO("Received [analyze_cloud_color] request.");
 
-  typedef boost::accumulators::tag::mean mean;
-  typedef boost::accumulators::tag::median median;
+    typedef boost::accumulators::tag::mean mean;
+    typedef boost::accumulators::tag::median median;
 
-  boost::accumulators::accumulator_set<float, boost::accumulators::stats<mean, median>> color;
-  pcl::PointCloud<pcl::PointXYZRGB> cloud;
+    boost::accumulators::accumulator_set<float, boost::accumulators::stats<mean, median>> color;
+    pcl::PointCloud<pcl::PointXYZRGB> cloud;
 
-  pcl::fromROSMsg(request.cloud, cloud);
+    pcl::fromROSMsg(request.cloud, cloud);
 
-  for (const auto& point : cloud.points)
-    color(0.2989f * point.r + 0.5870f * point.g + 0.1140f * point.b);
+for (const auto & point : cloud.points)
+        color(0.2989f * point.r + 0.5870f * point.g + 0.1140f * point.b);
 
-  response.mean = boost::accumulators::mean(color);
-  response.median = boost::accumulators::median(color);
-  response.points = cloud.points.size();
+    response.mean = boost::accumulators::mean(color);
+    response.median = boost::accumulators::median(color);
+    response.points = cloud.points.size();
 
-  return true;
+    return true;
 }
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "cloud_color_analyzer");
-  ros::NodeHandle nh("~");
+    ros::init(argc, argv, "cloud_color_analyzer");
+    ros::NodeHandle nh("~");
 
-  ros::ServiceServer analyzer_service = nh.advertiseService("analyze_cloud_color", analyzeCallback);
+    ros::ServiceServer analyzer_service = nh.advertiseService("analyze_cloud_color", analyzeCallback);
 
-  ROS_INFO("Started [analyze_cloud_color] service.");
+    ROS_INFO("Started [analyze_cloud_color] service.");
 
-  ros::spin();
+    ros::spin();
 
-  return 0;
+    return 0;
 }
 

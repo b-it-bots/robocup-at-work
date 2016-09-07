@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_pose_selector" type="pose_selector_node"
+            name="pose_selector_node" output="screen" ns="mcr_common">
+
+        <!-- the cycle rate of the node (in hz) -->
+        <param name="loop_rate"  type="double" value="10.0"/>
+    </node>
+</launch>

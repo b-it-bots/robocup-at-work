@@ -1,0 +1,10 @@
+<library path="libmoveit_interpolation_planner_plugin">
+  <class name="interpolation_planner_interface/InterpolationPlannerManager"
+         type="interpolation_planner_interface::InterpolationPlannerManager"
+         base_class_type="planning_interface::PlannerManager">
+    <description>
+    	The plugin generates a plan by interpolating 
+    	between the start and goal configuration.
+    </description>
+  </class>
+</library>

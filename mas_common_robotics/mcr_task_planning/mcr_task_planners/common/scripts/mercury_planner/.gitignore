@@ -1,0 +1,5 @@
+# tells how much time did the planner took to generate a plan
+elapsed.time
+
+# the plan 
+mercury.plan

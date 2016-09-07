@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="pose_error_topic" default="~pose_error" />
+    <arg name="pose_topic" default="~pose" />
+    <node pkg="mcr_common_converters" type="relative_displacement_calculator_node"
+          name="relative_displacement_calculator" output="screen" ns="mcr_common" >
+
+        <remap from="~pose_error" to="$(arg pose_error_topic)" />
+        <remap from="~pose" to="$(arg pose_topic)" />
+        <rosparam command="load" file="$(find mcr_common_converters)/ros/config/relative_displacement_calculator.yaml" />
+
+    </node>
+</launch>

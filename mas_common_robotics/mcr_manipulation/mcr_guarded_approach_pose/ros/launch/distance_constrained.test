@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<launch>
+    <group ns="mcr_manipulation/distance_constrained_test">
+        <node pkg="mcr_arm_motions" type="cartesian_motion_node"
+                name="cartesian_motion" output="screen">
+
+            <!-- the cycle time of the node (in seconds) -->
+            <param name="cycle_time" type="double" value="0.1"/>
+
+            <!-- the duration of the arm motion (in seconds) -->
+            <param name="motion_duration" type="double" value="0.5"/>
+
+        </node>
+
+        <node pkg="mcr_geometric_relation_monitors" type="component_wise_pose_error_monitor_node"
+                name="component_wise_pose_error_monitor" output="screen">
+
+            <!-- the cycle rate of the node (in Hz) -->
+            <param name="loop_rate" type="double" value="10.0"/>
+
+            <!-- the linear threshold for the Z axis -->
+            <param name="threshold_linear_z" type="double" value="0.5"/>
+        </node>
+
+        <node pkg="mcr_guarded_approach_pose" type="distance_constrained_node"
+                name="distance_constrained" output="screen">
+
+            <!-- the cycle rate of the node (in Hz) -->
+            <param name="loop_rate" type="double" value="10.0"/>
+
+            <!-- the elements of a component-wise pose error to be checked if they are
+                within tolerance (e.g. this checks the linear tolerance on the Z axis -->
+            <rosparam param="desired_tolerances">
+                - 'linear_z'
+            </rosparam>
+
+            <remap from="~start_monitor"
+                   to="/mcr_manipulation/distance_constrained_test/component_wise_pose_error_monitor/event_in"/>
+            <remap from="~start_cartesian_motion"
+                   to="/mcr_manipulation/distance_constrained_test/cartesian_motion/event_in"/>
+            <remap from="~monitor_feedback"
+                   to="/mcr_manipulation/distance_constrained_test/component_wise_pose_error_monitor/feedback"/>
+        </node>
+
+        <test pkg="mcr_guarded_approach_pose" type="distance_constrained_test.py"
+                test-name="test_distance_constrained">
+
+            <remap from="~event_out"
+                   to="/mcr_manipulation/distance_constrained_test/distance_constrained/event_in"/>
+            <remap from="~pose_error"
+                   to="/mcr_manipulation/distance_constrained_test/component_wise_pose_error_monitor/pose_error"/>
+            <remap from="~desired_twist"
+                   to="/mcr_manipulation/distance_constrained_test/cartesian_motion/desired_velocity"/>
+            <remap from="~component_output"
+                   to="/mcr_manipulation/distance_constrained_test/cartesian_motion/velocity_command"/>
+        </test>
+    </group>
+</launch>

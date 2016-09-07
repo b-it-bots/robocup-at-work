@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find mcr_topic_tools)/ros/launch/brics_joints_to_joint_states_example.launch"/>
+
+  <test pkg="mcr_topic_tools" type="test_brics_joints_to_joint_states.py"
+        test-name="test_brics_joints_to_joint_states" ns="mcr_common">
+
+    <remap from="~joint_configuration" to="/mcr_common/brics_joints_to_joint_states/configuration_in"/>
+    <remap from="~component_output" to="/mcr_common/brics_joints_to_joint_states/configuration_out"/>
+  </test>
+</launch>

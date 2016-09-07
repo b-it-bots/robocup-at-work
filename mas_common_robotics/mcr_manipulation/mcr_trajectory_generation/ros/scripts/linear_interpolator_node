@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_trajectory_generation_ros.linear_interpolator
+
+if __name__ == '__main__':
+    mcr_trajectory_generation_ros.linear_interpolator.main()

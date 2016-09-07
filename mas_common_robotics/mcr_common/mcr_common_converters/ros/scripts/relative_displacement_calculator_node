@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+
+import mcr_common_converters_ros.relative_displacement_calculator
+if __name__ == '__main__':
+    mcr_common_converters_ros.relative_displacement_calculator.main()

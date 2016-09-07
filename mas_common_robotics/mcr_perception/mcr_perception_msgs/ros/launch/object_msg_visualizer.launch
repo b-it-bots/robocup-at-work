@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <arg name="input_object_topic" default="~input/object" />
+  
+  <group ns="mcr_perception">
+  
+    <node pkg="mcr_perception_msgs" type="object_msg_visualizer_node" name="object_msg_visualizer" output="screen">
+      <remap from="~input/object" to="$(arg input_object_topic)" />
+      <remap from="~visualization_marker_array" to="/visualization_marker_array" />
+    </node>
+    
+  </group>
+</launch>

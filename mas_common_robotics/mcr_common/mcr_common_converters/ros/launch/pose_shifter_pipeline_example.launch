@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!-- Note: example launch file. Do not modify! -->
+<launch>
+  <arg name="linear_offset" default="[0.0, 0.0, 0.0]"/>
+  <arg name="reference_frame" default="base_link"/>
+  <arg name="target_frame" default="base_link"/>
+
+  <group ns="mcr_common">
+    <node pkg="mcr_common_converters" type="transform_to_pose_converter_node"
+          name="transform_to_pose_converter" output="screen">
+
+      <!-- Reference frame from which the pose is transformed -->
+      <param name="reference_frame" type="str" value="$(arg reference_frame)"/>
+      <!-- Target frame to which the pose is transformed -->
+      <param name="target_frame" type="str" value="$(arg target_frame)"/>
+
+      <!-- Cycle rate of the node (in Hz) -->
+      <param name="loop_rate" type="double" value="10"/>
+
+      <remap from="~converted_pose" to="/mcr_common/pose_shifter/pose_in"/>
+    </node>
+
+    <node pkg="mcr_common_converters" type="pose_shifter_node"
+          name="pose_shifter" output="screen">
+
+      <remap from="~pose_out" to="/mcr_common/pose_shifter/pose_out"/>
+    </node>
+
+    <node pkg="mcr_common_converters" type="pose_shifter_pipeline_node"
+          name="coordinator" output="screen">
+
+      <!-- the node cycle rate (in hz) -->
+      <param name="loop_rate" type="double" value="30.0"/>
+
+      <remap from="~event_in" to="/mcr_common/pose_shifter/event_in"/>
+      <remap from="~event_out" to="/mcr_common/pose_shifter/event_out"/>
+
+      <!-- To trigger components -->
+      <remap from="~start_transformer"
+             to="/mcr_common/transform_to_pose_converter/event_in"/>
+      <remap from="~start_pose_shifter"
+             to="/mcr_common/pose_shifter/event_in"/>
+
+      <!-- To get feedback from components -->
+      <remap from="~pose_shifter_status"
+             to="/mcr_common/pose_shifter/event_out"/>
+    </node>
+  </group>
+</launch>

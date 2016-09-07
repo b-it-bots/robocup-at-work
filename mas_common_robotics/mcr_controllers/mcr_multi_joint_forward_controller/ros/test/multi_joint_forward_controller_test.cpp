@@ -7,16 +7,16 @@ using namespace forward_command_controller;
 
 TEST(multi_joint_forward_controller_test, test_construction)
 {
-    MultiJointForwardCommandController<brics_actuator::JointVelocities,
-            hardware_interface::VelocityJointInterface> c;
+    MultiJointForwardCommandController < brics_actuator::JointVelocities,
+                                       hardware_interface::VelocityJointInterface > c;
 }
 
 TEST(multi_joint_forward_controller_test, test_init_with_missing_joints)
 {
     ros::NodeHandle nh;
     hardware_interface::VelocityJointInterface hw;
-    MultiJointForwardCommandController<brics_actuator::JointVelocities,
-            hardware_interface::VelocityJointInterface> c;
+    MultiJointForwardCommandController < brics_actuator::JointVelocities,
+                                       hardware_interface::VelocityJointInterface > c;
 
     double val;
     hardware_interface::JointStateHandle state_handle("arm_1_joint", &val, &val, &val);
@@ -30,8 +30,8 @@ TEST(multi_joint_forward_controller_test, test_init_with_all_joints)
 {
     ros::NodeHandle nh;
     hardware_interface::VelocityJointInterface hw;
-    MultiJointForwardCommandController<brics_actuator::JointVelocities,
-            hardware_interface::VelocityJointInterface> c;
+    MultiJointForwardCommandController < brics_actuator::JointVelocities,
+                                       hardware_interface::VelocityJointInterface > c;
 
     double val;
     hardware_interface::JointStateHandle state_handle_1("arm_1_joint", &val, &val, &val);
@@ -48,8 +48,8 @@ TEST(multi_joint_forward_controller_test, test_sending_command)
 {
     ros::NodeHandle nh;
     hardware_interface::VelocityJointInterface hw;
-    MultiJointForwardCommandController<brics_actuator::JointVelocities,
-            hardware_interface::VelocityJointInterface> c;
+    MultiJointForwardCommandController < brics_actuator::JointVelocities,
+                                       hardware_interface::VelocityJointInterface > c;
 
     double cmd1;
     double val1;
@@ -68,22 +68,27 @@ TEST(multi_joint_forward_controller_test, test_sending_command)
     ASSERT_TRUE(c.init(&hw, nh, nh));
     c.starting(time);
 
-    ros::Publisher pub = nh.advertise<brics_actuator::JointVelocities>("command_vel", 1);
+    ros::Publisher pub = nh.advertise<brics_actuator::JointVelocities>("command_vel", 1, true);
 
     brics_actuator::JointVelocities vel;
     vel.velocities.resize(2);
     vel.velocities[0].value = 42.5;
     vel.velocities[1].value = 43.5;
+    double accuracy = 0.0001;
 
     // it takes some time for the message to be sent and received
-    for (int i = 0; i < 100; i++) {
+    while(true)
+    {
         pub.publish(vel);
         c.update(time, duration);
         ros::spinOnce();
+               
+        if( (fabs(handle_1.getCommand() - vel.velocities[0].value) < accuracy) && (fabs(handle_2.getCommand() - vel.velocities[1].value) < accuracy) )
+            break;
     }
 
-    ASSERT_NEAR(handle_1.getCommand(), 42.5, 0.0001);
-    ASSERT_NEAR(handle_2.getCommand(), 43.5, 0.0001);
+    ASSERT_NEAR(handle_1.getCommand(), vel.velocities[0].value, accuracy);
+    ASSERT_NEAR(handle_2.getCommand(), vel.velocities[1].value, accuracy);
 }
 
 TEST(multi_joint_forward_controller_test, test_sending_too_many_joints)
@@ -91,8 +96,8 @@ TEST(multi_joint_forward_controller_test, test_sending_too_many_joints)
 
     ros::NodeHandle nh;
     hardware_interface::VelocityJointInterface hw;
-    MultiJointForwardCommandController<brics_actuator::JointVelocities,
-            hardware_interface::VelocityJointInterface> c;
+    MultiJointForwardCommandController < brics_actuator::JointVelocities,
+                                       hardware_interface::VelocityJointInterface > c;
 
     double cmd1 = 0.0;
     double val1;
@@ -121,7 +126,8 @@ TEST(multi_joint_forward_controller_test, test_sending_too_many_joints)
     vel.velocities[3].value = 45.5;
 
     // it takes some time for the message to be sent and received
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 100; i++)
+    {
         pub.publish(vel);
         c.update(time, duration);
         ros::spinOnce();

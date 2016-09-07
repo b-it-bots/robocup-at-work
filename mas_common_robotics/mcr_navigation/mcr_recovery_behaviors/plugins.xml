@@ -1,0 +1,9 @@
+<library path="lib/libforce_field_recovery">
+  <class name="force_field_recovery/ForceFieldRecovery" type="force_field_recovery::ForceFieldRecovery" base_class_type="nav_core::RecoveryBehavior">
+    <description>
+		A recovery behavior for the navigation stack that
+		moves away from obstacles by computing the repulsive force field that
+		will move the robot away of the obstacles in the best possible way.
+    </description>
+  </class>
+</library>

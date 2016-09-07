@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<launch>
+    <group ns="mcr_manipulation/guarded_approach_pose_test">
+        <node pkg="mcr_arm_motions" type="cartesian_motion_node"
+                name="cartesian_motion" output="screen">
+
+            <!-- the cycle time of the node (in seconds) -->
+            <param name="cycle_time" type="double" value="0.1"/>
+        </node>
+
+        <node pkg="mir_twitch_detection" type="twitch_detection_node"
+                name="twitch_detector" output="screen">
+
+            <!-- the cycle rate of the node (in Hz) -->
+            <param name="loop_rate" type="double" value="10.0"/>
+
+            <!-- a list of the joint names to check -->
+            <rosparam param="target_joint_names">
+                - 'arm_joint_2'
+                - 'arm_joint_3'
+                - 'arm_joint_4'
+            </rosparam>
+        </node>
+
+        <node pkg="mcr_guarded_approach_pose" type="guarded_approach_pose_node"
+                name="guarded_approach_pose" output="screen">
+
+            <!-- the cycle rate of the node (in Hz) -->
+            <param name="loop_rate" type="double" value="10.0"/>
+
+            <!-- desired twist -->
+            <param name="twist_frame" type="str" value="arm_link_5"/>
+            <param name="twist_linear_z" type="double" value="1.0"/>
+
+            <remap from="~desired_twist"
+                   to="/mcr_manipulation/guarded_approach_pose_test/cartesian_motion/desired_velocity"/>
+            <remap from="~start_twitch_detector"
+                   to="/mcr_manipulation/guarded_approach_pose_test/twitch_detector/event_in"/>
+            <remap from="~start_cartesian_motion"
+                   to="/mcr_manipulation/guarded_approach_pose_test/cartesian_motion/event_in"/>
+        </node>
+
+        <test pkg="mcr_guarded_approach_pose" type="guarded_approach_pose_test.py"
+                test-name="test_guarded_approach_pose">
+
+            <remap from="~event_out"
+                   to="/mcr_manipulation/guarded_approach_pose_test/guarded_approach_pose/event_in"/>
+            <remap from="~current_joint_values"
+                   to="/mcr_manipulation/guarded_approach_pose_test/twitch_detector/joint_states"/>
+            <remap from="~component_output"
+                   to="/mcr_manipulation/guarded_approach_pose_test/cartesian_motion/velocity_command"/>
+        </test>
+    </group>
+</launch>

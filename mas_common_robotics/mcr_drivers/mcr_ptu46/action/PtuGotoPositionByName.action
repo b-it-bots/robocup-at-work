@@ -1,0 +1,5 @@
+string position_name					# goal
+---
+sensor_msgs/JointState state			# result
+---
+sensor_msgs/JointState state			# feedback

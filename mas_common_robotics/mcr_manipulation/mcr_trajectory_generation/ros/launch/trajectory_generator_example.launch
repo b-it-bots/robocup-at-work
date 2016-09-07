@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- Note: this is an example launch file, do not modify. -->
+<launch>
+  <arg name="scaling_factor" default="1.0"/>
+  <arg name="max_velocity" default="1.5"/>
+  <arg name="max_acceleration" default="1.0"/>
+  <arg name="loop_rate" default="10.0"/>
+
+  <node pkg="mcr_trajectory_generation" type="trajectory_generator_node"
+        name="trajectory_generator" output="screen" ns="mcr_manipulation">
+
+    <!-- Time scaling factor to control the duration of moving from point 1 to
+        # point 2 (in seconds). -->
+    <param name="scaling_factor" type="double" value="$(arg scaling_factor)"/>
+
+    <!-- Maximum joint velocity allowed. -->
+    <param name="max_velocity" type="str" value="$(arg max_velocity)"/>
+
+    <!-- Maximum joint acceleration allowed. -->
+    <param name="max_acceleration" type="str" value="$(arg max_acceleration)"/>
+
+    <!-- Cycle rate of the node (in Hz) -->
+    <param name="loop_rate" type="double" value="$(arg loop_rate)"/>
+  </node>
+</launch>

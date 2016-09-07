@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_leg_detection</name>
+  <version>0.0.1</version>
+  <description>leg detection based on laser scan data</description>
+
+  <maintainer email="frederik.hegger@h-brs.de">Frederik Hegger</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/leg_detector</url> -->
+
+  <author email="xyz@xyz.com">Caroline Pantofaru</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>bfl</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend> 
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>laser_geometry</build_depend>
+  <build_depend>mcr_perception_msgs</build_depend>
+  <build_depend>mcr_algorithms</build_depend>  
+  <build_depend>message_filters</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>  
+  <build_depend>tf</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+ 
+  <run_depend>message_runtime</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>mcr_algorithms</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend> 
+
+  <test_depend>roslaunch</test_depend>
+
+</package>

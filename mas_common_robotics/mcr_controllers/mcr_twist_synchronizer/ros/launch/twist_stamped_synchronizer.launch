@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- Note: example launch file. Do not modify! -->
+<launch>
+  <arg name="angular_synchronization" default="True"/>
+
+  <node pkg="mcr_twist_synchronizer" type="twist_synchronizer_node"
+        name="twist_synchronizer" output="screen">
+
+    <!-- Node cycle rate (in hz) -->
+    <param name="loop_rate" type="double" value="10"/>
+
+    <!-- If True, it also synchronizes the angular and linear velocities -->
+    <param name="angular_synchronization" type="bool"
+           value="$(arg angular_synchronization)"/>
+  </node>
+</launch>

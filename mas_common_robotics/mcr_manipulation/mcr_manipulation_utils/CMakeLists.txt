@@ -18,6 +18,7 @@ catkin_package(
   CATKIN_DEPENDS
     roscpp
     rospy
+    actionlib
     urdf
     kdl_parser
     geometry_msgs
@@ -42,8 +43,11 @@ install(TARGETS mcr_manipulation_utils
    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 )
 
-install(DIRECTORY ros/include/
+install(DIRECTORY ros/include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   FILES_MATCHING PATTERN "*.h"
 )
 
+if (CATKIN_ENABLE_TESTING)
+  catkin_add_nosetests(ros/test/extractors_unittest.py)
+endif()

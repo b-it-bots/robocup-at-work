@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="mcr_pose_generation" type="sampling_parameter_gui_node"
+        name="sampling_parameter_gui" output="screen" ns="mcr_common">
+
+    <!-- Node cycle rate (in hz) -->
+    <param name="loop_rate"  type="double" value="10"/>
+
+    <remap from="~sampling_parameters" to="/mcr_common/pose_generator/sampling_parameters"/>
+  </node>
+</launch>

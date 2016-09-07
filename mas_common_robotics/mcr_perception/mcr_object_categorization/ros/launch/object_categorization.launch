@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="mcr_object_categorization" type="object_categorization_node" name="object_categorization" ns="mcr_perception" respawn="false" output="screen">
+    <param name="home_path" value="$(find mcr_object_categorization)" />
+    
+    <remap from="~object_candidates" to="/mcr_perception/object_recognition_height_based/detected_objects" />
+    <remap from="~visualization_marker_array" to="/visualization_marker_array" />								
+  </node>
+
+</launch>

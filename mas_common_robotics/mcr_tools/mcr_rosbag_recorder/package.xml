@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_rosbag_recorder</name>
+  <version>0.1.0</version>
+  <description>
+      Node to record bag files
+  </description>
+
+  <author email="santosh.thoduka@smail.inf.h-brs.de">Santosh Thoduka</author>
+  <maintainer email="santosh.thoduka@smail.inf.h-brs.de">Santosh Thoduka</maintainer>
+
+  <license>GPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>std_msgs</build_depend>
+  <build_depend>roslint</build_depend>
+
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+</package>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_manipulation_measurers" type="pose_transformer_node"
+          name="pose_transformer" output="screen" ns="mcr_manipulation">
+
+        <!-- the cycle rate of the node (in Hz) -->
+        <param name="loop_rate" type="double" value="100.0"/>
+
+        <!-- time to wait for transform to become available (in secs) -->
+        <param name="wait_for_transform" type="double" value="0.1"/>
+
+        <!-- target frame required to transform input pose -->
+        <param name="target_frame" type="str" value="odom"/>
+
+        <!-- flag to enable trigger mode of the node-->
+        <param name="trigger_node" type="bool" value="false"/>
+
+        <remap from="~event_in" to="/mcr_navigation/direct_base_controller/coordinator/event_in" />
+    </node>
+</launch>

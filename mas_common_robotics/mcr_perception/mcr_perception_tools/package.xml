@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_perception_tools</name>
+  <version>0.1.0</version>
+  <description>
+      Various tools for perception related tasks such as saving pointclouds to file
+  </description>
+
+  <maintainer email="santosh.thoduka@smail.inf.h-brs.de">Santosh Thoduka</maintainer>
+
+  <author email="santosh.thoduka@smail.inf.h-brs.de">Santosh Thoduka</author>
+
+  <license>GPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+
+  <run_depend>mcr_object_recognition_bounding_box</run_depend>
+  <run_depend>mcr_object_detection</run_depend>
+  <run_depend>mcr_scene_segmentation</run_depend>
+  <run_depend>smach</run_depend>
+  <run_depend>smach_ros</run_depend>
+  <run_depend>rospy</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+
+</package>

@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="robot_env" default="$(optenv ROBOT_ENV !!NO_ROBOT_ENV_SET!!)"/>
-   
+  
   <group ns="/script_server">
     <!-- send ROBOT parameters to parameter server -->
-    <rosparam command="load" ns="base" file="$(find mcr_default_env_config)/$(arg robot_env)/navigation_goals.yaml"/>
-    <rosparam command="load" ns="base_orientations" file="$(find mcr_default_env_config)/$(env ROBOT_ENV)/navigation_orientations.yaml"/>
+    <rosparam command="load" ns="base" file="$(find mcr_default_env_config)/brsu-c025/navigation_goals.yaml"/>
+    <rosparam command="load" ns="base_orientations" file="$(find mcr_default_env_config)/brsu-c025/navigation_orientations.yaml"/>
 
   </group>
 

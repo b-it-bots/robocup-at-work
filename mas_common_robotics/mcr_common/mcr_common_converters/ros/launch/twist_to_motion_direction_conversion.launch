@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="input_topic" default="/base/twist_controller/command" />
+
+  <node pkg="mcr_common_converters" type="twist_to_motion_direction_conversion_node" name="twist_to_motion_direction_conversion" ns="mcr_common" output="screen">
+    <rosparam command="load" file="$(find mcr_common_converters)/ros/config/twist_to_motion_direction_conversion.yaml" />
+    <remap from="~/input/twist" to="$(arg input_topic)" />
+  </node>
+
+</launch>

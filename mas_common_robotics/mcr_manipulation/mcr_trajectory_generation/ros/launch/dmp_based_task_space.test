@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- DMP server -->
+  <include file="$(find dmp)/launch/dmp.launch" ns="mcr_manipulation"/>
+
+  <!-- Node to test -->
+  <include file="$(find mcr_trajectory_generation)/ros/launch/dmp_based_task_space_example.launch">
+    <arg name="primitive_motion" default="example"/>
+    <arg name="reference_frame" default="base_link"/>
+    <arg name="duration" default="1.0"/>
+  </include>
+
+  <test pkg="mcr_trajectory_generation" type="dmp_based_task_space_test.py"
+        test-name="test_dmp_based_task_space" ns="mcr_manipulation">
+
+    <remap from="~event_out" to="/mcr_manipulation/dmp_based_task_space/event_in"/>
+    <remap from="~start_pose" to="/mcr_manipulation/dmp_based_task_space/start_pose"/>
+    <remap from="~goal_pose" to="/mcr_manipulation/dmp_based_task_space/goal_pose"/>
+    <remap from="~component_output" to="/mcr_manipulation/dmp_based_task_space/trajectory"/>
+  </test>
+</launch>

@@ -7,7 +7,8 @@
 #include <hardware_interface/joint_command_interface.h>
 
 
-namespace forward_command_controller {
+namespace forward_command_controller
+{
 
 /**
  * The MultiJointForwardCommandController allows to forward a set of joint
@@ -21,80 +22,81 @@ namespace forward_command_controller {
  */
 template <class RosInterfaceT, class HardwareInterfaceT>
 class MultiJointForwardCommandController
-        : public controller_interface::Controller<HardwareInterfaceT> {
-    public:
-        /**
-         * Ctor.
-         */
-        MultiJointForwardCommandController();
+    : public controller_interface::Controller<HardwareInterfaceT>
+{
+public:
+    /**
+     * Ctor.
+     */
+    MultiJointForwardCommandController();
 
-        /**
-         * Dtor.
-         */
-        virtual ~MultiJointForwardCommandController();
+    /**
+     * Dtor.
+     */
+    virtual ~MultiJointForwardCommandController();
 
-        /**
-         * Initialize the controller. This function is not real-time safe.
-         *
-         * @param hw A pointer to the HardwareInterface.
-         */
-        bool init(HardwareInterfaceT *hw, ros::NodeHandle &root_nh,
-                ros::NodeHandle &controller_nh);
+    /**
+     * Initialize the controller. This function is not real-time safe.
+     *
+     * @param hw A pointer to the HardwareInterface.
+     */
+    bool init(HardwareInterfaceT *hw, ros::NodeHandle &root_nh,
+              ros::NodeHandle &controller_nh);
 
-        /**
-         * Start the controller. This function is real-time safe.
-         *
-         * @param time The reference time when the controller starts running.
-         */
-        void starting(const ros::Time &time);
+    /**
+     * Start the controller. This function is real-time safe.
+     *
+     * @param time The reference time when the controller starts running.
+     */
+    void starting(const ros::Time &time);
 
-        /**
-         * Update the controller. This function is real-time safe.
-         *
-         * @param time The current time when the update of the controller is
-         * executed.
-         *
-         * @param period The duration from the last update to the current
-         * update.
-         */
-        void update(const ros::Time &time, const ros::Duration &period);
-
-
-    private:
-        /**
-         * Copy ctor.
-         */
-        MultiJointForwardCommandController(
-                const MultiJointForwardCommandController &other);
-
-        /**
-         * Assignment operator.
-         */
-        MultiJointForwardCommandController &operator=(
-                const MultiJointForwardCommandController &other);
+    /**
+     * Update the controller. This function is real-time safe.
+     *
+     * @param time The current time when the update of the controller is
+     * executed.
+     *
+     * @param period The duration from the last update to the current
+     * update.
+     */
+    void update(const ros::Time &time, const ros::Duration &period);
 
 
-    private:
-        /**
-         * The ROS subscriber for the input topic.
-         */
-        ros::Subscriber sub_command_;
+private:
+    /**
+     * Copy ctor.
+     */
+    MultiJointForwardCommandController(
+        const MultiJointForwardCommandController &other);
 
-        /**
-         * The commanded joint values which have been received last.
-         */
-        std::vector<double> command_;
+    /**
+     * Assignment operator.
+     */
+    MultiJointForwardCommandController &operator=(
+        const MultiJointForwardCommandController &other);
 
-        /**
-         * The joint handles from the hardware interface to which the commands
-         * are sent.
-         */
-        std::vector<hardware_interface::JointHandle> joints_;
+
+private:
+    /**
+     * The ROS subscriber for the input topic.
+     */
+    ros::Subscriber sub_command_;
+
+    /**
+     * The commanded joint values which have been received last.
+     */
+    std::vector<double> command_;
+
+    /**
+     * The joint handles from the hardware interface to which the commands
+     * are sent.
+     */
+    std::vector<hardware_interface::JointHandle> joints_;
 };
 
 template <class RosInterfaceT>
 void commandCallback(const boost::shared_ptr<RosInterfaceT const> &msg,
-        std::vector<double> *command);
+                     std::vector<double> *command);
 
 }
 

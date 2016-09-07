@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_object_categorization</name>
+  <version>0.0.1</version>
+  <description>Object categorization in 3D point clouds using the following object classes: box, bottle, can, cup, bowl, bottle and ball</description>
+
+  <maintainer email="frederik.hegger@h-brs.de">Frederik Hegger</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="christian.mueller@smail.inf.h-brs.de">Christian Müller</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>mcr_perception_msgs</build_depend>
+  <build_depend>libpcl-all-dev</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>mcr_perception_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_srvs</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+
+</package>

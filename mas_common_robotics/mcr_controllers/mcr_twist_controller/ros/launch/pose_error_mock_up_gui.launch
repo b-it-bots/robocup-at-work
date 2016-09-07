@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_twist_controller" type="pose_error_mock_up_gui_node"
+            name="pose_error_mock_up_gui" output="screen">
+
+        <!-- the cycle rate of the node (in Hz) -->
+        <param name="loop_rate" type="double" value="10"/>
+
+        <remap from="~pose_error" to="/twist_controller/pose_error"/>
+
+    </node>
+</launch>

@@ -16,36 +16,54 @@ from mcr_object_recognition_mean_circle.svm_classifier import SVMObjectClassifie
 from mcr_object_recognition_mean_circle.features import calculate_feature_vector
 
 from mcr_perception_msgs.srv import RecognizeObject
+from mcr_perception_msgs.srv import RecognizeObjectResponse
 
+import sensor_msgs.point_cloud2
+import struct
+import colorsys
+
+# copied from python-pcl
+def float_to_rgb(p_rgb):
+    # rgb = *reinterpret_cast<int*>(&p.rgb)
+    rgb_bytes = struct.pack('f', p_rgb)
+    rgb = struct.unpack('I', rgb_bytes)[0]
+    r = (rgb >> 16) & 0x0000ff
+    g = (rgb >> 8)  & 0x0000ff
+    b = (rgb)       & 0x0000ff
+    return (r/255.0),(g/255.0),(b/255.0)
 
 def load_classifier(classifier_name):
     cfg_folder = join(roslib.packages.get_pkg_dir(PACKAGE), 'common', 'config')
     return SVMObjectClassifier.load(join(cfg_folder, classifier_name, 'classifier.pkl'),
                                     join(cfg_folder, classifier_name, 'label_encoder.pkl'))
 
-def convert_to_xyzrgb(pc):
-    fields = np.fromstring(pc.data,dtype='float32').reshape(pc.height,pc.width,pc.point_step/4)
-    xyz = fields[:,:,0:3]
-    xyz = np.squeeze(xyz)
-    
-    rgb = fields[:,:,4]
-    rgb = np.squeeze(rgb)
-    rgb = rgb[:,np.newaxis]
-    xyzrgb = np.hstack((xyz, rgb))
+def convert_to_xyzhsv(pc):
+    # Generator for x,y,z,rgb fields from pointcloud
+    xyzrgb_gen = sensor_msgs.point_cloud2.read_points(pc, skip_nans=False, field_names=("x", "y", "z", "rgb"))
 
-    return xyzrgb
+    # convert generator to list of lists then numpy array
+    xyzrgb = [list(elem) for elem in list(xyzrgb_gen)]
+    xyzrgb = np.array(xyzrgb)
+    rgb = xyzrgb[:,3][np.newaxis].T
+    hsv = np.array([list(colorsys.rgb_to_hsv(*float_to_rgb(i))) for i in rgb])
+    xyzhsv = np.hstack([xyzrgb[:,0:3], hsv])
+
+    return xyzhsv
 
 if __name__ == '__main__':
     rospy.init_node(NODE)
-    classifier = load_classifier(rospy.get_param("~classifier"))    
+    classifier = load_classifier(rospy.get_param("~classifier"))
 
     def recognize_object_cb(request):
         rospy.loginfo('Received [%s] request.' % SERVICE)
         cloud = request.cloud
-        xyzrgb = convert_to_xyzrgb(cloud)
-        features = calculate_feature_vector(xyzrgb, True)
-        l = classifier.classify(features)
-        return l
+        xyzhsv = convert_to_xyzhsv(cloud)
+        features = calculate_feature_vector(xyzhsv, True)
+        label, probability = classifier.classify(features)
+        resp = RecognizeObjectResponse()
+        resp.name = label
+        resp.probability = probability
+        return resp
 
     s = rospy.Service(SERVICE, RecognizeObject, recognize_object_cb)
     rospy.loginfo('Started [%s] service.' % SERVICE)

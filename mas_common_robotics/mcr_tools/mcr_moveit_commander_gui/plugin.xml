@@ -1,0 +1,12 @@
+<library path="src">
+  <class name="Moveit Commander Plugin" type="mcr_moveit_commander_gui.moveit_commander_plugin.MoveitCommanderPlugin" base_class_type="rqt_gui_py::Plugin">
+    <description>
+        Rqt plugin for Moveit commander
+    </description>
+    <qtgui>
+      <label>Moveit Commander Plugin</label>
+      <icon type="theme">system-help</icon>
+      <statustip>Rqt plugin for moveit commander</statustip>
+    </qtgui>
+  </class>
+</library>

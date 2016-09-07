@@ -1,22 +1,21 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="robot_env" default="$(optenv ROBOT_ENV !!NO_ROBOT_ENV_SET!!)"/>
    
   <group ns="/script_server">
     <!-- send ROBOT parameters to parameter server -->
-    <rosparam command="load" ns="base" file="$(find mcr_default_env_config)/$(arg robot_env)/navigation_goals.yaml"/>
+    <rosparam command="load" ns="base" file="$(find mcr_default_env_config)/brsu-c069/navigation_goals.yaml"/>
 
     <!-- send NAMES parameters to parameter server -->
-    <rosparam command="load" file="$(find mcr_default_env_config)/$(arg robot_env)/speech_names.yaml"/>
+    <rosparam command="load" file="$(find mcr_default_env_config)/brsu-c069/speech_names.yaml"/>
 
     <!-- send PLACES parameters to parameter server -->
-    <rosparam command="load" file="$(find mcr_default_env_config)/$(arg robot_env)/speech_places.yaml"/>
+    <rosparam command="load" file="$(find mcr_default_env_config)/brsu-c069/speech_places.yaml"/>
 
     <!-- send ACTION parameters to parameter server -->
-    <rosparam command="load" file="$(find mcr_default_env_config)/$(arg robot_env)/speech_actions.yaml"/>
+    <rosparam command="load" file="$(find mcr_default_env_config)/brsu-c069/speech_actions.yaml"/>
 
     <!-- send OBJECTS parameters to parameter server -->
-    <rosparam command="load" file="$(find mcr_default_env_config)/$(arg robot_env)/speech_objects.yaml"/>
+    <rosparam command="load" file="$(find mcr_default_env_config)/brsu-c069/speech_objects.yaml"/>
   </group>
 
 </launch>

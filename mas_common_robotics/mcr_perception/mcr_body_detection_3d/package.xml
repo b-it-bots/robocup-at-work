@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_body_detection_3d</name>
+  <version>0.0.1</version>
+  <description>people detection in 3D point clouds</description>
+
+  <maintainer email="frederik.hegger@h-brs.de">Frederik Hegger</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="frederik.hegger@h-brs.de">Frederik Hegger</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>roscpp</build_depend> 
+  <build_depend>sensor_msgs</build_depend> 
+  <build_depend>std_msgs</build_depend> 
+  <build_depend>tf</build_depend> 
+  <build_depend>visualization_msgs</build_depend> 
+  <build_depend>pcl_ros</build_depend> 
+  <build_depend>libpcl-all-dev</build_depend> 
+  <build_depend>dynamic_reconfigure</build_depend> 
+  <build_depend>mcr_perception_msgs</build_depend> 
+  <build_depend>mcr_algorithms</build_depend> 
+  <build_depend>roslint</build_depend>
+
+  <run_depend>dynamic_reconfigure</run_depend>  
+  <run_depend>mcr_algorithms</run_depend>  
+  <run_depend>mcr_perception_msgs</run_depend> 
+  <run_depend>visualization_msgs</run_depend> 
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+  <test_depend>rostest</test_depend>
+
+</package>

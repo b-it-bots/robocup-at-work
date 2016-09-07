@@ -1,7 +1,7 @@
 all: cvblobs
 
 TARBALL = build/cvblobs8.3_linux.tgz
-TARBALL_URL = 'https://auvc.googlecode.com/files/cvblobs8.3_linux.tgz'
+TARBALL_URL = 'https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/auvc/cvblobs8.3_linux.tgz'
 SOURCE_DIR = build/cvblobs8.3_linux
 UNPACK_CMD = tar xzf
 include $(shell rospack find mk)/download_unpack_build.mk

@@ -1,0 +1,2 @@
+loop_rate : 10
+reference_frame : /base_link

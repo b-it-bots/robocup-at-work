@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<package>
+    <name>mcr_recovery_behaviors</name>
+    <version>0.0.1</version>
+    <description>
+      Different recovery behaviors for a mobile base
+    </description>
+    
+    <maintainer email="olima_84@yahoo.com">Oscar Lima</maintainer>
+    <license>GPLv3</license>
+    <author email="olima_84@yahoo.com">Oscar Lima</author>
+
+    <url>https://github.com/mas-group/robocup-at-work</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <build_depend>cmake_modules</build_depend>
+    <build_depend>roscpp</build_depend>
+    <build_depend>tf</build_depend>
+    <build_depend>costmap_2d</build_depend>
+    <build_depend>nav_core</build_depend>
+    <build_depend>pluginlib</build_depend>
+    <build_depend>eigen</build_depend>
+	<build_depend>libpcl-all-dev</build_depend>
+    <build_depend>pcl_ros</build_depend>
+    <build_depend>geometry_msgs</build_depend>  
+	<build_depend>cmake_modules</build_depend>
+	<build_depend>roslint</build_depend>
+	
+	<run_depend>roscpp</run_depend>
+	<run_depend>tf</run_depend>
+	<run_depend>costmap_2d</run_depend>
+	<run_depend>nav_core</run_depend>
+	<run_depend>pluginlib</run_depend>
+	<run_depend>eigen</run_depend>
+    
+    <export>
+        <nav_core plugin="${prefix}/plugins.xml" />
+    </export>
+</package>
+
+

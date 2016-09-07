@@ -1,0 +1,7 @@
+<library path="lib/libtopic_mux">
+  <class name="mcr_topic_tools/TopicMux" type="mcr_topic_tools::TopicMux" base_class_type="nodelet::Nodelet">
+    <description>
+        nodelet plugin that subscribes to a set of input topics and publishes one of them to an output topic
+    </description>
+  </class>
+</library>

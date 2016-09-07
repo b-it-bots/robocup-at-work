@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="camera_calibration_file" default="$(find mcr_image_cartesian_mapper)/ros/config/example_camera_calibration.yaml"/>
+
+    <node pkg="mcr_image_cartesian_mapper" type="image_cartesian_mapper_node" name="image_cartesian_mapper" ns="mcr_perception" output="screen" respawn="true">
+        <remap from="~pose" to="/mcr_perception/blob_tracking/blob_pose"/>
+        <param name="loop_rate" type="int" value="30"/>
+        <param name="target_frame" type="string" value="base_link"/>
+        <param name="source_frame" type="string" value="arm_cam3d_rgb_optical_frame"/>
+        <param name="is_image_filter_enabled" type="bool" value="false"/>
+        <rosparam command="load" file="$(find mcr_image_filter)/ros/config/image_filter_params.yaml"/>
+        <rosparam command="load" file="$(arg camera_calibration_file)"/>
+    </node>
+</launch>

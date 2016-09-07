@@ -16,7 +16,7 @@
  * @return The transformed wrench.
  */
 geometry_msgs::WrenchStamped transform_wrench(
-		const tf::StampedTransform &transform,
-		const geometry_msgs::WrenchStamped &wrench_in);
+    const tf::StampedTransform &transform,
+    const geometry_msgs::WrenchStamped &wrench_in);
 
 #endif

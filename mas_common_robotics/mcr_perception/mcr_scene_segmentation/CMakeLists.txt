@@ -3,23 +3,30 @@ project(mcr_scene_segmentation)
 
 find_package(catkin REQUIRED
   COMPONENTS
+    cv_bridge
     dynamic_reconfigure
+    image_geometry
+    image_transport
     mcr_perception_msgs
-    polyclipping
+    message_filters
+    nodelet
+    pcl_ros
+    pluginlib
     roscpp
+    roslint
     rospy
+    tf
     visualization_msgs
 )
-find_package(PCL 1.6 REQUIRED)
+find_package(PCL 1.7 REQUIRED)
 find_package(VTK REQUIRED)
 find_package(OpenCV REQUIRED)
 
 catkin_python_setup()
 
 generate_dynamic_reconfigure_options(
-  ros/config/PlaneExtraction.cfg
+  ros/config/PlanarEuclideanClusterExtraction.cfg
 )
-
 
 catkin_package(
   INCLUDE_DIRS
@@ -29,10 +36,10 @@ catkin_package(
     scene_segmentation
     bounding_box
   CATKIN_DEPENDS
-    dynamic_reconfigure
     mcr_perception_msgs
-    polyclipping
     visualization_msgs
+  CFG_EXTRAS
+    export_config.cmake
 )
 
 include_directories(
@@ -43,37 +50,33 @@ include_directories(
   ${VTK_INCLUDE_DIRS}
 )
 
-#...: gnu++0x
-if(CMAKE_COMPILER_IS_GNUCXX)
-    execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
-    if(GCC_VERSION VERSION_GREATER 4.6 OR GCC_VERSION VERSION_EQUAL 4.6)
-        add_definitions(-std=gnu++0x)
-    else()
-        message(SEND_ERROR "You need GCC version 4.6 or greater to compile this package.")
-    endif()
-endif()
-
 add_definitions(-fpermissive)
 
 
 ### LIBRARIES ####################################################
 add_library(scene_segmentation
-  common/src/plane_extraction.cpp
   common/src/cloud_accumulation.cpp
-  common/src/polyclipping.cpp
+  ros/src/extract_polygonal_prism_data.cpp
+  ros/src/planar_euclidean_cluster_extraction.cpp
+  ros/src/bounding_box_maker.cpp
+  common/src/bounding_box.cpp
+  ros/src/image_roi_extraction.cpp
 )
-add_dependencies(scene_segmentation 
+
+add_dependencies(scene_segmentation
+  ${PROJECT_NAME}_gencpp
   ${catkin_EXPORTED_TARGETS}
 )
 target_link_libraries(scene_segmentation
   ${PCL_LIBRARIES}
   ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
 )
 
 add_library(bounding_box
   common/src/bounding_box.cpp
 )
-add_dependencies(bounding_box 
+add_dependencies(bounding_box
   ${catkin_EXPORTED_TARGETS}
 )
 target_link_libraries(bounding_box
@@ -84,7 +87,7 @@ target_link_libraries(bounding_box
 add_executable(workspace_finder
   ros/src/workspace_finder_node.cpp
 )
-add_dependencies(workspace_finder 
+add_dependencies(workspace_finder
   ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencfg
 )
 target_link_libraries(workspace_finder
@@ -113,29 +116,19 @@ add_executable(bounding_box_maker
 target_link_libraries(bounding_box_maker
   ${catkin_LIBRARIES}
   ${PCL_LIBRARIES}
-  bounding_box 
+  bounding_box
 )
 
-add_executable(offline_plane_extraction_test
-  ros/src/offline_plane_extraction_test.cpp
-)
-add_dependencies(offline_plane_extraction_test 
-  ${catkin_EXPORT_TARGETS} ${PROJECT_NAME}_gencfg
-)
-target_link_libraries(offline_plane_extraction_test
-  ${catkin_LIBRARIES}
-  ${VTK_LIBRARIES}
-  scene_segmentation
-)
+roslint_python()
+roslint_cpp()
 
-add_executable(online_plane_extraction_test
-  ros/src/online_plane_extraction_test.cpp
-)
-target_link_libraries(online_plane_extraction_test
-  ${catkin_LIBRARIES}
-  scene_segmentation
-)
+### TESTS
+if(CATKIN_ENABLE_TESTING)
+  find_package(roslaunch REQUIRED)
+  roslaunch_add_file_check(ros/launch)
+endif()
 
+### INSTALLS
 install(DIRECTORY common/include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   FILES_MATCHING PATTERN "*.h"
@@ -146,6 +139,10 @@ install(DIRECTORY ros/include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   FILES_MATCHING PATTERN "*.h"
   PATTERN ".svn" EXCLUDE
+)
+
+install(DIRECTORY ros/config/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/ros/config
 )
 
 install(DIRECTORY ros/launch/
@@ -175,3 +172,8 @@ install(TARGETS tabletop_cloud_clusterer
 install(TARGETS tabletop_cloud_accumulator
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
+install(FILES nodelet_plugins.xml
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+

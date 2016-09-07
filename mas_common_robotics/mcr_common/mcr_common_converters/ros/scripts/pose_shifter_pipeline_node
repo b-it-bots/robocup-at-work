@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_common_converters_ros.pose_shifter_pipeline
+
+if __name__ == '__main__':
+    mcr_common_converters_ros.pose_shifter_pipeline.main()

@@ -1,0 +1,9 @@
+#!/usr/bin/python
+
+import rospy
+
+import mcr_node_monitor.node_status
+
+if __name__ == "__main__":
+
+    mcr_node_monitor.node_status.main()

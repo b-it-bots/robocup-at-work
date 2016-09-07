@@ -21,12 +21,20 @@
   <build_depend>roscpp</build_depend>
   <build_depend>sensor_msgs</build_depend>
   <build_depend>std_srvs</build_depend>
-
+  <build_depend>mcr_manipulation_msgs</build_depend>
+  <build_depend>roslint</build_depend>
+    
   <run_depend>brics_actuator</run_depend>
   <run_depend>geometry_msgs</run_depend>
+  <run_depend>joy</run_depend>
   <run_depend>mcr_teleop</run_depend>
+  <run_depend>mir_default_robot_config</run_depend>
+  <run_depend>mir_hardware_config</run_depend>
   <run_depend>moveit_msgs</run_depend>
   <run_depend>sensor_msgs</run_depend>
   <run_depend>std_srvs</run_depend>
+  <run_depend>mcr_manipulation_msgs</run_depend>
+  
+  <test_depend>roslaunch</test_depend>
   
 </package>

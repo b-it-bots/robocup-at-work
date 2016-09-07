@@ -1,0 +1,9 @@
+# List of objects and their poses to be published by object_detector_mockup
+# Poses are specified in base_link. Final target frame can be changed in the launch file
+objects:
+    - S40_40_B: [0.52, -0.2, 0.0] # x, y (position w.r.t base_link), yaw (degrees)
+    - S40_40_G: [0.48, -0.1, 45.0]
+    - F20_20_B: [0.52, 0.0, 90.0]
+    - F20_20_G: [0.48, 0.1, 135.0]
+    - R20:      [0.52, 0.2, 270.0]
+

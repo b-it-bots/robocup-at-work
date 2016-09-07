@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
-import distutils.core
-import catkin_pkg.python_setup
+from distutils.core import setup
+from catkin_pkg.python_setup import generate_distutils_setup
 
-d = catkin_pkg.python_setup.generate_distutils_setup(
+d = generate_distutils_setup(
    packages=['geometry_transformer_util', 'mcr_geometry_transformer'],
-   package_dir={'geometry_transformer_util': 'common/scripts',
-                'mcr_geometry_transformer': 'ros/src'}
+   package_dir={'geometry_transformer_util': 'common/src/geometry_transformer_util',
+                'mcr_geometry_transformer': 'ros/src/mcr_geometry_transformer'}
 )
 
-distutils.core.setup(**d)
+setup(**d)

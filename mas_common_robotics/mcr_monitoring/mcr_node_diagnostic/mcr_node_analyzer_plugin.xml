@@ -1,0 +1,8 @@
+<library path="lib/libmcr_node_analyzer" >
+  <class name="mcr_node_analyzer" type="diagnostic_aggregator::mcr_node_analyzer" 
+  	base_class_type="diagnostic_aggregator::Analyzer">
+    <description>
+      mcr Node analyser
+    </description>
+  </class>
+</library>

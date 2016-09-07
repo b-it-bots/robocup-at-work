@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="mcr_background_change_detection" type="background_change_detection_node" name="background_change_detection" ns="mcr_perception" output="screen" respawn="true">
+    <remap from="~input_image" to="/arm_cam3d/rgb/image_raw"/>
+    <param name="loop_rate" type="int" value="30" />
+  </node>
+</launch>

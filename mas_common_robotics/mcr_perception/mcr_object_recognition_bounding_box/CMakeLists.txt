@@ -5,6 +5,7 @@ find_package(PCL 1.6 REQUIRED)
 
 find_package(catkin REQUIRED 
   COMPONENTS
+    mcr_scene_segmentation
     mcr_perception_msgs
     roscpp
     pcl_ros
@@ -53,7 +54,13 @@ target_link_libraries(cloud_color_analyzer
   ${PCL_LIBRARIES}
 )
 
+### TESTS
+if(CATKIN_ENABLE_TESTING)
+  find_package(roslaunch REQUIRED)
+  roslaunch_add_file_check(ros/launch workspace_finder_config_file:=${mcr_scene_segmentation_workspace_constraints_file})
+endif()
 
+### INSTALLS
 install(PROGRAMS
   ros/scripts/object_recognizer
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

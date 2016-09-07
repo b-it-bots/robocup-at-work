@@ -15,16 +15,17 @@
 #include <ros/ros.h>
 #include <urdf_model/joint.h>
 
-class ROS_URDF_Loader {
+class ROS_URDF_Loader
+{
 public:
-	ROS_URDF_Loader();
-	virtual ~ROS_URDF_Loader();
+    ROS_URDF_Loader();
+    virtual ~ROS_URDF_Loader();
 
-	bool loadModel(ros::NodeHandle& node_handle,
-			const std::string &root_name,
-			const std::string &tip_name,
-			KDL::Chain& out_arm,
-			std::vector<boost::shared_ptr<urdf::JointLimits> >& out_joint_limits);
+    bool loadModel(ros::NodeHandle& node_handle,
+                   const std::string &root_name,
+                   const std::string &tip_name,
+                   KDL::Chain& out_arm,
+                   std::vector<boost::shared_ptr<urdf::JointLimits> >& out_joint_limits);
 
 };
 

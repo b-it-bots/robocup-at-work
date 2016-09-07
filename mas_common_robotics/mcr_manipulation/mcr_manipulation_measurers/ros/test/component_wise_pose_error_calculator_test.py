@@ -59,10 +59,13 @@ class TestComponentWisePoseErrorCalculator(unittest.TestCase):
         the two Cartesian poses.
 
         """
+        # Note: These values must be the same as specified in the .test file
+        offset = (-1.0, 2.0, 0.5)
+
         expected_result = mcr_manipulation_msgs.msg.ComponentWiseCartesianDifference()
-        expected_result.linear.x = 0.251
-        expected_result.linear.y = -0.016
-        expected_result.linear.z = 0.411
+        expected_result.linear.x = 0.251 + offset[0]
+        expected_result.linear.y = -0.016 + offset[1]
+        expected_result.linear.z = 0.411 + offset[2]
         expected_result.angular.x = 0.0
         expected_result.angular.y = 0.0
         expected_result.angular.z = 0.0

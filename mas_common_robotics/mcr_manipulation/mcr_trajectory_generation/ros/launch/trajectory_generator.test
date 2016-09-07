@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Node to test -->
+  <include file="$(find mcr_trajectory_generation)/ros/launch/trajectory_generator_example.launch"/>
+
+  <test pkg="mcr_trajectory_generation" type="trajectory_generator_test.py"
+        test-name="test_trajectory_generator" ns="mcr_manipulation">
+
+    <remap from="~event_out" to="/mcr_manipulation/trajectory_generator/event_in"/>
+    <remap from="~trajectory" to="/mcr_manipulation/trajectory_generator/trajectory_in"/>
+    <remap from="~component_output" to="/mcr_manipulation/trajectory_generator/trajectory_out"/>
+  </test>
+</launch>

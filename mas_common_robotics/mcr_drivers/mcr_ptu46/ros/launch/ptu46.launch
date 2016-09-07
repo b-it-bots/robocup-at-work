@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="mcr_ptu46" type="ptu46_node" name="mcr_ptu46" output="screen">
+    <param name="port" value="/dev/volksbot/ptu46"/>
+    <param name="hz" value="10"/>
+    
+    <param name="pan_speed" value="2.0" />
+    <param name="tilt_speed" value="2.0" />
+    
+    <remap from="/mcr_ptu46/state" to="/joint_states"/>
+  </node>
+  
+  <group ns="mcr_ptu46">
+    <node pkg="mcr_ptu46" type="ptu_action_server.py" name="mcr_ptu46_action_server" output="screen">
+      <remap from="state" to="/joint_states"/>
+    </node>
+  </group>
+</launch>

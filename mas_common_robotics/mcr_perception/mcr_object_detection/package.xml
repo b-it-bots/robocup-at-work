@@ -4,6 +4,7 @@
   <version>0.1.0</version>
   <description>detecting objects on a planar surface and bounding estimation for each object</description>
 
+  <maintainer email="santosh.thoduka@smail.inf.h-brs.de">Santosh George Thoduka</maintainer>
   <maintainer email="sergey.alexandrov@smail.inf.h-brs.de">Sergey Alexandrov</maintainer>
 
   <license>GPLv3</license>
@@ -18,5 +19,12 @@
   <run_depend>smach</run_depend>
   <run_depend>smach_ros</run_depend>
   <run_depend>tf</run_depend>
+
+  <build_depend>mcr_scene_segmentation</build_depend>
+  <build_depend>mcr_perception_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>roslint</build_depend>
+
+  <test_depend>roslaunch</test_depend>
 
 </package>

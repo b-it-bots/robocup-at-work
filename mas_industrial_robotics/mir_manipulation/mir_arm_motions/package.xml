@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package>
+  <name>mir_arm_motions</name>
+  <version>0.1.0</version>
+
+  <description>
+     Provides launcher for mcr_arm_motions package 
+     to use planned motion component for arm motion execution.
+  </description>
+
+  <maintainer email="shehzad.ahmed@smail.inf.h-brs.de">Shehzad Ahmed</maintainer>
+  <author email="shehzad.ahmed@smail.inf.h-brs.de">Shehzad Ahmed</author>
+
+  <license>GPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>dmp</run_depend>
+  <run_depend>mcr_arm_motions</run_depend>
+  <run_depend>mcr_common_converters</run_depend>
+  <run_depend>mcr_geometric_relation_monitors</run_depend>
+  <run_depend>mcr_guarded_approach_pose</run_depend>
+  <run_depend>mcr_manipulation_measurers</run_depend>
+  <run_depend>mcr_pose_generator</run_depend>
+  <run_depend>mir_pregrasp_planning</run_depend>
+  <run_depend>mcr_trajectory_generation</run_depend>
+  <run_depend>mcr_twist_controller</run_depend>
+  <run_depend>mcr_twist_limiter</run_depend>
+
+  <test_depend>roslaunch</test_depend>  
+
+</package>

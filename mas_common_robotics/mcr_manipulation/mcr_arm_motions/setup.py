@@ -5,7 +5,7 @@ from catkin_pkg.python_setup import generate_distutils_setup
 
 d = generate_distutils_setup(
     packages=['mcr_arm_motions_ros'],
-    package_dir={'mcr_arm_motions_ros': 'ros/src'}
+    package_dir={'mcr_arm_motions_ros': 'ros/src/mcr_arm_motions_ros'}
 )
 
 setup(**d)

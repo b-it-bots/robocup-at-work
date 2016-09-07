@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_manipulation_measurers_ros.pose_transformer
+
+if __name__ == '__main__':
+    mcr_manipulation_measurers_ros.pose_transformer.main()

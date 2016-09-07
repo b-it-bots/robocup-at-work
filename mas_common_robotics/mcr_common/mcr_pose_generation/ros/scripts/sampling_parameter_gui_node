@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_pose_generation_ros.sampling_parameter_gui
+
+if __name__ == '__main__':
+    mcr_pose_generation_ros.sampling_parameter_gui.main()

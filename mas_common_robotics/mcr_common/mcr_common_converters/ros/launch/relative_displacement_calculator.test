@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find mcr_common_converters)/ros/launch/relative_displacement_calculator.launch"/>
+
+    <test pkg="mcr_common_converters" type="relative_displacement_calculator_test.py"
+            test-name="test_relative_displacement_calculator">
+
+        <remap from="~component_output" to="mcr_common/relative_displacement_calculator/pose_error"/>
+        <remap from="~event_out" to="mcr_common/relative_displacement_calculator/event_in"/>
+        <remap from="~component_input" to="mcr_common/relative_displacement_calculator/pose"/>
+
+    </test>
+</launch>

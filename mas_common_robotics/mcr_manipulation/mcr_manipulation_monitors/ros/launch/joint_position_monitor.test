@@ -1,29 +1,16 @@
 <?xml version="1.0"?>
 <launch>
-    <node pkg="mcr_manipulation_monitors" type="joint_position_monitors_node"
-          name="joint_position_monitors" output="screen">
+  <include file="$(find mcr_manipulation_monitors)/ros/launch/joint_position_monitor_example.launch">
+    <arg name="epsilon" default="0.05"/>
+    <arg name="target_joint_names" default="['d', 'b']"/>
+  </include>
 
-        <!-- the cycle rate of the node (in seconds) -->
-        <param name="loop_rate" value="0.1"/>
+  <test pkg="mcr_manipulation_monitors" type="joint_position_monitor_test.py"
+        test-name="test_joint_position_monitors">
 
-        <!-- tolerance for the joint positions -->
-        <param name="epsilon" value="0.05"/>
-
-        <!-- a list of the joint names to check -->
-        <rosparam param="target_joint_names">
-            - 'd'
-            - 'b'
-        </rosparam>
-
-    </node>
-
-    <test pkg="mcr_manipulation_monitors" type="joint_position_monitor_test.py"
-            test-name="test_joint_position_monitors">
-
-        <remap from="~component_output" to="/joint_position_monitors/event_out"/>
-        <remap from="~event_out" to="/joint_position_monitors/event_in"/>
-        <remap from="~desired_joint_positions" to="/joint_position_monitors/configuration"/>
-        <remap from="~joint_states" to="/joint_position_monitors/joint_states"/>
-
-    </test>
+    <remap from="~component_output" to="/joint_position_monitors/event_out"/>
+    <remap from="~event_out" to="/joint_position_monitors/event_in"/>
+    <remap from="~desired_joint_positions" to="/joint_position_monitors/configuration"/>
+    <remap from="~joint_states" to="/joint_position_monitors/joint_states"/>
+  </test>
 </launch>

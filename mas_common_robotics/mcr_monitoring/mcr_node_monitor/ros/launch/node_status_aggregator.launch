@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="cfg_file" default="lab_demo.cfg"/>
+
+	<node pkg="mcr_node_monitor" type="node_status" name="node_status" output="screen" ns="/mcr_monitor">
+		<param name="NodeListFilename" value="$(find mcr_node_monitor)/ros/config/$(arg cfg_file)"/>
+	</node>
+</launch>

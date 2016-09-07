@@ -1,13 +1,17 @@
 <?xml version="1.0"?>
 <launch>
 
+  <arg name="workspace_finder_config_file" default="PASS THE CONFIGFILE NAME AS ARGUMENT" />
+
   <!-- This launch file starts all the nodes that are needed to perform object recognition.
        The "network" argument should contain the name of the previously trained network. Corresponding
        files (*.xml and *.yaml) should be present in the "common/config/" folder of the package. -->
 
-  <arg name="network" default="eight_objects_laying_noV20"/>
+  <arg name="network" default="arm_cam_view"/>
 
-  <include file="$(find mcr_object_detection)/ros/launch/object_detection.launch"/>
+  <include file="$(find mcr_object_detection)/ros/launch/object_detection.launch" >
+    <arg name="workspace_finder_config_file" value="$(arg workspace_finder_config_file)" />
+  </include>
 
   <group ns="mcr_perception">
     <node pkg="mcr_object_recognition_bounding_box" type="cloud_color_analyzer" name="cloud_color_analyzer" output="screen"/>

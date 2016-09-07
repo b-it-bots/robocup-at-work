@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- Note: example launch file. Do not modify! -->
+<launch>
+
+    <arg name="reference_frame" default="/base_link" />
+    <arg name="broadcast_transform_name" default="/ar_markers_reference_frame" />
+    <arg name="input_pose_topic" default="/markers_to_pose_converter/converted_pose" />
+
+    <node pkg="mcr_common_converters" type="pose_to_transform_converter_node"
+          name="pose_to_transform_converter" output="screen" ns="mcr_common" >
+
+        <remap from="~input_pose" to="$(arg input_pose_topic)"/>
+
+        <!-- the reference frame from which the pose is transformed -->
+        <param name="reference_frame" type="str" value="$(arg reference_frame)"/>
+
+        <!-- should the pose be continously transformed -->
+        <param name="is_continously_transformed" type="bool" value="false"/>
+
+        <!-- how long should it wait for transform -->
+        <param name="wait_for_transform" type="double" value="0.1"/>
+
+        <!-- what is the name of the transform that is being broadcasted -->
+        <param name="broadcast_transform_name" type="str" value="$(arg broadcast_transform_name)"/>
+
+        <!-- the cycle rate of the node (in Hz) -->
+        <param name="loop_rate" type="double" value="100.0"/>
+
+    </node>
+</launch>

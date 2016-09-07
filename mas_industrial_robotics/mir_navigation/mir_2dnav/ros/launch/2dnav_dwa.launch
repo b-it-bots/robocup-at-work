@@ -1,17 +1,36 @@
 <?xml version="1.0"?>
 <launch>
 
+  <arg name="robot" default="$(optenv ROBOT !!ROBOT NOT SET!!)" />
+  <arg name="robot_env" default="$(optenv ROBOT_ENV !!ROBOT_ENV NOT SET!!)" />
+
   <!-- common navigation launch files -->
-  <include file="$(find mir_2dnav)/ros/launch/nav_common.launch" />
+  <include file="$(find mir_2dnav)/ros/launch/nav_common.launch">
+    <arg name="robot_env" value="$(arg robot_env)" />
+  </include>
 
   <node pkg="move_base" type="move_base" respawn="true" name="move_base" output="screen">
     <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
-	  <rosparam file="$(find mir_2dnav)/ros/config/dwa/move_base_params.yaml" command="load" />
-		<rosparam file="$(find mir_2dnav)/ros/config/dwa/costmap_common_params.yaml" command="load" ns="global_costmap"/>
-		<rosparam file="$(find mir_2dnav)/ros/config/dwa/costmap_common_params.yaml"	command="load" ns="local_costmap" />
-		<rosparam file="$(find mir_2dnav)/ros/config/dwa/local_costmap_params.yaml" command="load" />
-		<rosparam file="$(find mir_2dnav)/ros/config/dwa/global_costmap_params.yaml" command="load" />
-		<rosparam file="$(find mir_2dnav)/ros/config/dwa/dwa_local_planner_params.yaml" command="load" ns="DWAPlannerROS" />
-	</node>
+    <rosparam file="$(find mir_2dnav)/ros/config/dwa/move_base_params.yaml" command="load" />
+    <rosparam file="$(find mir_hardware_config)/$(arg robot)/config/base_footprint.yaml" command="load"/>
+    
+    <rosparam file="$(find mir_2dnav)/ros/config/dwa/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+    <rosparam file="$(find mir_hardware_config)/$(arg robot)/config/base_footprint.yaml" command="load" ns="global_costmap"/>
+    <rosparam file="$(find mir_2dnav)/ros/config/dwa/global_costmap_params.yaml" command="load" />
+    
+    <rosparam file="$(find mir_2dnav)/ros/config/dwa/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find mir_hardware_config)/$(arg robot)/config/base_footprint.yaml" command="load" ns="local_costmap"/>
+    <rosparam file="$(find mir_2dnav)/ros/config/dwa/local_costmap_params.yaml" command="load" />    
+
+    <rosparam file="$(find mir_2dnav)/ros/config/dwa/dwa_local_planner_params.yaml" command="load" ns="DWAPlannerROS" />
+    
+    <!-- Upload recovery behavior parameters-->    
+    <rosparam file="$(find mir_2dnav)/ros/config/recovery_behaviors/force_field_parameters.yaml" command="load" ns="force_field_recovery"/>    
+    <rosparam file="$(find mir_2dnav)/ros/config/recovery_behaviors/clear_costmap_parameters.yaml" command="load" ns="clear_costmap_recovery"/>    
+
+    <!-- Remap force field cmd_vel to twist mux cmd_vel -->
+    <remap from="cmd_vel" to="/cmd_vel_prio_medium"/>
+    <remap from="~force_field_recovery/cmd_vel" to="/cmd_vel_prio_medium"/>
+  </node>
 
 </launch>

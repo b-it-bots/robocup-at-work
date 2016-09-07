@@ -58,8 +58,8 @@ def linear_velocity_z(slider):
 
 
 def publish_topics():
-    # node cycle rate (in seconds)
-    cycle_time = rospy.get_param('~cycle_time', 0.1)
+    # node cycle rate (in hz)
+    loop_rate = rospy.Rate(rospy.get_param('~loop_rate', 10))
 
     # publishers
     pub_twist = rospy.Publisher('~twist', geometry_msgs.msg.TwistStamped)
@@ -69,7 +69,7 @@ def publish_topics():
 
     while not rospy.is_shutdown():
         pub_twist.publish(twist)
-        rospy.sleep(cycle_time)
+        loop_rate.sleep()
 
 
 def main():

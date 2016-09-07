@@ -1,0 +1,12 @@
+1.object_detection:
+    event_in_topic: /mcr_perception/object_detector/event_in
+    event_in_strings: [e_trigger]
+    event_out_topic: /mcr_perception/object_detector/event_out
+2.perception_functionality_test:
+    event_in_topic: /object_perception_functionality_benchmark/event_in
+    event_in_strings: [e_trigger]
+    event_out_topic: /object_perception_functionality_benchmark/event_out
+3.pose_to_transform:
+    event_in_topic: /pose_to_transform_converter/event_in
+    event_in_strings: [e_start, e_stop]
+    event_out_topic: /pose_to_transform_converter/event_out

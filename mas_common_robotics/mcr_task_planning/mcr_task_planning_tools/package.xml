@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+    <name>mcr_task_planning_tools</name>
+    <version>1.0.0</version>
+    <description>Stores common task planning tools</description>
+
+    <maintainer email="olima_84@yahoo.com">Oscar Lima</maintainer>
+
+    <license>GPLv3</license>
+
+    <author email="olima_84@yahoo.com">Oscar Lima</author>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <build_depend>roscpp</build_depend>
+    <build_depend>std_msgs</build_depend>
+    <build_depend>roslib</build_depend>
+    <build_depend>roslint</build_depend>
+    
+    <run_depend>roscpp</run_depend>
+    <run_depend>std_msgs</run_depend>
+    <run_depend>roslib</run_depend>
+    
+    <test_depend>roslaunch</test_depend>
+    <test_depend>rostest</test_depend>
+    <test_depend>rosunit</test_depend>
+</package>
+

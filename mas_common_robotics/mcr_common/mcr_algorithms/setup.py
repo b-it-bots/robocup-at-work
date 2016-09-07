@@ -5,7 +5,7 @@ from catkin_pkg.python_setup import generate_distutils_setup
 
 d = generate_distutils_setup(
    packages=['mcr_algorithms'],
-   package_dir={'mcr_algorithms': 'common/src'}
+   package_dir={'mcr_algorithms': 'common/src/mcr_algorithms'}
 )
 
 setup(**d)

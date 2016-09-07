@@ -38,14 +38,30 @@ add_library(geometry_transformer
 )
 
 
-# Unit testing
-catkin_add_gtest(geometry_transformer_util_test
-  common/test/geometry_transformer_util_test.cpp
+### TESTS
+if(CATKIN_ENABLE_TESTING)
+  find_package(roslaunch REQUIRED)
+
+  roslaunch_add_file_check(ros/launch)
+
+  catkin_add_gtest(geometry_transformer_util_test
+    common/test/geometry_transformer_util_test.cpp
+  )
+  target_link_libraries(geometry_transformer_util_test
+    geometry_transformer
+    ${catkin_LIBRARIES}
+  )
+
+  catkin_add_nosetests(common/test)
+endif()
+
+### INSTALL
+install(
+  TARGETS geometry_transformer
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 )
 
-target_link_libraries(geometry_transformer_util_test
-  geometry_transformer
-  ${catkin_LIBRARIES}
+install(DIRECTORY ros/include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+  FILES_MATCHING PATTERN "*.h"
 )
-
-catkin_add_nosetests(common/scripts/test)

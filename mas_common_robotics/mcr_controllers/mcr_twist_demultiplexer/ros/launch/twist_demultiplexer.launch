@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="mcr_twist_demultiplexer" type="twist_demultiplexer_node" name="twist_demultiplexer" ns="mcr_controllers" output="screen" respawn="true">
+        <remap from="~input_twist" to="/twist_limiter/limited_twist"/>
+        <remap from="~error_feedback" to="/mcr_monitoring/component_wise_pose_error_monitor/feedback"/>
+        <remap from="~arm_twist" to="/arm_1/arm_controller/cartesian_velocity_command"/>
+        <remap from="~base_twist" to="/cmd_vel_safe"/>
+        <param name="loop_rate" type="int" value="30"/>
+        <param name="arm_tf" type="string" value="/arm_cam3d_rgb_optical_frame"/>
+        <param name="is_base_linear_x_enabled" type="bool" value="true"/>
+        <param name="is_base_linear_y_enabled" type="bool" value="true"/>
+        <param name="is_base_linear_z_enabled" type="bool" value="false"/>
+        <param name="is_base_angular_x_enabled" type="bool" value="false"/>
+        <param name="is_base_angular_y_enabled" type="bool" value="false"/>
+        <param name="is_base_angular_z_enabled" type="bool" value="false"/>
+        <param name="is_arm_linear_x_enabled" type="bool" value="false"/>
+        <param name="is_arm_linear_y_enabled" type="bool" value="false"/>
+        <param name="is_arm_linear_z_enabled" type="bool" value="false"/>
+        <param name="is_arm_angular_x_enabled" type="bool" value="false"/>
+        <param name="is_arm_angular_y_enabled" type="bool" value="false"/>
+        <param name="is_arm_angular_z_enabled" type="bool" value="true"/>
+        <param name="is_error_monitor_enabled" type="bool" value="true"/>
+    </node>
+</launch>

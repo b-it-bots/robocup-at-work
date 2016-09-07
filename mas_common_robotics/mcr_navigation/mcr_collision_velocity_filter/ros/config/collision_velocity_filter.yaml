@@ -1,0 +1,14 @@
+hard_padding_front_rear: 0.02
+hard_padding_left_right: 0.05
+
+soft_padding_front_rear: 0.15
+soft_padding_left_right: 0.15
+
+linear_velocity_in_soft_padding: 0.05
+angular_velocity_in_soft_padding: 0.1
+
+angle_tolerance: 2.0
+
+min_linear_velocity: 0.02
+
+debug_mode: true

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+  <group ns="mcr_perception">
+
+    <node pkg="mcr_object_detection" type="object_list_merger" name="object_list_merger" output="screen">
+      <param name="distance_threshold" type="double" value="0.02" />
+      <remap from="~input_object_list" to="/mcr_perception/object_detector/object_list" />
+    </node>
+
+  </group>
+
+</launch>

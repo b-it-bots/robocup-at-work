@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+    <group ns="mcr_perception">
+        <node pkg="mcr_contour_matching" type="contour_finder" name="contour_finder" output="screen" respawn="false">
+            <remap from="~input/pointcloud" to="/arm_cam3d/depth_registered/points" />
+        </node>
+        <node pkg="mcr_contour_matching" type="contour_template_matcher" name="contour_template_matcher" output="screen" respawn="false">
+            <remap from="~input/contours" to="contour_finder/output/pointclouds" />
+            <remap from="~input/template_filename" to="/mcr_perception/cavity_recognizer/output/template_filename" />
+        </node>
+    </group>
+</launch>

@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+	<node pkg="mcr_kinect_led" type="kinect_led_node" name="mcr_kinect_led" />
+</launch>

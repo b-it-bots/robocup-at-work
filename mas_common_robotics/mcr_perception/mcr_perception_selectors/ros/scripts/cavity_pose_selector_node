@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_perception_selectors_ros.cavity_pose_selector
+
+if __name__ == '__main__':
+    mcr_perception_selectors_ros.cavity_pose_selector.main()

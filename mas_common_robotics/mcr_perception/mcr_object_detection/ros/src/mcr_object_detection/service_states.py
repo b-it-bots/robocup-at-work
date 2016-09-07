@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 
-PACKAGE = 'mcr_object_detection'
-
 import roslib
-roslib.load_manifest(PACKAGE)
+import rospy
 
-from smach import cb_interface
+from smach import cb_interface, State
 from smach_ros import ServiceState
 
 import mcr_perception_msgs.srv as srv
+import topic_tools.srv
 
 find_workspace = ServiceState('/mcr_perception/workspace_finder/find_workspace',
                               srv.FindWorkspace,

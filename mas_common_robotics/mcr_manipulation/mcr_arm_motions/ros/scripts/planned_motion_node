@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_arm_motions_ros.planned_motion
+
+if __name__ == '__main__':
+    mcr_arm_motions_ros.planned_motion.main()

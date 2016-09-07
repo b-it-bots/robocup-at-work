@@ -1,6 +1,0 @@
-#!/usr/bin/env python
-
-import mcr_manipulation_converters_ros.transform_to_pose_converter
-
-if __name__ == '__main__':
-    mcr_manipulation_converters_ros.transform_to_pose_converter.main()

@@ -5,7 +5,7 @@ from catkin_pkg.python_setup import generate_distutils_setup
 
 d = generate_distutils_setup(
    packages=['mcr_manipulation_measurers_ros'],
-   package_dir={'mcr_manipulation_measurers_ros': 'ros/src'}
+   package_dir={'mcr_manipulation_measurers_ros': 'ros/src/mcr_manipulation_measurers_ros'}
 )
 
 setup(**d)

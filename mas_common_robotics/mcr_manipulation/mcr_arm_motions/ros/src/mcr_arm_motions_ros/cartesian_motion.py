@@ -22,15 +22,20 @@ class CartesianMotion(object):
         # params
         self.event = None
         self.desired_velocity = None
+        self.start_time = None
+        self.time_out = False
 
-        # node cycle time (in seconds)
-        self.cycle_time = rospy.get_param('~cycle_time')
+        # node cycle rate (in hz)
+        self.loop_rate = rospy.Rate(rospy.get_param('~loop_rate', 10.0))
+
+        # the duration of the arm motion (in seconds)
+        self.motion_duration = rospy.get_param('~motion_duration', 0.5)
 
         # publishers
         self.event_out = rospy.Publisher(
-            "~event_out", std_msgs.msg.String)
+            "~event_out", std_msgs.msg.String, queue_size=1)
         self.velocity_command = rospy.Publisher(
-            "~velocity_command", geometry_msgs.msg.TwistStamped)
+            "~velocity_command", geometry_msgs.msg.TwistStamped, queue_size=1)
 
         # subscribers
         rospy.Subscriber("~event_in", std_msgs.msg.String,
@@ -48,6 +53,10 @@ class CartesianMotion(object):
         state = 'INIT'
 
         while not rospy.is_shutdown():
+            if self.start_time:
+                duration = rospy.Time.now() - self.start_time
+                if duration >= rospy.Duration.from_sec(self.motion_duration):
+                    self.time_out = True
 
             if state == 'INIT':
                 state = self.init_state()
@@ -56,7 +65,8 @@ class CartesianMotion(object):
             elif state == 'RUNNING':
                 state = self.running_state()
 
-            rospy.sleep(self.cycle_time)
+            rospy.logdebug("State: {0}".format(state))
+            self.loop_rate.sleep()
 
     def desired_velocity_cb(self, msg):
         """
@@ -94,9 +104,13 @@ class CartesianMotion(object):
 
         """
         if self.event == 'e_start':
+            self.start_time = rospy.Time.now()
             return 'RUNNING'
         elif self.event == 'e_stop':
+            self.time_out = False
+            self.start_time = None
             self.desired_velocity = None
+            self.event = None
             return 'INIT'
         else:
             return 'IDLE'
@@ -109,12 +123,17 @@ class CartesianMotion(object):
         :rtype: str
 
         """
-        if self.event == 'e_stop':
+        if self.event == 'e_stop' or self.time_out:
             self.set_velocity_to_zero()
             self.velocity_command.publish(self.desired_velocity)
             self.event_out.publish('e_stop')
+            if self.time_out:
+                self.event_out.publish('e_timed_out')
 
+            self.time_out = False
+            self.start_time = None
             self.desired_velocity = None
+            self.event = None
             return 'INIT'
         else:
             self.velocity_command.publish(self.desired_velocity)

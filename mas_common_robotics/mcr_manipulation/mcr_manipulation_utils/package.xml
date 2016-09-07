@@ -17,16 +17,17 @@
   <build_depend>urdf</build_depend>
   <build_depend>kdl_parser</build_depend>
   <build_depend>rospy</build_depend>
-  <build_depend>rostest</build_depend>
-
-  <test_depend>unittest</test_depend>
+  <build_depend>std_msgs</build_depend>
 
   <run_depend>roscpp</run_depend>
   <run_depend>urdf</run_depend>
   <run_depend>kdl_parser</run_depend>
   <run_depend>rospy</run_depend>
+  <run_depend>actionlib</run_depend>
   <run_depend>geometry_msgs</run_depend>
   <run_depend>sensor_msgs</run_depend>
   <run_depend>moveit_msgs</run_depend>
+
+  <test_depend>rostest</test_depend>
 
 </package>

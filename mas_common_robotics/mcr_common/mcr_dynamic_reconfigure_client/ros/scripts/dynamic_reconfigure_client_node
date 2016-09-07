@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import mcr_dynamic_reconfigure_client_ros.dynamic_reconfigure_client
+
+if __name__ == '__main__':
+    mcr_dynamic_reconfigure_client_ros.dynamic_reconfigure_client.main()

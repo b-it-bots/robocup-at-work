@@ -1,0 +1,27 @@
+F20_20_B:
+    horizontal: F20_20_H
+    vertical: F20_20_V
+F20_20_G:
+    horizontal: F20_20_H
+    vertical: F20_20_V
+S40_40_B:
+    horizontal: S40_40_H
+    vertical: S40_40_V
+S40_40_G:
+    horizontal: S40_40_H
+    vertical: S40_40_V
+M20_100:
+    horizontal: M20_100_H
+    vertical: M20_H
+M20:
+    horizontal: M20_H
+    vertical: M20_V
+M30:
+    horizontal: M30_H
+    vertical: M30_V
+R20:
+    horizontal: R20_H
+    vertical: R20_V
+V20:
+    horizontal: R20_H
+    vertical: R20_V

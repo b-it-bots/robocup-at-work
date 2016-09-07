@@ -9,15 +9,15 @@
   <license>GPLv3</license>
 
   <maintainer email="jose.sanchez.loza@gmail.com">Jose Sanchez</maintainer>
+  <maintainer email="shehzad.ahmed@smail.inf.h-brs.de">Shehzad Ahmed</maintainer>
+
   <author email="jose.sanchez.loza@gmail.com">Jose Sanchez</author>
 
   <buildtool_depend>catkin</buildtool_depend>
 
   <build_depend>rospy</build_depend>
-  <build_depend>rostest</build_depend>
-
-  <test_depend>unittest</test_depend>
-
+  <build_depend>roslint</build_depend>
+  
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>sensor_msgs</run_depend>
@@ -25,4 +25,8 @@
   <run_depend>geometry_msgs</run_depend>
   <run_depend>mcr_manipulation_msgs</run_depend>
   <run_depend>tf</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+  <test_depend>rostest</test_depend>
+
 </package>

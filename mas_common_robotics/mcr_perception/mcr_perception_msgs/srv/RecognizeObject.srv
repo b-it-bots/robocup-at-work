@@ -4,3 +4,5 @@ sensor_msgs/PointCloud2 cloud
 geometry_msgs/Vector3 dimensions
 ---
 string name
+
+float32 probability

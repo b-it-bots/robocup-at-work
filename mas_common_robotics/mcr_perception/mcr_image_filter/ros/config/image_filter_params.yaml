@@ -1,0 +1,6 @@
+rotate_image: false
+crop_image: true
+crop_factor_top: 0.0
+crop_factor_bottom: 0.0
+crop_factor_left: 0.125
+crop_factor_right: 0.125

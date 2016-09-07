@@ -4,6 +4,7 @@
   <version>0.0.1</version>
   <description>Scene segmentation</description>
 
+  <maintainer email="santosh.thoduka@smail.inf.h-brs.de">Santosh George Thoduka</maintainer>
   <maintainer email="sergey.alexandrov@smail.inf.h-brs.de">Sergey Alexandrov</maintainer>
 
   <license>GPLv3</license>
@@ -12,18 +13,31 @@
   
   <buildtool_depend>catkin</buildtool_depend>
 
+  <build_depend>cv_bridge</build_depend>
   <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>image_geometry</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>libpcl-all-dev</build_depend>
   <build_depend>mcr_perception_msgs</build_depend>
-  <build_depend>opencv2</build_depend>
-  <build_depend>pcl</build_depend>
-  <build_depend>polyclipping</build_depend>
+  <build_depend>message_filters</build_depend>
+  <build_depend>nodelet</build_depend>
+  <build_depend>pcl_ros</build_depend>
+  <build_depend>pluginlib</build_depend>
   <build_depend>roscpp</build_depend>
+  <build_depend>roslint</build_depend>
   <build_depend>rospy</build_depend>
+  <build_depend>tf</build_depend>
   <build_depend>visualization_msgs</build_depend>
 
-  <run_depend>dynamic_reconfigure</run_depend>
   <run_depend>mcr_perception_msgs</run_depend>
-  <run_depend>polyclipping</run_depend>
+  <run_depend>nodelet</run_depend>
+  <run_depend>topic_tools</run_depend>
   <run_depend>visualization_msgs</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+
+  <export>
+    <nodelet plugin="${prefix}/nodelet_plugins.xml" />
+  </export>
 
 </package>

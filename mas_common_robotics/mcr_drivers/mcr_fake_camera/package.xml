@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_fake_camera</name>
+  <version>0.0.0</version>
+  <description>This component publishes a static image which is provided as argument</description>
+
+  <maintainer email="frederik.hegger@h-brs.de">Frederik Hegger</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="jan.paulus@h-brs.de">Jan Paulus</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>roscpp</build_depend>
+
+</package>

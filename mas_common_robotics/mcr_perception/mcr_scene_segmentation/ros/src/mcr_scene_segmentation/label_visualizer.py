@@ -1,19 +1,18 @@
 #!/usr/bin/env python
 
-PACKAGE = 'mcr_scene_segmentation'
 
-import roslib
-roslib.load_manifest(PACKAGE)
 import rospy
 
 from visualization_msgs.msg import Marker, MarkerArray
 from color import colors
 
+PACKAGE = 'mcr_scene_segmentation'
+
 
 class LabelVisualizer:
 
     def __init__(self, topic_name, color, check_subscribers=True):
-        self.marker_pub = rospy.Publisher(topic_name, MarkerArray)
+        self.marker_pub = rospy.Publisher(topic_name, MarkerArray, queue_size=1)
         self.check_subs = check_subscribers
         self.color = colors[color].to_msg()
 

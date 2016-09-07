@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- NOTE: This is a test launch file, please do not modify! -->
+
+    <include file="$(find mcr_task_planning_tools)/ros/launch/run_script_example.launch" >
+        <arg name="use_script_args" value="true" />
+    </include>
+
+    <test pkg="mcr_task_planning_tools" type="run_script_node_test" test-name="run_script_node_test" >
+        <remap from="~event_in" to="/mcr_task_planning_tools/run_script_node/event_in" />
+        <remap from="~event_out" to="/mcr_task_planning_tools/run_script_node/event_out" />
+    </test>
+
+</launch>

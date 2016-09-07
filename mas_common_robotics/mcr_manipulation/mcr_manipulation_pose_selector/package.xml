@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_manipulation_pose_selector</name>
+  <version>0.1.0</version>
+  <description>
+    This package contains node "reachability_pose_selector" for selecting a reachable goal pose from set of goal poses.
+    This node publishes joint configuration for achieving given goal pose or goal pose array.
+    If no solution exists then event failure status is published.
+    For array of goal poses, first goal pose returning a valid joint configuration is considered.
+  </description>
+  <maintainer email="padmaja.kulkarni@h-brs.de">padmaja</maintainer>
+  <license>GPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>roslint</build_depend>
+
+  <run_depend>rospy</run_depend>
+  <run_depend>actionlib</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>moveit_msgs</run_depend>
+  <run_depend>brics_actuator</run_depend>
+  <run_depend>moveit_commander</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+  <test_depend>rostest</test_depend>
+</package>

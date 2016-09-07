@@ -5,9 +5,11 @@ find_package(PCL 1.6 REQUIRED)
 
 find_package(catkin REQUIRED 
   COMPONENTS
+    mcr_scene_segmentation
     mcr_perception_msgs
-    roscpp
     pcl_ros
+    roscpp
+    roslint
 )
 
 catkin_python_setup()
@@ -39,21 +41,33 @@ include_directories(
   ${PCL_INCLUDE_DIRS}
 )
 
-add_executable(object_recognition_mean_circle_test
-  ros/test/object_recognition_mean_circle_test.cpp
-)
-add_dependencies(object_recognition_mean_circle_test
-  ${catkin_EXPORTED_TARGETS}
-)
-target_link_libraries(object_recognition_mean_circle_test
-  ${GTEST_LIBRARIES}
-  ${catkin_LIBRARIES}
-)
 
-add_rostest(ros/test/object_recognition_mean_circle.test)
+roslint_python()
+roslint_cpp()
+
+### TESTS
+if(CATKIN_ENABLE_TESTING)
+  find_package(roslaunch REQUIRED)
+  find_package(rostest REQUIRED)
+
+  roslaunch_add_file_check(ros/launch workspace_finder_config_file:=${mcr_scene_segmentation_workspace_constraints_file})
+
+  add_rostest_gtest(object_recognition_mean_circle_test
+    ros/test/object_recognition_mean_circle.test
+    ros/test/object_recognition_mean_circle_test.cpp
+  )
+
+  add_dependencies(object_recognition_mean_circle_test
+    ${catkin_EXPORTED_TARGETS}
+  )
+
+  target_link_libraries(object_recognition_mean_circle_test
+    ${catkin_LIBRARIES}
+  )
+endif()
 
 
-
+### INSTALLS
 install(PROGRAMS
   ros/scripts/object_recognizer
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

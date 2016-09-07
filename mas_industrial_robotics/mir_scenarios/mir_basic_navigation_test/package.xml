@@ -20,4 +20,6 @@
   <run_depend>smach</run_depend>
   <run_depend>smach_ros</run_depend> 
 
+  <test_depend>roslaunch</test_depend>  
+
 </package>

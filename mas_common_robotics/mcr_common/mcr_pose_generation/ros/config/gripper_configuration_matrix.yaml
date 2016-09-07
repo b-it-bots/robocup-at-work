@@ -1,0 +1,18 @@
+# Grippers configuration matrices
+sdh_side_grasp: [[1.0, 0.0, 0.0, 0.0],
+                 [0.0, 1.0, 0.0, 0.0],
+                 [0.0, 0.0, 1.0, 0.0],
+                 [0.0, 0.0, 0.0, 1.0]]
+
+youbot_gripper: [[0.0,  1.0, 0.0, 0.0],
+                 [-1.0, 0.0, 0.0, 0.0],
+                 [0.0,  0.0, 1.0, 0.0],
+                 [0.0,  0.0, 0.0, 1.0]]
+
+# The offset in the Z axis is to account the distance
+# between the arm_joint_5 (e.g. end-effector in MoveIt!)
+# and the gripper_tip_link
+youbot_dynamixel_gripper: [[-1.0, 0.0,  0.0, -0.003],
+                           [ 0.0, 1.0,  0.0,    0.0],
+                           [ 0.0, 0.0, -1.0,   0.11],
+                           [ 0.0, 0.0,  0.0,    1.0]]

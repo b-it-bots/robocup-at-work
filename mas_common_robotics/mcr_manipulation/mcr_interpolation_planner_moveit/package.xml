@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package>
+  <name>mcr_interpolation_planner_moveit</name>
+  <version>0.1.0</version>
+  <description>
+    The plugin generates a plan by interpolating 
+    between the start and goal configuration.
+  </description>
+  <author email="shehzad.ahmed@smail.inf.h-brs.de">Shehzad Ahmed</author>
+  <maintainer email="shehzad.ahmed@smail.inf.h-brs.de">Shehzad Ahmed</maintainer>
+
+  <license>GPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend> 
+
+  <build_depend>moveit_core</build_depend>
+  <build_depend>eigen_conversions</build_depend>
+  <build_depend>moveit_ros_planning</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>trajectory_msgs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>pluginlib</build_depend>
+
+  <run_depend>moveit_core</run_depend>
+  <run_depend>trajectory_msgs</run_depend>
+  <run_depend>eigen_conversions</run_depend>
+  <run_depend>moveit_ros_planning</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>pluginlib</run_depend>
+
+  <export>
+    <moveit_core plugin="${prefix}/plugins.xml"/>
+  </export>
+
+</package>
